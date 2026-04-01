@@ -32,7 +32,7 @@
   "dependencies": {
     "stripe": "^17.5.0",
     "dotenv": "^16.4.7",
-    "zod": "^3.25.76"
+    "zod": "catalog:schemas"
   },
   "devDependencies": {
     "@workspace/typescript-config": "workspace:*",
@@ -41,9 +41,8 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "next": "^15.0.0",
+    "next": "catalog:next",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }
 }
-

@@ -1,6 +1,6 @@
 import Stripe from "stripe";
-import type { StripeSubscription } from "./types";
 import { getPlanByPriceId } from "./config";
+import type { StripeSubscription } from "./types";
 
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error("STRIPE_SECRET_KEY is not defined");

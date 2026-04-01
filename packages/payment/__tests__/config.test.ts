@@ -1,9 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
+  canUpgrade,
   getPlanById,
   getPlanByPriceId,
   isFreePlan,
-  canUpgrade,
   PLANS,
 } from "../src/config";
 

@@ -1,6 +1,6 @@
 import type Stripe from "stripe";
-import { stripe } from "./server";
 import { getPlanByPriceId } from "./config";
+import { stripe } from "./server";
 
 export function verifyWebhookSignature(
   payload: string,
@@ -11,6 +11,7 @@ export function verifyWebhookSignature(
 }
 
 export interface WebhookDatabaseAdapter {
+  cancelUserSubscription: (userId: string) => Promise<void>;
   updateUserSubscription: (data: {
     userId: string;
     stripeCustomerId: string;
@@ -20,8 +21,6 @@ export interface WebhookDatabaseAdapter {
     stripeCurrentPeriodEnd: Date;
     plan: string;
   }) => Promise<void>;
-
-  cancelUserSubscription: (userId: string) => Promise<void>;
 }
 
 export async function handleCheckoutCompleted(
@@ -47,7 +46,7 @@ export async function handleCheckoutCompleted(
   const priceId = subscription.items.data[0]?.price.id;
   const plan = priceId ? getPlanByPriceId(priceId) : null;
 
-  if (!priceId || !plan) {
+  if (!(priceId && plan)) {
     throw new Error("Invalid price ID or plan not found");
   }
 
@@ -76,7 +75,7 @@ export async function handleSubscriptionUpdated(
   const priceId = subscription.items.data[0]?.price.id;
   const plan = priceId ? getPlanByPriceId(priceId) : null;
 
-  if (!priceId || !plan) {
+  if (!(priceId && plan)) {
     throw new Error("Invalid price ID or plan not found");
   }
 

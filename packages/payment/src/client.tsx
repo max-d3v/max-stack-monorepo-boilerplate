@@ -1,13 +1,8 @@
 "use client";
 
-import type { PricingPlan } from "./config";
+import type { PricingCardProps, SubscriptionBadgeProps } from "./types";
 
-export interface PricingCardProps {
-  readonly plan: PricingPlan;
-  readonly current?: boolean;
-  readonly onSelect?: (priceId: string) => void | Promise<void>;
-  readonly loading?: boolean;
-}
+export type { PricingCardProps, SubscriptionBadgeProps };
 
 export function PricingCard({
   plan,
@@ -31,38 +26,38 @@ export function PricingCard({
     >
       {plan.popular && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
+          <span className="rounded-full bg-primary px-3 py-1 font-semibold text-primary-foreground text-xs">
             Most Popular
           </span>
         </div>
       )}
 
       <div className="mb-4">
-        <h3 className="text-2xl font-bold">{plan.name}</h3>
-        <p className="mt-2 text-sm text-muted-foreground">{plan.description}</p>
+        <h3 className="font-bold text-2xl">{plan.name}</h3>
+        <p className="mt-2 text-muted-foreground text-sm">{plan.description}</p>
       </div>
 
       <div className="mb-6">
         <div className="flex items-baseline">
-          <span className="text-4xl font-bold">${plan.price}</span>
+          <span className="font-bold text-4xl">${plan.price}</span>
           <span className="ml-2 text-muted-foreground">/month</span>
         </div>
       </div>
 
       <ul className="mb-6 space-y-3">
         {plan.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2">
+          <li className="flex items-start gap-2" key={feature}>
             <svg
               className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
               fill="none"
-              viewBox="0 0 24 24"
               stroke="currentColor"
+              viewBox="0 0 24 24"
             >
               <path
+                d="M5 13l4 4L19 7"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M5 13l4 4L19 7"
               />
             </svg>
             <span className="text-sm">{feature}</span>
@@ -72,20 +67,20 @@ export function PricingCard({
 
       {current ? (
         <button
+          className="w-full cursor-not-allowed rounded-md bg-muted px-4 py-2 font-medium text-muted-foreground text-sm"
           disabled
-          className="w-full rounded-md bg-muted px-4 py-2 text-sm font-medium text-muted-foreground cursor-not-allowed"
         >
           Current Plan
         </button>
       ) : (
         <button
-          onClick={handleClick}
-          disabled={loading || !plan.priceId}
-          className={`w-full rounded-md px-4 py-2 mt-4 text-sm font-medium transition-colors ${
+          className={`mt-4 w-full rounded-md px-4 py-2 font-medium text-sm transition-colors ${
             plan.popular
               ? "bg-primary text-primary-foreground hover:bg-primary/90"
               : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-          } disabled:opacity-50 disabled:cursor-not-allowed`}
+          } disabled:cursor-not-allowed disabled:opacity-50`}
+          disabled={loading || !plan.priceId}
+          onClick={handleClick}
         >
           {loading
             ? "Loading..."
@@ -96,10 +91,6 @@ export function PricingCard({
       )}
     </div>
   );
-}
-
-export interface SubscriptionBadgeProps {
-  readonly status: string;
 }
 
 export function SubscriptionBadge({ status }: SubscriptionBadgeProps) {
@@ -138,7 +129,7 @@ export function SubscriptionBadge({ status }: SubscriptionBadgeProps) {
 
   return (
     <span
-      className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${getStatusColor(status)}`}
+      className={`inline-flex rounded-full border px-3 py-1 font-semibold text-xs ${getStatusColor(status)}`}
     >
       {getStatusLabel(status)}
     </span>

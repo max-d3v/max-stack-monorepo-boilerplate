@@ -1,23 +1,23 @@
 import type Stripe from "stripe";
 
 export interface StripeSubscription {
-  readonly id: string;
-  readonly customerId: string;
-  readonly status: Stripe.Subscription.Status;
-  readonly priceId: string;
-  readonly currentPeriodEnd: Date;
   readonly cancelAtPeriodEnd: boolean;
+  readonly currentPeriodEnd: Date;
+  readonly customerId: string;
+  readonly id: string;
   readonly plan: "free" | "pro" | "enterprise";
+  readonly priceId: string;
+  readonly status: Stripe.Subscription.Status;
 }
 
 export interface CheckoutSession {
-  readonly url: string;
   readonly sessionId: string;
+  readonly url: string;
 }
 
 export interface SubscriptionData {
-  readonly subscription: StripeSubscription | null;
   readonly plan: string;
+  readonly subscription: StripeSubscription | null;
 }
 
 export interface PortalSession {
@@ -32,3 +32,14 @@ export type SubscriptionStatus =
   | "past_due"
   | "trialing"
   | "unpaid";
+
+export interface PricingCardProps {
+  readonly current?: boolean;
+  readonly loading?: boolean;
+  readonly onSelect?: (priceId: string) => void | Promise<void>;
+  readonly plan: import("./config").PricingPlan;
+}
+
+export interface SubscriptionBadgeProps {
+  readonly status: string;
+}

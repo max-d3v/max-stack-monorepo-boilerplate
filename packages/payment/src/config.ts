@@ -1,13 +1,13 @@
 export interface PricingPlan {
-  readonly id: "free" | "pro" | "enterprise";
-  readonly name: string;
   readonly description: string;
-  readonly price: number;
-  readonly priceId?: string;
   readonly features: readonly string[];
-  readonly popular?: boolean;
+  readonly id: "free" | "pro" | "enterprise";
   readonly maxTasks: number;
   readonly maxUsers: number;
+  readonly name: string;
+  readonly popular?: boolean;
+  readonly price: number;
+  readonly priceId?: string;
 }
 
 export const PLANS: readonly PricingPlan[] = [
