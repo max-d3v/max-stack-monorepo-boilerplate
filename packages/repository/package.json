@@ -1,0 +1,21 @@
+{
+  "name": "@workspace/repository",
+  "private": true,
+  "exports": {
+    "./": "./src/index.ts"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@workspace/database": "workspace:*",
+    "@workspace/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
