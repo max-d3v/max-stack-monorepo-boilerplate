@@ -1,0 +1,25 @@
+{
+  "name": "@workspace/rpc",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./": "./src/index.ts"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@workspace/core": "workspace:*",
+    "@workspace/types": "workspace:*",
+    "@orpc/server": "^1.13.13",
+    "zod": "catalog:schemas"
+  }
+}
