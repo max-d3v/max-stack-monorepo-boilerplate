@@ -1,12 +1,12 @@
-import { db, userPreferences, eq } from "@workspace/database";
+import { db, eq, userPreferences } from "@workspace/database";
+import { logger } from "@workspace/observability/server";
 import {
-  verifyWebhookSignature,
   handleWebhookEvent,
+  verifyWebhookSignature,
   type WebhookDatabaseAdapter,
 } from "@workspace/payment/webhooks";
-import { logger } from "@workspace/observability/server";
+import type { ApiErrorResponse, ApiResponse } from "@workspace/types";
 import { NextResponse } from "next/server";
-import type { ApiResponse, ApiErrorResponse } from "@workspace/types";
 
 export const runtime = "nodejs";
 

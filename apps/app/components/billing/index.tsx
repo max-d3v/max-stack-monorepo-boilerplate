@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { CreditCard } from "lucide-react";
-import { PLANS } from "@workspace/types";
-import {
-  useSubscription,
-  useCheckout,
-  useBillingPortal,
-} from "@/hooks/use-billing";
-import { BillingLoading } from "./billing-loading";
-import { BillingError } from "./billing-error";
-import { CurrentPlanCard } from "./current-plan-card";
 import { PricingCard } from "@workspace/payment/client";
+import { PLANS } from "@workspace/types";
+import { CreditCard } from "lucide-react";
+import { useState } from "react";
+import {
+  useBillingPortal,
+  useCheckout,
+  useSubscription,
+} from "@/hooks/use-billing";
+import { BillingError } from "./billing-error";
+import { BillingLoading } from "./billing-loading";
+import { CurrentPlanCard } from "./current-plan-card";
 import { WebhookStatus } from "./webhook-status";
 
 export function BillingContent() {
@@ -57,7 +57,7 @@ export function BillingContent() {
           <CreditCard className="h-8 w-8 text-primary-foreground" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold">Billing</h1>
+          <h1 className="font-bold text-3xl">Billing</h1>
           <p className="text-muted-foreground">
             Manage your subscription and billing settings
           </p>
@@ -66,21 +66,21 @@ export function BillingContent() {
 
       <CurrentPlanCard
         currentPlan={currentPlan}
-        subscription={subscription}
-        onManageBilling={handleManageBilling}
         loading={billingPortal.isPending}
+        onManageBilling={handleManageBilling}
+        subscription={subscription}
       />
 
       <div>
-        <h2 className="mb-4 text-2xl font-bold">Available Plans</h2>
+        <h2 className="mb-4 font-bold text-2xl">Available Plans</h2>
         <div className="grid gap-6 md:grid-cols-2">
           {PLANS.map((plan) => (
             <PricingCard
-              key={plan.id}
-              plan={plan}
               current={currentPlan === plan.id}
-              onSelect={plan.priceId ? handleUpgrade : undefined}
+              key={plan.id}
               loading={checkout.isPending && selectedPriceId === plan.priceId}
+              onSelect={plan.priceId ? handleUpgrade : undefined}
+              plan={plan}
             />
           ))}
         </div>

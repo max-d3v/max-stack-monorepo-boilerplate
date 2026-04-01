@@ -6,13 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-import { BarChart3, TrendingUp, Target, Calendar } from "lucide-react";
+import { BarChart3, Calendar, Target, TrendingUp } from "lucide-react";
 
 interface AnalyticsStatsProps {
-  readonly tasksThisWeek: number;
-  readonly tasksThisMonth: number;
   readonly completedThisWeek: number;
   readonly completionRate: number;
+  readonly tasksThisMonth: number;
+  readonly tasksThisWeek: number;
   readonly total: number;
 }
 
@@ -27,14 +27,14 @@ export function AnalyticsStats({
     <div className="grid gap-4 md:grid-cols-4">
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 font-medium text-sm">
             <TrendingUp className="h-4 w-4" />
             This Week
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{tasksThisWeek}</div>
-          <p className="text-xs text-muted-foreground">
+          <div className="font-bold text-2xl">{tasksThisWeek}</div>
+          <p className="text-muted-foreground text-xs">
             {completedThisWeek} completed
           </p>
         </CardContent>
@@ -42,42 +42,42 @@ export function AnalyticsStats({
 
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 font-medium text-sm">
             <Calendar className="h-4 w-4" />
             This Month
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{tasksThisMonth}</div>
-          <p className="text-xs text-muted-foreground">Tasks created</p>
+          <div className="font-bold text-2xl">{tasksThisMonth}</div>
+          <p className="text-muted-foreground text-xs">Tasks created</p>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 font-medium text-sm">
             <Target className="h-4 w-4" />
             Completion Rate
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-green-500">
+          <div className="font-bold text-2xl text-green-500">
             {completionRate}%
           </div>
-          <p className="text-xs text-muted-foreground">Overall progress</p>
+          <p className="text-muted-foreground text-xs">Overall progress</p>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 font-medium text-sm">
             <BarChart3 className="h-4 w-4" />
             Total Tasks
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{total}</div>
-          <p className="text-xs text-muted-foreground">All time</p>
+          <div className="font-bold text-2xl">{total}</div>
+          <p className="text-muted-foreground text-xs">All time</p>
         </CardContent>
       </Card>
     </div>

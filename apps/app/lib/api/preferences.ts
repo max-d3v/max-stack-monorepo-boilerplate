@@ -1,9 +1,9 @@
-import { api } from "./client";
 import type {
   PreferencesResponse,
-  UpdatePreferencesResponse,
   UpdatePreferencesInput,
+  UpdatePreferencesResponse,
 } from "@workspace/types";
+import { api } from "./client";
 
 export async function getPreferences(): Promise<PreferencesResponse> {
   return api.get<PreferencesResponse>("/preferences");

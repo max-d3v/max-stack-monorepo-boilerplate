@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
+import { AnalyticsProvider } from "@workspace/analytics";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { AnalyticsProvider } from "@workspace/analytics/src/provider";
+import type * as React from "react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -10,9 +10,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <NextThemesProvider
         attribute="class"
         defaultTheme="system"
-        enableSystem
         disableTransitionOnChange
         enableColorScheme
+        enableSystem
       >
         {children}
       </NextThemesProvider>

@@ -1,19 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@workspace/database";
-import { users, eq } from "@workspace/database";
+import { createToken } from "@workspace/auth/server";
+import { db, eq, users } from "@workspace/database";
+import { sendWelcomeEmail } from "@workspace/email";
+import { logger, withAxiom } from "@workspace/observability";
 import type {
-  RegisterResponse,
-  AuthUser,
   ApiErrorResponse,
+  AuthUser,
+  RegisterResponse,
 } from "@workspace/types";
 import { RegisterInputSchema } from "@workspace/types";
-import { withAxiom, logger } from "@workspace/observability";
-import { createToken } from "@workspace/auth/server";
-import { formatZodError } from "@/lib/validation";
-import { sendWelcomeEmail } from "@workspace/email";
-
-// @ts-ignore
+// @ts-expect-error
 import bcrypt from "bcryptjs";
+import { type NextRequest, NextResponse } from "next/server";
+import { formatZodError } from "@/lib/validation";
 
 export const POST = withAxiom(
   async (

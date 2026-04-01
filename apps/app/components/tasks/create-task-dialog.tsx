@@ -1,11 +1,9 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { CreateTaskInput } from "@workspace/types";
+import { createTaskInputSchema } from "@workspace/types";
 import { Button } from "@workspace/ui/components/button";
-import { Input } from "@workspace/ui/components/input";
-import { Label } from "@workspace/ui/components/label";
-import { Textarea } from "@workspace/ui/components/textarea";
 import {
   Dialog,
   DialogClose,
@@ -16,14 +14,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@workspace/ui/components/dialog";
+import { Input } from "@workspace/ui/components/input";
+import { Label } from "@workspace/ui/components/label";
+import { Textarea } from "@workspace/ui/components/textarea";
 import { Loader2, Plus } from "lucide-react";
+import { useForm } from "react-hook-form";
 import { useCreateTask } from "@/hooks/use-tasks";
-import { createTaskInputSchema } from "@workspace/types";
-import type { CreateTaskInput } from "@workspace/types";
 
 interface CreateTaskDialogProps {
-  open: boolean;
   onOpenChange: (open: boolean) => void;
+  open: boolean;
 }
 
 export function CreateTaskDialog({
@@ -50,7 +50,7 @@ export function CreateTaskDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog onOpenChange={onOpenChange} open={open}>
       <DialogTrigger asChild>
         <Button>
           <Plus className="mr-2 h-4 w-4" />
@@ -73,7 +73,7 @@ export function CreateTaskDialog({
               placeholder="Enter task title"
             />
             {form.formState.errors.title && (
-              <p className="text-sm text-destructive">
+              <p className="text-destructive text-sm">
                 {form.formState.errors.title.message}
               </p>
             )}
@@ -83,17 +83,17 @@ export function CreateTaskDialog({
             <Textarea
               id="create-task-description"
               {...form.register("description")}
-              placeholder="Enter task description (optional)"
               className="resize-none"
+              placeholder="Enter task description (optional)"
               rows={4}
             />
           </div>
         </div>
         <DialogFooter>
           <Button
-            type="button"
-            onClick={form.handleSubmit(handleSubmit)}
             disabled={createTask.isPending || form.formState.isSubmitting}
+            onClick={form.handleSubmit(handleSubmit)}
+            type="button"
           >
             {createTask.isPending ? (
               <>
@@ -105,7 +105,7 @@ export function CreateTaskDialog({
             )}
           </Button>
           <DialogClose asChild>
-            <Button variant="outline" onClick={() => form.reset()}>
+            <Button onClick={() => form.reset()} variant="outline">
               Cancel
             </Button>
           </DialogClose>

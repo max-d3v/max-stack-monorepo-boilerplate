@@ -33,7 +33,7 @@ export function BillingError({ error, onRetry }: BillingErrorProps) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button onClick={onRetry} variant="outline" size="sm">
+          <Button onClick={onRetry} size="sm" variant="outline">
             Try Again
           </Button>
         </CardContent>

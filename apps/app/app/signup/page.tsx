@@ -1,12 +1,8 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useRegister } from "@/hooks/use-auth";
+import { Alert, AlertDescription } from "@workspace/ui/components/alert";
 import { Button } from "@workspace/ui/components/button";
-import { Input } from "@workspace/ui/components/input";
-import { Label } from "@workspace/ui/components/label";
 import {
   Card,
   CardContent,
@@ -14,11 +10,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-import { AlertCircle, Loader2, GalleryVerticalEnd } from "lucide-react";
-import { Alert, AlertDescription } from "@workspace/ui/components/alert";
+import { Input } from "@workspace/ui/components/input";
+import { Label } from "@workspace/ui/components/label";
+import { AlertCircle, GalleryVerticalEnd, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { ModeToggle } from "@/components/mode-toggle";
+import { useRegister } from "@/hooks/use-auth";
 
 const signupSchema = z
   .object({
@@ -71,8 +71,8 @@ export default function SignupPage() {
       </div>
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
-          <a href="/" className="flex items-center gap-2 font-medium">
-            <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+          <a className="flex items-center gap-2 font-medium" href="/">
+            <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
             </div>
             Orion Kit
@@ -89,8 +89,8 @@ export default function SignupPage() {
               </CardHeader>
               <CardContent>
                 <form
-                  onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-4"
+                  onSubmit={form.handleSubmit(onSubmit)}
                 >
                   {registerMutation.isError && (
                     <Alert variant="destructive">
@@ -106,12 +106,12 @@ export default function SignupPage() {
                     <Label htmlFor="name">Full Name</Label>
                     <Input
                       id="name"
-                      type="text"
                       placeholder="Enter your full name"
+                      type="text"
                       {...form.register("name")}
                     />
                     {form.formState.errors.name && (
-                      <p className="text-sm text-destructive">
+                      <p className="text-destructive text-sm">
                         {form.formState.errors.name.message}
                       </p>
                     )}
@@ -121,12 +121,12 @@ export default function SignupPage() {
                     <Label htmlFor="email">Email</Label>
                     <Input
                       id="email"
-                      type="email"
                       placeholder="Enter your email"
+                      type="email"
                       {...form.register("email")}
                     />
                     {form.formState.errors.email && (
-                      <p className="text-sm text-destructive">
+                      <p className="text-destructive text-sm">
                         {form.formState.errors.email.message}
                       </p>
                     )}
@@ -136,12 +136,12 @@ export default function SignupPage() {
                     <Label htmlFor="password">Password</Label>
                     <Input
                       id="password"
-                      type="password"
                       placeholder="Create a password"
+                      type="password"
                       {...form.register("password")}
                     />
                     {form.formState.errors.password && (
-                      <p className="text-sm text-destructive">
+                      <p className="text-destructive text-sm">
                         {form.formState.errors.password.message}
                       </p>
                     )}
@@ -151,21 +151,21 @@ export default function SignupPage() {
                     <Label htmlFor="confirmPassword">Confirm Password</Label>
                     <Input
                       id="confirmPassword"
-                      type="password"
                       placeholder="Confirm your password"
+                      type="password"
                       {...form.register("confirmPassword")}
                     />
                     {form.formState.errors.confirmPassword && (
-                      <p className="text-sm text-destructive">
+                      <p className="text-destructive text-sm">
                         {form.formState.errors.confirmPassword.message}
                       </p>
                     )}
                   </div>
 
                   <Button
-                    type="submit"
                     className="w-full"
                     disabled={registerMutation.isPending}
+                    type="submit"
                   >
                     {registerMutation.isPending ? (
                       <>
@@ -182,15 +182,15 @@ export default function SignupPage() {
                   <span className="text-muted-foreground">
                     Already have an account?{" "}
                   </span>
-                  <Link href="/login" className="text-primary hover:underline">
+                  <Link className="text-primary hover:underline" href="/login">
                     Sign in
                   </Link>
                 </div>
 
                 <div className="mt-4 text-center">
                   <Link
+                    className="text-muted-foreground text-sm hover:underline"
                     href="/"
-                    className="text-sm text-muted-foreground hover:underline"
                   >
                     ← Back to home
                   </Link>
@@ -203,9 +203,9 @@ export default function SignupPage() {
       <div className="relative hidden lg:block">
         <div className="absolute inset-0 flex items-center justify-center p-8">
           <img
-            src="/assets/undraw_starlink_pmv3.svg"
             alt="Sign up"
             className="h-3/4 w-3/4 max-w-md object-contain"
+            src="/assets/undraw_starlink_pmv3.svg"
           />
         </div>
       </div>

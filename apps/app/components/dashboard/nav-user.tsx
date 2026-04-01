@@ -1,13 +1,6 @@
 "use client";
 
 import {
-  BadgeCheck,
-  ChevronsUpDown,
-  LogOut,
-  Settings as SettingsIcon,
-} from "lucide-react";
-
-import {
   Avatar,
   AvatarFallback,
   AvatarImage,
@@ -27,6 +20,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@workspace/ui/components/sidebar";
+import {
+  BadgeCheck,
+  ChevronsUpDown,
+  LogOut,
+  Settings as SettingsIcon,
+} from "lucide-react";
 import { useAuth, useLogout } from "@/hooks/use-auth";
 
 export function NavUser() {
@@ -76,11 +75,11 @@ export function NavUser() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
-              size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              size="lg"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={userAvatar} alt={userName} />
+                <AvatarImage alt={userName} src={userAvatar} />
                 <AvatarFallback className="rounded-lg">
                   {userInitials}
                 </AvatarFallback>
@@ -93,15 +92,15 @@ export function NavUser() {
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
+            align="end"
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
             side={isMobile ? "bottom" : "right"}
-            align="end"
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={userAvatar} alt={userName} />
+                  <AvatarImage alt={userName} src={userAvatar} />
                   <AvatarFallback className="rounded-lg">
                     {userInitials}
                   </AvatarFallback>
@@ -115,7 +114,7 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <a href="/dashboard/settings" className="cursor-pointer">
+                <a className="cursor-pointer" href="/dashboard/settings">
                   <SettingsIcon />
                   Settings
                 </a>
@@ -123,9 +122,9 @@ export function NavUser() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={handleSignOut}
               className="cursor-pointer"
               disabled={logoutMutation.isPending}
+              onClick={handleSignOut}
             >
               <LogOut />
               {logoutMutation.isPending ? "Logging out..." : "Log out"}

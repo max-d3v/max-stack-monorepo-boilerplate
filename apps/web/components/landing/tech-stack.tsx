@@ -7,9 +7,9 @@ import {
 } from "@workspace/ui/components/card";
 
 interface Tech {
+  description: string;
   emoji: string;
   title: string;
-  description: string;
 }
 
 const techStack: Tech[] = [
@@ -134,21 +134,21 @@ export function TechStack() {
         <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {techStack.map((tech) => (
             <Card
-              key={tech.title}
               className="group relative overflow-hidden border-border/60 bg-card/70 backdrop-blur-sm transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
+              key={tech.title}
             >
-              <CardHeader className="pb-0 mb-0">
+              <CardHeader className="mb-0 pb-0">
                 <div className="flex items-center gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded-md bg-muted">
                     <span className="text-lg">{tech.emoji}</span>
                   </div>
-                  <CardTitle className="text-sm font-semibold">
+                  <CardTitle className="font-semibold text-sm">
                     {tech.title}
                   </CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
-                <CardDescription className="leading-relaxed text-xs text-muted-foreground">
+                <CardDescription className="text-muted-foreground text-xs leading-relaxed">
                   {tech.description}
                 </CardDescription>
               </CardContent>

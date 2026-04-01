@@ -1,21 +1,21 @@
 "use client";
 
 import { Button } from "@workspace/ui/components/button";
-import { Input } from "@workspace/ui/components/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
+import { Input } from "@workspace/ui/components/input";
 import { Filter, Search, X } from "lucide-react";
-import { statusConfig, type StatusFilter } from "./task-status-config";
+import { type StatusFilter, statusConfig } from "./task-status-config";
 
 interface TasksFiltersProps {
-  searchQuery: string;
   onSearchChange: (query: string) => void;
-  statusFilter: StatusFilter;
   onStatusFilterChange: (filter: StatusFilter) => void;
+  searchQuery: string;
+  statusFilter: StatusFilter;
 }
 
 export function TasksFilters({
@@ -27,17 +27,17 @@ export function TasksFilters({
   return (
     <div className="flex gap-4">
       <div className="relative flex-1">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
+          className="pr-9 pl-9"
+          onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search tasks..."
           value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-9 pr-9"
         />
         {searchQuery && (
           <button
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
             onClick={() => onSearchChange("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
           >
             <X className="h-4 w-4" />
           </button>
@@ -45,7 +45,7 @@ export function TasksFilters({
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="gap-2">
+          <Button className="gap-2" variant="outline">
             <Filter className="h-4 w-4" />
             {statusFilter === "all" ? "All" : statusConfig[statusFilter].label}
           </Button>

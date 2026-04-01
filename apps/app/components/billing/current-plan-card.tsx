@@ -1,5 +1,9 @@
 "use client";
 
+import type { StripeSubscription } from "@workspace/types";
+import { getPlanById } from "@workspace/types";
+import { Badge } from "@workspace/ui/components/badge";
+import { Button } from "@workspace/ui/components/button";
 import {
   Card,
   CardContent,
@@ -7,17 +11,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-import { Button } from "@workspace/ui/components/button";
-import { Badge } from "@workspace/ui/components/badge";
-import { CheckCircle2, Calendar, Loader2 } from "lucide-react";
-import { getPlanById } from "@workspace/types";
-import type { StripeSubscription } from "@workspace/types";
+import { Calendar, CheckCircle2, Loader2 } from "lucide-react";
 
 interface CurrentPlanCardProps {
   readonly currentPlan: string;
-  readonly subscription: StripeSubscription | null | undefined;
-  readonly onManageBilling: () => void;
   readonly loading: boolean;
+  readonly onManageBilling: () => void;
+  readonly subscription: StripeSubscription | null | undefined;
 }
 
 export function CurrentPlanCard({
@@ -53,10 +53,10 @@ export function CurrentPlanCard({
           </div>
           {subscription && (
             <Button
-              variant="outline"
-              size="sm"
-              onClick={onManageBilling}
               disabled={loading}
+              onClick={onManageBilling}
+              size="sm"
+              variant="outline"
             >
               {loading ? (
                 <>
@@ -75,19 +75,19 @@ export function CurrentPlanCard({
           <div className="space-y-4">
             <div>
               <div className="mb-2 flex items-center gap-2">
-                <h3 className="text-2xl font-bold">{plan.name}</h3>
+                <h3 className="font-bold text-2xl">{plan.name}</h3>
                 {plan.popular && <Badge variant="default">Popular</Badge>}
               </div>
-              <p className="text-3xl font-bold">
+              <p className="font-bold text-3xl">
                 ${plan.price}
-                <span className="text-base font-normal text-muted-foreground">
+                <span className="font-normal text-base text-muted-foreground">
                   /month
                 </span>
               </p>
             </div>
 
             {subscription && subscription.status === "active" && (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-muted-foreground text-sm">
                 <Calendar className="h-4 w-4" />
                 <span>
                   {subscription.cancelAtPeriodEnd

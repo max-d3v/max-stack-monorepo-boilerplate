@@ -24,10 +24,9 @@
         "FROM_EMAIL",
         "RESEND_TOKEN"
       ]
-      
     },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
     },
     "dev": {
       "cache": false,
@@ -37,6 +36,7 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**"]
-    }
+    },
+    "lint": {}
   }
 }

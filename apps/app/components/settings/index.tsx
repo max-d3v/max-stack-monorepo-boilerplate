@@ -1,16 +1,16 @@
 "use client";
 
+import type { UpdatePreferencesInput } from "@workspace/types";
+import { Skeleton } from "@workspace/ui/components/skeleton";
+import { Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Settings } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { usePreferences, useUpdatePreferences } from "@/hooks/use-settings";
-import { Skeleton } from "@workspace/ui/components/skeleton";
+import { EditProfileModal } from "./edit-profile-modal";
+import { SettingsNotifications } from "./settings-notifications";
 import { SettingsProfile } from "./settings-profile";
 import { SettingsTaskPreferences } from "./settings-task-preferences";
-import { SettingsNotifications } from "./settings-notifications";
-import { EditProfileModal } from "./edit-profile-modal";
-import type { UpdatePreferencesInput } from "@workspace/types";
 
 export function SettingsContent() {
   const { data: authData, isPending } = useAuth();
@@ -80,7 +80,7 @@ export function SettingsContent() {
         </div>
         <div className="grid gap-6 lg:grid-cols-2">
           {[...Array(3)].map((_, i) => (
-            <Skeleton key={i} className="h-64" />
+            <Skeleton className="h-64" key={i} />
           ))}
         </div>
       </div>
@@ -99,7 +99,7 @@ export function SettingsContent() {
           <Settings className="h-8 w-8 text-primary-foreground" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold">Settings</h1>
+          <h1 className="font-bold text-3xl">Settings</h1>
           <p className="text-muted-foreground">
             Manage your account and task preferences
           </p>
@@ -108,8 +108,8 @@ export function SettingsContent() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <SettingsProfile
-          user={user}
           onEditProfile={() => setIsEditProfileModalOpen(true)}
+          user={user}
         />
 
         <SettingsTaskPreferences
@@ -119,18 +119,18 @@ export function SettingsContent() {
 
         <SettingsNotifications
           emailNotifications={currentEmailNotifications}
-          taskReminders={currentTaskReminders}
-          weeklyDigest={currentWeeklyDigest}
           onEmailNotificationsChange={handleEmailNotificationsChange}
           onTaskRemindersChange={handleTaskRemindersChange}
           onWeeklyDigestChange={handleWeeklyDigestChange}
+          taskReminders={currentTaskReminders}
+          weeklyDigest={currentWeeklyDigest}
         />
       </div>
 
       {user && (
         <EditProfileModal
-          open={isEditProfileModalOpen}
           onOpenChange={setIsEditProfileModalOpen}
+          open={isEditProfileModalOpen}
           user={user}
         />
       )}

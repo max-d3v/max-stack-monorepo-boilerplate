@@ -35,7 +35,7 @@ export function AnalyticsLoading() {
             <CardContent>
               <div className="space-y-4">
                 {[...Array(4)].map((_, j) => (
-                  <Skeleton key={j} className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" key={j} />
                 ))}
               </div>
             </CardContent>

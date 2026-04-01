@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { AppSidebar } from "@/components/dashboard/app-sidebar";
-import { DashboardHeader } from "@/components/dashboard/dashboard-header";
-import { ErrorFallback } from "@/components/error-fallback";
-import { ErrorBoundary } from "react-error-boundary";
 import {
   SidebarInset,
   SidebarProvider,
 } from "@workspace/ui/components/sidebar";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { AppSidebar } from "@/components/dashboard/app-sidebar";
+import { DashboardHeader } from "@/components/dashboard/dashboard-header";
+import { ErrorFallback } from "@/components/error-fallback";
 import { useAuth } from "@/hooks/use-auth";
 
 export function DashboardLayoutClient({
@@ -32,7 +32,7 @@ export function DashboardLayoutClient({
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto mb-4"></div>
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
           <p className="text-muted-foreground">Loading...</p>
         </div>
       </div>

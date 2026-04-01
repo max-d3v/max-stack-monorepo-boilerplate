@@ -1,9 +1,9 @@
-import { api } from "./client";
 import type {
+  DeleteAccountResponse,
   UpdateProfileInput,
   UpdateProfileResponse,
-  DeleteAccountResponse,
 } from "@workspace/types";
+import { api } from "./client";
 
 export const updateProfile = async (
   data: UpdateProfileInput

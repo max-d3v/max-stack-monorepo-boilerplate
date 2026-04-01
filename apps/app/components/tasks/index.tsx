@@ -1,17 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { useTasks, useUpdateTask } from "@/hooks/use-tasks";
-import { CreateTaskDialog } from "./create-task-dialog";
-import { EditTaskSheet } from "./edit-task-sheet";
-import { TasksFilters } from "./tasks-filters";
-import { TasksStats } from "./tasks-stats";
-import { TasksTable } from "./tasks-table";
-import { TasksLoading } from "./tasks-loading";
-import { TasksError } from "./tasks-error";
-import type { StatusFilter } from "./task-status-config";
-import { Task } from "@workspace/types";
-import { TasksPagination } from "./tasks-pagination";
+import type { Task } from "@workspace/types";
 import {
   Select,
   SelectContent,
@@ -19,6 +8,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select";
+import { useEffect, useMemo, useState } from "react";
+import { useTasks, useUpdateTask } from "@/hooks/use-tasks";
+import { CreateTaskDialog } from "./create-task-dialog";
+import { EditTaskSheet } from "./edit-task-sheet";
+import type { StatusFilter } from "./task-status-config";
+import { TasksError } from "./tasks-error";
+import { TasksFilters } from "./tasks-filters";
+import { TasksLoading } from "./tasks-loading";
+import { TasksPagination } from "./tasks-pagination";
+import { TasksStats } from "./tasks-stats";
+import { TasksTable } from "./tasks-table";
 
 export function TasksContent() {
   const { data: tasksData, isLoading, error, refetch } = useTasks();
@@ -81,41 +81,41 @@ export function TasksContent() {
     <div className="flex flex-1 flex-col gap-6 p-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Tasks</h1>
+          <h1 className="font-bold text-3xl">Tasks</h1>
           <p className="text-muted-foreground">
             Manage your tasks and track progress
           </p>
         </div>
         <CreateTaskDialog
-          open={showCreateDialog}
           onOpenChange={setShowCreateDialog}
+          open={showCreateDialog}
         />
       </div>
       {tasksData && <TasksStats data={tasksData} />}
 
       <TasksFilters
-        searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        statusFilter={statusFilter}
         onStatusFilterChange={setStatusFilter}
+        searchQuery={searchQuery}
+        statusFilter={statusFilter}
       />
 
       <TasksTable
-        tasks={tasks}
         filteredTasks={paginatedTasks}
-        statusFilter={statusFilter}
-        searchQuery={searchQuery}
+        onCreateTask={() => setShowCreateDialog(true)}
         onEditTask={setSelectedTask}
         onStatusChange={handleStatusChange}
-        onCreateTask={() => setShowCreateDialog(true)}
+        searchQuery={searchQuery}
+        statusFilter={statusFilter}
+        tasks={tasks}
       />
 
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-muted-foreground">Show</span>
+          <span className="text-muted-foreground text-sm">Show</span>
           <Select
-            value={itemsPerPage.toString()}
             onValueChange={(value) => setItemsPerPage(Number(value))}
+            value={itemsPerPage.toString()}
           >
             <SelectTrigger className="w-20">
               <SelectValue />
@@ -126,21 +126,21 @@ export function TasksContent() {
               <SelectItem value="50">50</SelectItem>
             </SelectContent>
           </Select>
-          <span className="text-sm text-muted-foreground">per page</span>
+          <span className="text-muted-foreground text-sm">per page</span>
         </div>
         {totalPages > 1 && (
           <TasksPagination
             currentPage={currentPage}
-            totalPages={totalPages}
             onPageChange={setCurrentPage}
+            totalPages={totalPages}
           />
         )}
       </div>
 
       <EditTaskSheet
-        task={selectedTask}
-        open={selectedTask !== null}
         onOpenChange={(open) => !open && setSelectedTask(null)}
+        open={selectedTask !== null}
+        task={selectedTask}
       />
     </div>
   );

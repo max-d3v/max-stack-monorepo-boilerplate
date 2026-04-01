@@ -1,11 +1,10 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AnalyticsProvider } from "@workspace/analytics/provider";
+import { WebVitals } from "@workspace/observability/client";
 import { ThemeProvider } from "next-themes";
 import { useState } from "react";
-import { AnalyticsProvider } from "@workspace/analytics/src/provider";
-
-import { WebVitals } from "@workspace/observability/client";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   // Create a client instance per request

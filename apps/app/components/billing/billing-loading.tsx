@@ -37,7 +37,7 @@ export function BillingLoading() {
                 <Skeleton className="h-12 w-32" />
                 <div className="space-y-2">
                   {[...Array(4)].map((_, j) => (
-                    <Skeleton key={j} className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full" key={j} />
                   ))}
                 </div>
                 <Skeleton className="h-10 w-full" />

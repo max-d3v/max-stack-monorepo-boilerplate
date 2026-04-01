@@ -7,12 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-import { TrendingUp, Clock, Target } from "lucide-react";
+import { Clock, Target, TrendingUp } from "lucide-react";
 
 interface AnalyticsInsightsProps {
   readonly completedThisWeek: number;
-  readonly inProgress: number;
   readonly completionRate: number;
+  readonly inProgress: number;
 }
 
 export function AnalyticsInsights({
@@ -35,7 +35,7 @@ export function AnalyticsInsights({
               <TrendingUp className="h-5 w-5" />
               <span className="font-semibold">Great Progress!</span>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               You've completed {completedThisWeek} tasks this week.
               {completedThisWeek > 5
                 ? " Keep up the momentum!"
@@ -48,7 +48,7 @@ export function AnalyticsInsights({
               <Clock className="h-5 w-5" />
               <span className="font-semibold">In Progress</span>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               You have {inProgress} tasks in progress.
               {inProgress > 3
                 ? " Consider completing some before starting new ones."
@@ -61,7 +61,7 @@ export function AnalyticsInsights({
               <Target className="h-5 w-5" />
               <span className="font-semibold">Focus Area</span>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               {completionRate >= 70
                 ? "You're highly productive! Keep it up."
                 : completionRate >= 40

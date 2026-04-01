@@ -9,7 +9,7 @@ interface WebhookStatusProps {
 
 export const WebhookStatus = ({ onDismiss }: WebhookStatusProps) => {
   return (
-    <Card className="border-l-4 border-l-yellow-500 bg-yellow-50 dark:bg-yellow-950/20 max-w-lg">
+    <Card className="max-w-lg border-l-4 border-l-yellow-500 bg-yellow-50 dark:bg-yellow-950/20">
       <div className="flex gap-3 p-4">
         <AlertTriangle className="h-5 w-5 flex-shrink-0 text-yellow-600" />
         <div className="flex-1">
@@ -22,9 +22,9 @@ export const WebhookStatus = ({ onDismiss }: WebhookStatusProps) => {
           </pre>
         </div>
         <button
-          onClick={onDismiss}
-          className="self-start text-yellow-600 hover:text-slate-500 transition-colors"
           aria-label="Dismiss"
+          className="self-start text-yellow-600 transition-colors hover:text-slate-500"
+          onClick={onDismiss}
         >
           <X className="h-4 w-4 text-slate-500" />
         </button>

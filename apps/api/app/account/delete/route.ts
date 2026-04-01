@@ -1,6 +1,6 @@
 import { deleteAccount, getCurrentUser } from "@workspace/auth/server";
-import { NextRequest, NextResponse } from "next/server";
-import type { DeleteAccountResponse, ApiErrorResponse } from "@workspace/types";
+import type { ApiErrorResponse, DeleteAccountResponse } from "@workspace/types";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   req: NextRequest

@@ -13,7 +13,7 @@ export function DashboardWelcome({ name }: DashboardWelcomeProps) {
         <Rocket className="h-8 w-8 text-primary-foreground" />
       </div>
       <div>
-        <h2 className="text-2xl font-bold">Welcome back, {name}!</h2>
+        <h2 className="font-bold text-2xl">Welcome back, {name}!</h2>
         <p className="text-muted-foreground">
           Ready to manage your tasks and projects
         </p>

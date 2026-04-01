@@ -9,13 +9,13 @@ export function CTA() {
       </div>
 
       <div className="relative mx-auto max-w-3xl px-6 text-center lg:px-8">
-        <h2 className="mb-6 text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+        <h2 className="mb-6 text-balance font-bold text-4xl tracking-tight sm:text-5xl">
           Focus on your idea — Orion Kit handles the rest
         </h2>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button size="lg">Get Started</Button>
-          <Button size="lg" variant="outline" className="gap-2">
+          <Button className="gap-2" size="lg" variant="outline">
             <Github className="h-5 w-5" />
             View on GitHub
           </Button>

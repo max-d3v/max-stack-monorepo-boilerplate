@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@workspace/ui/components/button";
 import { OrionLogo } from "@workspace/ui/components/orion-logo";
-import { useAuth } from "@/hooks/use-auth";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { ModeToggle } from "@/components/mode-toggle";
+import { useAuth } from "@/hooks/use-auth";
 
 export default function RootPage() {
   const { data: authData, isPending } = useAuth();
@@ -47,8 +47,8 @@ export default function RootPage() {
       </div>
       <div className="mb-8 flex flex-col items-center gap-4">
         <OrionLogo size="lg" />
-        <h1 className="text-4xl font-bold text-center">Welcome to Orion Kit</h1>
-        <p className="text-lg text-muted-foreground text-center max-w-md">
+        <h1 className="text-center font-bold text-4xl">Welcome to Orion Kit</h1>
+        <p className="max-w-md text-center text-lg text-muted-foreground">
           A modern, full-stack development kit built with Next.js, TypeScript,
           Tailwind CSS and modern cloud services.
         </p>
@@ -63,7 +63,7 @@ export default function RootPage() {
         </Link>
       </div>
 
-      <div className="mt-8 text-center text-sm text-muted-foreground">
+      <div className="mt-8 text-center text-muted-foreground text-sm">
         <p>Built with modern technologies and best practices</p>
       </div>
     </div>

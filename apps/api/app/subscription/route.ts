@@ -1,13 +1,13 @@
-import { db, userPreferences, eq } from "@workspace/database";
-import { getSubscription, cancelSubscription } from "@workspace/payment/server";
+import { getCurrentUser } from "@workspace/auth/server";
+import { db, eq, userPreferences } from "@workspace/database";
+import { logger, withAxiom } from "@workspace/observability";
+import { cancelSubscription, getSubscription } from "@workspace/payment/server";
 import type {
-  SubscriptionResponse,
   ApiErrorResponse,
   DeleteSubscriptionResponse,
+  SubscriptionResponse,
 } from "@workspace/types";
-import { withAxiom, logger } from "@workspace/observability";
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@workspace/auth/server";
 
 export const GET = withAxiom(
   async (

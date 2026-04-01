@@ -1,17 +1,17 @@
 import { Card } from "@workspace/ui/components/card";
 import {
+  BookOpen,
+  Layers,
+  type LucideIcon,
+  Mail,
   Shield,
   Sparkles,
-  Layers,
-  BookOpen,
-  Mail,
-  type LucideIcon,
 } from "lucide-react";
 
 interface Feature {
+  description: string;
   icon: LucideIcon;
   title: string;
-  description: string;
 }
 
 const features: Feature[] = [
@@ -53,14 +53,14 @@ export function Features() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {features.map((feature) => (
-            <Card key={feature.title} className="p-8">
+            <Card className="p-8" key={feature.title}>
               <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
                 <feature.icon className="h-6 w-6" />
               </div>
-              <h3 className="mb-3 text-xl font-semibold text-pretty">
+              <h3 className="mb-3 text-pretty font-semibold text-xl">
                 {feature.title}
               </h3>
-              <p className="leading-relaxed text-muted-foreground">
+              <p className="text-muted-foreground leading-relaxed">
                 {feature.description}
               </p>
             </Card>

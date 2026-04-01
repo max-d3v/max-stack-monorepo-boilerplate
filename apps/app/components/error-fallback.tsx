@@ -33,18 +33,18 @@ export function ErrorFallback({
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="rounded-lg bg-muted p-4">
-            <p className="text-sm font-mono text-muted-foreground">
+            <p className="font-mono text-muted-foreground text-sm">
               {error.message}
             </p>
           </div>
           <div className="flex gap-2">
-            <Button onClick={resetErrorBoundary} className="flex-1">
+            <Button className="flex-1" onClick={resetErrorBoundary}>
               Try Again
             </Button>
             <Button
-              variant="outline"
-              onClick={() => window.location.reload()}
               className="flex-1"
+              onClick={() => window.location.reload()}
+              variant="outline"
             >
               Reload Page
             </Button>

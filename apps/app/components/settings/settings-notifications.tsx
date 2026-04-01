@@ -13,11 +13,11 @@ import { Bell } from "lucide-react";
 
 interface SettingsNotificationsProps {
   readonly emailNotifications: string | null | undefined;
-  readonly taskReminders: string | null | undefined;
-  readonly weeklyDigest: string | null | undefined;
   readonly onEmailNotificationsChange: (enabled: boolean) => void;
   readonly onTaskRemindersChange: (enabled: boolean) => void;
   readonly onWeeklyDigestChange: (enabled: boolean) => void;
+  readonly taskReminders: string | null | undefined;
+  readonly weeklyDigest: string | null | undefined;
 }
 
 export function SettingsNotifications({
@@ -46,15 +46,15 @@ export function SettingsNotifications({
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
-            <div className="text-sm font-medium">Email Notifications</div>
-            <div className="text-sm text-muted-foreground">
+            <div className="font-medium text-sm">Email Notifications</div>
+            <div className="text-muted-foreground text-sm">
               Get notified about important updates
             </div>
           </div>
           <Button
-            variant={isEmailEnabled ? "default" : "outline"}
-            size="sm"
             onClick={() => onEmailNotificationsChange(!isEmailEnabled)}
+            size="sm"
+            variant={isEmailEnabled ? "default" : "outline"}
           >
             {isEmailEnabled ? "Enabled" : "Disabled"}
           </Button>
@@ -62,15 +62,15 @@ export function SettingsNotifications({
         <Separator />
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
-            <div className="text-sm font-medium">Task Reminders</div>
-            <div className="text-sm text-muted-foreground">
+            <div className="font-medium text-sm">Task Reminders</div>
+            <div className="text-muted-foreground text-sm">
               Reminders for tasks with due dates
             </div>
           </div>
           <Button
-            variant={isRemindersEnabled ? "default" : "outline"}
-            size="sm"
             onClick={() => onTaskRemindersChange(!isRemindersEnabled)}
+            size="sm"
+            variant={isRemindersEnabled ? "default" : "outline"}
           >
             {isRemindersEnabled ? "Enabled" : "Disabled"}
           </Button>
@@ -78,15 +78,15 @@ export function SettingsNotifications({
         <Separator />
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
-            <div className="text-sm font-medium">Weekly Digest</div>
-            <div className="text-sm text-muted-foreground">
+            <div className="font-medium text-sm">Weekly Digest</div>
+            <div className="text-muted-foreground text-sm">
               Summary of your tasks every Monday
             </div>
           </div>
           <Button
-            variant={isDigestEnabled ? "default" : "outline"}
-            size="sm"
             onClick={() => onWeeklyDigestChange(!isDigestEnabled)}
+            size="sm"
+            variant={isDigestEnabled ? "default" : "outline"}
           >
             {isDigestEnabled ? "Enabled" : "Disabled"}
           </Button>

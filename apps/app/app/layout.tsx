@@ -1,6 +1,6 @@
 import "@workspace/ui/globals.css";
-import { Providers } from "@/app/providers";
 import { Toaster } from "sonner";
+import { Providers } from "@/app/providers";
 
 export const metadata = {
   title: "Orion Kit",
@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>{children}</Providers>
-        <Toaster richColors position="top-right" />
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );

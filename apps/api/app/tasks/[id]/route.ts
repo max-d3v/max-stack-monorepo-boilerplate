@@ -1,15 +1,15 @@
-import { db, tasks, eq } from "@workspace/database";
-import { updateTaskInputSchema } from "@workspace/types";
+import { getCurrentUser } from "@workspace/auth/server";
+import { db, eq, tasks } from "@workspace/database";
+import { logger, withAxiom } from "@workspace/observability";
 import type {
-  UpdateTaskResponse,
   ApiErrorResponse,
   DeleteTaskResponse,
+  UpdateTaskResponse,
 } from "@workspace/types";
-import { withAxiom, logger } from "@workspace/observability";
+import { updateTaskInputSchema } from "@workspace/types";
 import { NextResponse } from "next/server";
-import { formatZodError } from "@/lib/validation";
-import { getCurrentUser } from "@workspace/auth/server";
 import { z } from "zod";
+import { formatZodError } from "@/lib/validation";
 
 const taskIdSchema = z.object({
   id: z.string().regex(/^\d+$/, "Invalid task ID format").transform(Number),

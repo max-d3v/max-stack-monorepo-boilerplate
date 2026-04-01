@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@workspace/ui/components/button";
 import {
   Card,
   CardContent,
@@ -7,14 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-import { Label } from "@workspace/ui/components/label";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
-import { Button } from "@workspace/ui/components/button";
+import { Label } from "@workspace/ui/components/label";
 import { CheckCircle2, Clock } from "lucide-react";
 
 interface SettingsTaskPreferencesProps {
@@ -46,7 +46,7 @@ export function SettingsTaskPreferences({
           <Label>Default Status for New Tasks</Label>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="justify-start">
+              <Button className="justify-start" variant="outline">
                 {currentStatus === "todo" ? (
                   <>
                     <CheckCircle2 className="mr-2 h-4 w-4 text-muted-foreground" />

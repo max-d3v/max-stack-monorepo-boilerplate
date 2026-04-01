@@ -1,17 +1,17 @@
+import { getCurrentUser } from "@workspace/auth/server";
 import {
   db,
-  userPreferences,
   eq,
   updateUserPreferencesSchema,
+  userPreferences,
 } from "@workspace/database";
+import { logger, withAxiom } from "@workspace/observability";
 import type {
+  ApiErrorResponse,
   PreferencesResponse,
   UpdatePreferencesResponse,
-  ApiErrorResponse,
 } from "@workspace/types";
-import { withAxiom, logger } from "@workspace/observability";
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@workspace/auth/server";
 import { formatZodError } from "@/lib/validation";
 
 export const GET = withAxiom(
@@ -42,7 +42,7 @@ export const GET = withAxiom(
     if (!userPref) {
       const [newPref] = await db
         .insert(userPreferences)
-        .values({ userId: userId })
+        .values({ userId })
         .returning();
 
       if (!newPref) {
@@ -125,7 +125,7 @@ export const PUT = withAxiom(
       : await db
           .insert(userPreferences)
           .values({
-            userId: userId,
+            userId,
             ...validatedData,
           })
           .returning();

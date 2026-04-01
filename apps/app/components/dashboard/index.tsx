@@ -1,12 +1,12 @@
 "use client";
 
-import { useTasks } from "@/hooks/use-tasks";
 import { useAuth } from "@/hooks/use-auth";
-import { DashboardWelcome } from "./dashboard-welcome";
+import { useTasks } from "@/hooks/use-tasks";
+import { DashboardError } from "./dashboard-error";
+import { DashboardLoading } from "./dashboard-loading";
 import { DashboardStats } from "./dashboard-stats";
 import { DashboardTasksPreview } from "./dashboard-tasks-preview";
-import { DashboardLoading } from "./dashboard-loading";
-import { DashboardError } from "./dashboard-error";
+import { DashboardWelcome } from "./dashboard-welcome";
 
 export function DashboardContent() {
   const { data: authData, isPending: userLoading } = useAuth();
@@ -23,7 +23,7 @@ export function DashboardContent() {
     return (
       <div className="flex flex-1 items-center justify-center p-6">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Please log in</h2>
+          <h2 className="mb-4 font-bold text-2xl">Please log in</h2>
           <p className="text-muted-foreground">
             You need to be logged in to access the dashboard.
           </p>
@@ -41,10 +41,10 @@ export function DashboardContent() {
       {!error && tasks && (
         <>
           <DashboardStats
-            total={tasks.total}
             completed={tasks.completed}
             inProgress={tasks.inProgress}
             todo={tasks.todo}
+            total={tasks.total}
           />
 
           <DashboardTasksPreview tasks={tasks.data} />

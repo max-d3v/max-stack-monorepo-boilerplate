@@ -1,18 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@workspace/database";
-import { users, eq } from "@workspace/database";
 import { createToken } from "@workspace/auth/server";
+import { db, eq, users } from "@workspace/database";
+import { logger, withAxiom } from "@workspace/observability";
 import type {
-  LoginResponse,
   ApiErrorResponse,
   AuthUser,
+  LoginResponse,
 } from "@workspace/types";
 import { LoginInputSchema } from "@workspace/types";
-import { withAxiom, logger } from "@workspace/observability";
-import { formatZodError } from "@/lib/validation";
-
-// @ts-ignore
+// @ts-expect-error
 import bcrypt from "bcryptjs";
+import { type NextRequest, NextResponse } from "next/server";
+import { formatZodError } from "@/lib/validation";
 
 export const POST = withAxiom(
   async (
@@ -42,7 +40,7 @@ export const POST = withAxiom(
       .limit(1);
 
     const user = rows[0];
-    if (!user || !user.password) {
+    if (!(user && user.password)) {
       const errorResponse: ApiErrorResponse = {
         success: false,
         error: "Invalid credentials",

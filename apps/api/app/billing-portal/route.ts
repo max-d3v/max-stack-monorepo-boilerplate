@@ -1,12 +1,12 @@
-import { db, userPreferences, eq } from "@workspace/database";
+import { getCurrentUser } from "@workspace/auth/server";
+import { db, eq, userPreferences } from "@workspace/database";
+import { logger, withAxiom } from "@workspace/observability";
 import { createBillingPortalSession } from "@workspace/payment/server";
 import type {
-  CreatePortalSessionResponse,
   ApiErrorResponse,
+  CreatePortalSessionResponse,
 } from "@workspace/types";
-import { withAxiom, logger } from "@workspace/observability";
 import { NextRequest, NextResponse } from "next/server";
-import { getCurrentUser } from "@workspace/auth/server";
 
 export const POST = withAxiom(
   async (

@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
-import type { NextFetchEvent, NextRequest } from "next/server";
 import { transformMiddlewareRequest } from "@axiomhq/nextjs";
-import { logger } from "@workspace/observability/server";
 import { getUserId } from "@workspace/auth/server";
+import { logger } from "@workspace/observability/server";
+import type { NextFetchEvent, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   // Determine allowed origin based on environment

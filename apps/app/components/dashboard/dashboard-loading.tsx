@@ -36,8 +36,8 @@ export function DashboardLoading() {
           <div className="space-y-3">
             {[...Array(3)].map((_, i) => (
               <div
-                key={i}
                 className="flex items-start gap-3 rounded-lg border p-4"
+                key={i}
               >
                 <Skeleton className="mt-0.5 h-5 w-5 rounded-full" />
                 <div className="flex-1 space-y-2">

@@ -1,12 +1,8 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useLogin } from "@/hooks/use-auth";
+import { Alert, AlertDescription } from "@workspace/ui/components/alert";
 import { Button } from "@workspace/ui/components/button";
-import { Input } from "@workspace/ui/components/input";
-import { Label } from "@workspace/ui/components/label";
 import {
   Card,
   CardContent,
@@ -14,11 +10,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-import { AlertCircle, Loader2, GalleryVerticalEnd, Play } from "lucide-react";
-import { Alert, AlertDescription } from "@workspace/ui/components/alert";
+import { Input } from "@workspace/ui/components/input";
+import { Label } from "@workspace/ui/components/label";
+import { AlertCircle, GalleryVerticalEnd, Loader2, Play } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { ModeToggle } from "@/components/mode-toggle";
+import { useLogin } from "@/hooks/use-auth";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -62,8 +62,8 @@ export default function LoginPage() {
       </div>
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
-          <a href="/" className="flex items-center gap-2 font-medium">
-            <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+          <a className="flex items-center gap-2 font-medium" href="/">
+            <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
             </div>
             Orion Kit
@@ -78,22 +78,22 @@ export default function LoginPage() {
                   <Play className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                  <h3 className="font-medium text-blue-900 text-sm dark:text-blue-100">
                     Try the demo account
                   </h3>
-                  <p className="mt-1 text-xs text-blue-700 dark:text-blue-300">
+                  <p className="mt-1 text-blue-700 text-xs dark:text-blue-300">
                     Experience the full dashboard with sample data
                   </p>
                   <div className="mt-2 flex items-center gap-2">
                     <Button
+                      className="h-7 text-xs"
+                      onClick={useDemoAccount}
                       size="sm"
                       variant="outline"
-                      onClick={useDemoAccount}
-                      className="h-7 text-xs"
                     >
                       Use Demo Account
                     </Button>
-                    <span className="text-xs text-blue-600 dark:text-blue-400">
+                    <span className="text-blue-600 text-xs dark:text-blue-400">
                       demo@orion-kit.dev
                     </span>
                   </div>
@@ -110,8 +110,8 @@ export default function LoginPage() {
               </CardHeader>
               <CardContent>
                 <form
-                  onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-4"
+                  onSubmit={form.handleSubmit(onSubmit)}
                 >
                   {loginMutation.isError && (
                     <Alert variant="destructive">
@@ -126,12 +126,12 @@ export default function LoginPage() {
                     <Label htmlFor="email">Email</Label>
                     <Input
                       id="email"
-                      type="email"
                       placeholder="Enter your email"
+                      type="email"
                       {...form.register("email")}
                     />
                     {form.formState.errors.email && (
-                      <p className="text-sm text-destructive">
+                      <p className="text-destructive text-sm">
                         {form.formState.errors.email.message}
                       </p>
                     )}
@@ -141,21 +141,21 @@ export default function LoginPage() {
                     <Label htmlFor="password">Password</Label>
                     <Input
                       id="password"
-                      type="password"
                       placeholder="Enter your password"
+                      type="password"
                       {...form.register("password")}
                     />
                     {form.formState.errors.password && (
-                      <p className="text-sm text-destructive">
+                      <p className="text-destructive text-sm">
                         {form.formState.errors.password.message}
                       </p>
                     )}
                   </div>
 
                   <Button
-                    type="submit"
                     className="w-full"
                     disabled={loginMutation.isPending}
+                    type="submit"
                   >
                     {loginMutation.isPending ? (
                       <>
@@ -172,15 +172,15 @@ export default function LoginPage() {
                   <span className="text-muted-foreground">
                     Don't have an account?{" "}
                   </span>
-                  <Link href="/signup" className="text-primary hover:underline">
+                  <Link className="text-primary hover:underline" href="/signup">
                     Sign up
                   </Link>
                 </div>
 
                 <div className="mt-4 text-center">
                   <Link
+                    className="text-muted-foreground text-sm hover:underline"
                     href="/"
-                    className="text-sm text-muted-foreground hover:underline"
                   >
                     ← Back to home
                   </Link>
@@ -193,9 +193,9 @@ export default function LoginPage() {
       <div className="relative hidden lg:block">
         <div className="absolute inset-0 flex items-center justify-center p-8">
           <img
-            src="/assets/undraw_launching_szjw.svg"
             alt="Login"
             className="h-3/4 w-3/4 max-w-md object-contain"
+            src="/assets/undraw_launching_szjw.svg"
           />
         </div>
       </div>

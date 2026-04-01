@@ -12,8 +12,8 @@ import {
 
 interface TasksPaginationProps {
   currentPage: number;
-  totalPages: number;
   onPageChange: (page: number) => void;
+  totalPages: number;
 }
 
 export function TasksPagination({
@@ -49,12 +49,12 @@ export function TasksPagination({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            onClick={() => onPageChange(currentPage - 1)}
             className={
               currentPage === 1
                 ? "pointer-events-none opacity-50"
                 : "cursor-pointer"
             }
+            onClick={() => onPageChange(currentPage - 1)}
           />
         </PaginationItem>
 
@@ -64,9 +64,9 @@ export function TasksPagination({
               <PaginationEllipsis />
             ) : (
               <PaginationLink
-                onClick={() => onPageChange(page as number)}
-                isActive={currentPage === page}
                 className="cursor-pointer"
+                isActive={currentPage === page}
+                onClick={() => onPageChange(page as number)}
               >
                 {page}
               </PaginationLink>
@@ -76,12 +76,12 @@ export function TasksPagination({
 
         <PaginationItem>
           <PaginationNext
-            onClick={() => onPageChange(currentPage + 1)}
             className={
               currentPage === totalPages
                 ? "pointer-events-none opacity-50"
                 : "cursor-pointer"
             }
+            onClick={() => onPageChange(currentPage + 1)}
           />
         </PaginationItem>
       </PaginationContent>

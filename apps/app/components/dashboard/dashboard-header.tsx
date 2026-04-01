@@ -1,8 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { SidebarTrigger } from "@workspace/ui/components/sidebar";
-import { Separator } from "@workspace/ui/components/separator";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,6 +8,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb";
+import { Separator } from "@workspace/ui/components/separator";
+import { SidebarTrigger } from "@workspace/ui/components/sidebar";
+import { usePathname } from "next/navigation";
 import { ModeToggle } from "@/components/mode-toggle";
 
 export function DashboardHeader() {
@@ -31,11 +31,11 @@ export function DashboardHeader() {
       <div className="flex w-full items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Separator className="mr-2 h-4" orientation="vertical" />
           <Breadcrumb>
             <BreadcrumbList>
               {breadcrumbs.map((crumb, index) => (
-                <div key={crumb.href} className="flex items-center gap-2">
+                <div className="flex items-center gap-2" key={crumb.href}>
                   {index > 0 && <BreadcrumbSeparator />}
                   <BreadcrumbItem>
                     {crumb.isLast ? (

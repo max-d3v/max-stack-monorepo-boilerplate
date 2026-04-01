@@ -1,8 +1,8 @@
-import { db, users, eq } from "@workspace/database";
 import { getCurrentUser } from "@workspace/auth/server";
+import { db, eq, users } from "@workspace/database";
+import type { ApiErrorResponse, UpdateProfileResponse } from "@workspace/types";
 import { UpdateProfileInputSchema } from "@workspace/types";
-import type { UpdateProfileResponse, ApiErrorResponse } from "@workspace/types";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 export async function PUT(req: NextRequest) {
@@ -70,7 +70,7 @@ export async function PUT(req: NextRequest) {
         {
           success: false,
           error: "Validation error",
-          details: error.errors,
+          details: error.issues,
         },
         { status: 400 }
       );

@@ -8,10 +8,10 @@ import {
 } from "@workspace/ui/components/card";
 
 interface DashboardStatsProps {
-  readonly total: number;
   readonly completed: number;
   readonly inProgress: number;
   readonly todo: number;
+  readonly total: number;
 }
 
 export function DashboardStats({
@@ -24,34 +24,34 @@ export function DashboardStats({
     <div className="grid gap-4 md:grid-cols-4">
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium">Total Tasks</CardTitle>
+          <CardTitle className="font-medium text-sm">Total Tasks</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{total}</div>
+          <div className="font-bold text-2xl">{total}</div>
         </CardContent>
       </Card>
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium">Completed</CardTitle>
+          <CardTitle className="font-medium text-sm">Completed</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-green-500">{completed}</div>
+          <div className="font-bold text-2xl text-green-500">{completed}</div>
         </CardContent>
       </Card>
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium">In Progress</CardTitle>
+          <CardTitle className="font-medium text-sm">In Progress</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-blue-500">{inProgress}</div>
+          <div className="font-bold text-2xl text-blue-500">{inProgress}</div>
         </CardContent>
       </Card>
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium">To Do</CardTitle>
+          <CardTitle className="font-medium text-sm">To Do</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-muted-foreground">{todo}</div>
+          <div className="font-bold text-2xl text-muted-foreground">{todo}</div>
         </CardContent>
       </Card>
     </div>

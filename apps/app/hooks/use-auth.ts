@@ -1,8 +1,8 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { clearAuthToken, setAuthToken } from "@workspace/auth/client";
 import type { AuthResponse } from "@workspace/types";
-import { setAuthToken, clearAuthToken } from "@workspace/auth/client";
-import { getAuthUser, login, register, logout } from "@/lib/api/auth";
+import { useRouter } from "next/navigation";
+import { getAuthUser, login, logout, register } from "@/lib/api/auth";
 
 export const authKeys = {
   all: ["auth"] as const,

@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import type { ApiResponse } from "@workspace/types";
+import { NextResponse } from "next/server";
 
 export const runtime = "edge";
 

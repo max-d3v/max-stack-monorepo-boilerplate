@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUpdateProfile, useDeleteAccount } from "@/hooks/use-profile";
+import type { AuthUser, UpdateProfileInput } from "@workspace/types";
 import { UpdateProfileInputSchema } from "@workspace/types";
-import type { UpdateProfileInput, AuthUser } from "@workspace/types";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@workspace/ui/components/alert-dialog";
+import { Button } from "@workspace/ui/components/button";
 import {
   Dialog,
   DialogContent,
@@ -22,22 +30,14 @@ import {
   FormMessage,
 } from "@workspace/ui/components/form";
 import { Input } from "@workspace/ui/components/input";
-import { Button } from "@workspace/ui/components/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@workspace/ui/components/alert-dialog";
 import { Trash2 } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDeleteAccount, useUpdateProfile } from "@/hooks/use-profile";
 
 interface EditProfileModalProps {
-  open: boolean;
   onOpenChange: (open: boolean) => void;
+  open: boolean;
   user: AuthUser;
 }
 
@@ -79,7 +79,7 @@ export function EditProfileModal({
 
   return (
     <>
-      <Dialog open={open} onOpenChange={onOpenChange}>
+      <Dialog onOpenChange={onOpenChange} open={open}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Edit Profile</DialogTitle>
@@ -91,7 +91,7 @@ export function EditProfileModal({
           </DialogHeader>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
                 name="name"
@@ -106,7 +106,7 @@ export function EditProfileModal({
                       />
                     </FormControl>
                     {isDemoAccount && (
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-muted-foreground text-xs">
                         You can't edit the demo account name
                       </p>
                     )}
@@ -117,16 +117,16 @@ export function EditProfileModal({
 
               <div className="flex justify-between pt-4">
                 {isDemoAccount ? (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2 text-muted-foreground text-sm">
                     <Trash2 className="h-4 w-4" />
                     <span>You can't delete the demo account</span>
                   </div>
                 ) : (
                   <Button
+                    className="flex items-center gap-2"
+                    onClick={() => setShowDeleteConfirm(true)}
                     type="button"
                     variant="destructive"
-                    onClick={() => setShowDeleteConfirm(true)}
-                    className="flex items-center gap-2"
                   >
                     <Trash2 className="h-4 w-4" />
                     Delete Account
@@ -135,15 +135,15 @@ export function EditProfileModal({
 
                 <div className="flex gap-2">
                   <Button
+                    onClick={() => onOpenChange(false)}
                     type="button"
                     variant="outline"
-                    onClick={() => onOpenChange(false)}
                   >
                     Cancel
                   </Button>
                   <Button
-                    type="submit"
                     disabled={updateProfile.isPending || isDemoAccount}
+                    type="submit"
                   >
                     {updateProfile.isPending ? "Saving..." : "Save Changes"}
                   </Button>
@@ -154,7 +154,7 @@ export function EditProfileModal({
         </DialogContent>
       </Dialog>
 
-      <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
+      <AlertDialog onOpenChange={setShowDeleteConfirm} open={showDeleteConfirm}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -166,9 +166,9 @@ export function EditProfileModal({
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={handleDeleteAccount}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               disabled={deleteAccount.isPending}
+              onClick={handleDeleteAccount}
             >
               {deleteAccount.isPending ? "Deleting..." : "Delete Account"}
             </AlertDialogAction>

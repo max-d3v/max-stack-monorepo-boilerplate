@@ -1,12 +1,12 @@
-import { api } from "./client";
 import type {
   AuthResponse,
   LoginInput,
-  RegisterInput,
   LoginResponse,
-  RegisterResponse,
   LogoutResponse,
+  RegisterInput,
+  RegisterResponse,
 } from "@workspace/types";
+import { api } from "./client";
 
 export async function getAuthUser(): Promise<AuthResponse> {
   return api.get<AuthResponse>("/auth/me");

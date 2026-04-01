@@ -1,27 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@workspace/ui/components/button";
-import { Input } from "@workspace/ui/components/input";
-import { Label } from "@workspace/ui/components/label";
-import { Textarea } from "@workspace/ui/components/textarea";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@workspace/ui/components/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu";
+import type { CreateTaskInput } from "@workspace/types";
+import { type Task, updateTaskInputSchema } from "@workspace/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,24 +13,42 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@workspace/ui/components/alert-dialog";
+import { Button } from "@workspace/ui/components/button";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@workspace/ui/components/dropdown-menu";
+import { Input } from "@workspace/ui/components/input";
+import { Label } from "@workspace/ui/components/label";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from "@workspace/ui/components/sheet";
+import { Textarea } from "@workspace/ui/components/textarea";
+import {
+  CheckCircle2,
   Circle,
   Clock,
-  CheckCircle2,
-  XCircle,
   Loader2,
   Trash2,
+  XCircle,
 } from "lucide-react";
-import { useUpdateTask, useDeleteTask } from "@/hooks/use-tasks";
-import { updateTaskInputSchema } from "@workspace/types";
-import type { CreateTaskInput } from "@workspace/types";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDeleteTask, useUpdateTask } from "@/hooks/use-tasks";
 import { StatusIcon, statusConfig } from "./task-status-config";
-import { Task } from "@workspace/types";
 
 interface EditTaskSheetProps {
-  task: Task | null;
-  open: boolean;
   onOpenChange: (open: boolean) => void;
+  open: boolean;
+  task: Task | null;
 }
 
 export function EditTaskSheet({
@@ -81,7 +80,9 @@ export function EditTaskSheet({
   }, [task, form]);
 
   const handleSubmit = async (data: Partial<CreateTaskInput>) => {
-    if (!task) return;
+    if (!task) {
+      return;
+    }
 
     await updateTask.mutateAsync({
       id: task.id,
@@ -92,17 +93,21 @@ export function EditTaskSheet({
   };
 
   const handleDelete = async () => {
-    if (!task) return;
+    if (!task) {
+      return;
+    }
 
     await deleteTask.mutateAsync(task.id);
     setShowDeleteDialog(false);
     onOpenChange(false);
   };
 
-  if (!task) return null;
+  if (!task) {
+    return null;
+  }
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet onOpenChange={onOpenChange} open={open}>
       <SheetContent className="flex flex-col">
         <SheetHeader>
           <SheetTitle>Edit Task</SheetTitle>
@@ -119,7 +124,7 @@ export function EditTaskSheet({
               placeholder="Enter task title"
             />
             {form.formState.errors.title && (
-              <p className="text-sm text-destructive">
+              <p className="text-destructive text-sm">
                 {form.formState.errors.title.message}
               </p>
             )}
@@ -129,8 +134,8 @@ export function EditTaskSheet({
             <Textarea
               id="edit-task-description"
               {...form.register("description")}
-              placeholder="Enter task description (optional)"
               className="resize-none"
+              placeholder="Enter task description (optional)"
               rows={4}
             />
           </div>
@@ -138,7 +143,7 @@ export function EditTaskSheet({
             <Label>Status</Label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="justify-start gap-2">
+                <Button className="justify-start gap-2" variant="outline">
                   {form.watch("status") && (
                     <StatusIcon status={form.watch("status")!} />
                   )}
@@ -175,13 +180,13 @@ export function EditTaskSheet({
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <div className="grid gap-3 pt-6 border-t"></div>
+          <div className="grid gap-3 border-t pt-6" />
         </div>
         <SheetFooter className="gap-2">
           <Button
-            type="button"
-            onClick={form.handleSubmit(handleSubmit)}
             disabled={updateTask.isPending || form.formState.isSubmitting}
+            onClick={form.handleSubmit(handleSubmit)}
+            type="button"
           >
             {updateTask.isPending ? (
               <>
@@ -193,11 +198,11 @@ export function EditTaskSheet({
             )}
           </Button>
           <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => setShowDeleteDialog(true)}
-            disabled={deleteTask.isPending}
             className="w-full"
+            disabled={deleteTask.isPending}
+            onClick={() => setShowDeleteDialog(true)}
+            size="sm"
+            variant="destructive"
           >
             {deleteTask.isPending ? (
               <>
@@ -217,7 +222,7 @@ export function EditTaskSheet({
         </SheetFooter>
       </SheetContent>
 
-      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+      <AlertDialog onOpenChange={setShowDeleteDialog} open={showDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Task</AlertDialogTitle>
@@ -229,9 +234,9 @@ export function EditTaskSheet({
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={handleDelete}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               disabled={deleteTask.isPending}
+              onClick={handleDelete}
             >
               {deleteTask.isPending ? (
                 <>

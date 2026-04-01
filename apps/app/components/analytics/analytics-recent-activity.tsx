@@ -1,5 +1,7 @@
 "use client";
 
+import type { Task } from "@workspace/types";
+import { Badge } from "@workspace/ui/components/badge";
 import {
   Card,
   CardContent,
@@ -7,13 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-import { Badge } from "@workspace/ui/components/badge";
-import type { Task } from "@workspace/types";
 
 interface RecentActivityItem {
-  readonly title: string;
-  readonly status: Task["status"];
   readonly date: string;
+  readonly status: Task["status"];
+  readonly title: string;
 }
 
 interface AnalyticsRecentActivityProps {
@@ -62,14 +62,14 @@ export function AnalyticsRecentActivity({
           {recentActivity.length > 0 ? (
             recentActivity.map((activity, idx) => (
               <div
+                className="flex items-center justify-between border-b pb-4 last:border-b-0 last:pb-0"
                 key={idx}
-                className="flex items-center justify-between pb-4 border-b last:border-b-0 last:pb-0"
               >
                 <div className="space-y-1">
-                  <p className="text-sm font-medium leading-none">
+                  <p className="font-medium text-sm leading-none">
                     {activity.title}
                   </p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-muted-foreground text-xs">
                     {activity.date}
                   </p>
                 </div>
@@ -79,7 +79,7 @@ export function AnalyticsRecentActivity({
               </div>
             ))
           ) : (
-            <p className="text-sm text-muted-foreground text-center py-8">
+            <p className="py-8 text-center text-muted-foreground text-sm">
               No recent activity
             </p>
           )}

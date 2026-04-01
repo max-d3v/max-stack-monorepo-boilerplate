@@ -1,7 +1,8 @@
 "use client";
 
-import { Button } from "@workspace/ui/components/button";
+import type { Task } from "@workspace/types";
 import { Badge } from "@workspace/ui/components/badge";
+import { Button } from "@workspace/ui/components/button";
 import {
   Card,
   CardContent,
@@ -9,6 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@workspace/ui/components/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -18,36 +25,29 @@ import {
   TableRow,
 } from "@workspace/ui/components/table";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu";
-import {
+  CheckCircle2,
   Circle,
   Clock,
-  CheckCircle2,
-  XCircle,
   Edit2,
   MoreVertical,
-  Trash2,
   Plus,
+  Trash2,
+  XCircle,
 } from "lucide-react";
-import type { Task } from "@workspace/types";
 import {
+  type StatusFilter,
   StatusIcon,
   statusConfig,
-  type StatusFilter,
 } from "./task-status-config";
 
 interface TasksTableProps {
-  tasks: Task[];
   filteredTasks: Task[];
-  statusFilter: StatusFilter;
-  searchQuery: string;
+  onCreateTask: () => void;
   onEditTask: (task: Task) => void;
   onStatusChange: (task: Task, status: Task["status"]) => void;
-  onCreateTask: () => void;
+  searchQuery: string;
+  statusFilter: StatusFilter;
+  tasks: Task[];
 }
 
 export function TasksTable({
@@ -88,39 +88,39 @@ export function TasksTable({
                   <TableHead className="hidden md:table-cell">
                     Description
                   </TableHead>
-                  <TableHead className="hidden sm:table-cell w-[140px]">
+                  <TableHead className="hidden w-[140px] sm:table-cell">
                     Created
                   </TableHead>
                   <TableHead className="w-[100px]">Badge</TableHead>
-                  <TableHead className="w-[50px]"></TableHead>
+                  <TableHead className="w-[50px]" />
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredTasks.map((task) => (
-                  <TableRow key={task.id} className="group">
+                  <TableRow className="group" key={task.id}>
                     <TableCell>
                       <StatusIcon status={task.status} />
                     </TableCell>
                     <TableCell>
                       <button
+                        className="text-left font-medium transition-colors hover:text-primary"
                         onClick={() => onEditTask(task)}
-                        className="text-left font-medium hover:text-primary transition-colors"
                       >
                         {task.title}
                       </button>
                     </TableCell>
-                    <TableCell className="hidden md:table-cell max-w-[300px]">
+                    <TableCell className="hidden max-w-[300px] md:table-cell">
                       {task.description ? (
-                        <span className="text-sm text-muted-foreground truncate block">
+                        <span className="block truncate text-muted-foreground text-sm">
                           {task.description}
                         </span>
                       ) : (
-                        <span className="text-sm text-muted-foreground italic">
+                        <span className="text-muted-foreground text-sm italic">
                           No description
                         </span>
                       )}
                     </TableCell>
-                    <TableCell className="hidden sm:table-cell text-sm text-muted-foreground">
+                    <TableCell className="hidden text-muted-foreground text-sm sm:table-cell">
                       {new Date(task.createdAt).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -136,9 +136,9 @@ export function TasksTable({
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button
-                            variant="ghost"
-                            size="sm"
                             className="h-8 w-8 p-0"
+                            size="sm"
+                            variant="ghost"
                           >
                             <MoreVertical className="h-4 w-4" />
                           </Button>
@@ -193,10 +193,10 @@ export function TasksTable({
         ) : (
           <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
             <Circle className="mb-4 h-12 w-12 text-muted-foreground" />
-            <h3 className="mb-2 text-lg font-medium">
+            <h3 className="mb-2 font-medium text-lg">
               {searchQuery ? "No tasks found" : "No tasks yet"}
             </h3>
-            <p className="mb-4 text-sm text-muted-foreground">
+            <p className="mb-4 text-muted-foreground text-sm">
               {searchQuery
                 ? "Try adjusting your search or filters"
                 : "Get started by creating your first task"}

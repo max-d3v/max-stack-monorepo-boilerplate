@@ -18,11 +18,13 @@ function getErrorMessage(error: unknown): string {
 }
 
 function formatZodError(error: ZodError): string {
-  const firstError = error.errors[0];
-  if (!firstError) return "Validation failed";
+  const firstIssue = error.issues[0];
+  if (!firstIssue) {
+    return "Validation failed";
+  }
 
-  const field = firstError.path.join(".");
-  return field ? `${field}: ${firstError.message}` : firstError.message;
+  const field = firstIssue.path.join(".");
+  return field ? `${field}: ${firstIssue.message}` : firstIssue.message;
 }
 
 export function showErrorToast(error: unknown, title = "Error") {

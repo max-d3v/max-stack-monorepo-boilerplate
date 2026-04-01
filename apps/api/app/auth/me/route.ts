@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "@workspace/auth/server";
-import type { AuthResponse, ApiErrorResponse } from "@workspace/types";
-import { withAxiom, logger } from "@workspace/observability";
+import { logger, withAxiom } from "@workspace/observability";
+import type { ApiErrorResponse, AuthResponse } from "@workspace/types";
+import { type NextRequest, NextResponse } from "next/server";
 
 export const GET = withAxiom(
   async (

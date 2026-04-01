@@ -1,15 +1,15 @@
-import { db, tasks, eq, desc, userPreferences } from "@workspace/database";
-import { createTaskInputSchema } from "@workspace/types";
+import { getCurrentUser } from "@workspace/auth/server";
+import { db, desc, eq, tasks, userPreferences } from "@workspace/database";
+import { logger, withAxiom } from "@workspace/observability";
 import type {
+  ApiErrorResponse,
+  CreateTaskResponse,
   Task,
   TasksListResponse,
-  CreateTaskResponse,
-  ApiErrorResponse,
 } from "@workspace/types";
-import { withAxiom, logger } from "@workspace/observability";
+import { createTaskInputSchema } from "@workspace/types";
 import { NextResponse } from "next/server";
 import { formatZodError } from "@/lib/validation";
-import { getCurrentUser } from "@workspace/auth/server";
 
 function getStatusCount(userTasks: TasksListResponse["data"]) {
   const filterStatus = (status: Task["status"]) =>
@@ -112,7 +112,7 @@ export const POST = withAxiom(
     const newTasks = await db
       .insert(tasks)
       .values({
-        userId: userId,
+        userId,
         ...validatedData,
         status: defaultTaskStatus,
       })

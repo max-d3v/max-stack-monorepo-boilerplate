@@ -1,7 +1,5 @@
 "use client";
 
-import { type LucideIcon } from "lucide-react";
-
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -9,6 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@workspace/ui/components/sidebar";
+import type { LucideIcon } from "lucide-react";
 
 export function NavMain({
   items,
@@ -28,8 +27,8 @@ export function NavMain({
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton
               asChild
-              tooltip={item.title}
               isActive={item.isActive}
+              tooltip={item.title}
             >
               <a href={item.url}>
                 <item.icon />

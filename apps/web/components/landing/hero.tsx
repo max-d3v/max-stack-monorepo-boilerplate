@@ -31,26 +31,30 @@ export function Hero() {
             <span className="block font-mono text-6xl sm:text-6xl lg:text-7xl">
               Orion Kit
             </span>
-            <span className="mt-4 block text-2xl sm:text-3xl font-medium text-muted-foreground">
+            <span className="mt-4 block font-medium text-2xl text-muted-foreground sm:text-3xl">
               Build SaaS faster — production‑ready, type‑safe, and beautiful
               from day one
             </span>
           </h1>
 
-          <p className="mb-10 text-lg leading-relaxed text-muted-foreground sm:text-xl">
+          <p className="mb-10 text-lg text-muted-foreground leading-relaxed sm:text-xl">
             An open‑source boilerplate for TypeScript and Next.js with
             authentication, payments, background jobs, and deployment ready out
             of the box.
           </p>
 
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button size="lg" asChild>
-              <a target="_blank" href={linkUrl}>
+            <Button asChild size="lg">
+              <a href={linkUrl} rel="noopener" target="_blank">
                 Get Started
               </a>
             </Button>
-            <Button size="lg" variant="outline" className="gap-2" asChild>
-              <a target="_blank" href="https://github.com/Mumma6/orion-kit">
+            <Button asChild className="gap-2" size="lg" variant="outline">
+              <a
+                href="https://github.com/Mumma6/orion-kit"
+                rel="noopener"
+                target="_blank"
+              >
                 <Github className="h-5 w-5" />
                 View on GitHub
               </a>

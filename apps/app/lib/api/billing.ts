@@ -1,10 +1,10 @@
-import { api } from "./client";
 import type {
-  CreateCheckoutSessionResponse,
-  SubscriptionResponse,
-  CreatePortalSessionResponse,
   ApiResponse,
+  CreateCheckoutSessionResponse,
+  CreatePortalSessionResponse,
+  SubscriptionResponse,
 } from "@workspace/types";
+import { api } from "./client";
 
 export async function getSubscription(): Promise<SubscriptionResponse> {
   return api.get<SubscriptionResponse>("/subscription");

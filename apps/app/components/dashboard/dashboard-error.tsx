@@ -30,7 +30,7 @@ export function DashboardError({ error, onRetry }: DashboardErrorProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Button onClick={onRetry} variant="outline" size="sm">
+        <Button onClick={onRetry} size="sm" variant="outline">
           Try Again
         </Button>
       </CardContent>

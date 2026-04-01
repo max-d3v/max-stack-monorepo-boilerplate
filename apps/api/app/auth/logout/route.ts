@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import type { LogoutResponse, ApiErrorResponse } from "@workspace/types";
-import { withAxiom, logger } from "@workspace/observability";
+import { logger, withAxiom } from "@workspace/observability";
+import type { ApiErrorResponse, LogoutResponse } from "@workspace/types";
+import { type NextRequest, NextResponse } from "next/server";
 
 export const POST = withAxiom(
   async (

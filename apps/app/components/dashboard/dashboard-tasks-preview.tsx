@@ -1,5 +1,6 @@
 "use client";
 
+import type { Task } from "@workspace/types";
 import {
   Card,
   CardContent,
@@ -8,7 +9,6 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { CheckCircle2, Circle, Clock } from "lucide-react";
-import type { Task } from "@workspace/types";
 
 interface DashboardTasksPreviewProps {
   readonly tasks: Task[];
@@ -72,18 +72,18 @@ export function DashboardTasksPreview({ tasks }: DashboardTasksPreviewProps) {
         <div className="space-y-3">
           {recentTasks.map((task) => (
             <div
-              key={task.id}
               className="flex items-start gap-3 rounded-lg border p-4 transition-colors hover:bg-muted/50"
+              key={task.id}
             >
               <div className="mt-0.5">{getStatusIcon(task.status)}</div>
               <div className="flex-1 space-y-1">
                 <div className="flex items-center gap-2">
                   <h4 className="font-medium">{task.title}</h4>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground text-xs">
                     {getStatusText(task.status)}
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   {task.description}
                 </p>
               </div>

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateProfile, deleteAccount } from "@/lib/api/profile";
-import { showSuccessToast, showErrorToast } from "@/lib/errors";
+import { deleteAccount, updateProfile } from "@/lib/api/profile";
+import { showErrorToast, showSuccessToast } from "@/lib/errors";
 
 export function useUpdateProfile() {
   const queryClient = useQueryClient();

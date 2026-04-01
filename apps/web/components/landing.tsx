@@ -1,9 +1,9 @@
+import { CTA } from "./landing/cta";
+import { Features } from "./landing/features";
+import { Footer } from "./landing/footer";
 import { Hero } from "./landing/hero";
 import { Showcase } from "./landing/showcase";
 import { TechStack } from "./landing/tech-stack";
-import { Features } from "./landing/features";
-import { CTA } from "./landing/cta";
-import { Footer } from "./landing/footer";
 
 export default function Landing() {
   return (

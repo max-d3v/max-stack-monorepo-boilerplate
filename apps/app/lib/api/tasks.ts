@@ -1,10 +1,10 @@
-import { api } from "./client";
 import type {
-  TasksListResponse,
-  CreateTaskResponse,
   CreateTaskInput,
+  CreateTaskResponse,
   DeleteTaskResponse,
+  TasksListResponse,
 } from "@workspace/types";
+import { api } from "./client";
 
 export async function getTasks(): Promise<TasksListResponse> {
   const response = await api.get<TasksListResponse>("/tasks");

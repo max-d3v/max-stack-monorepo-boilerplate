@@ -1,17 +1,5 @@
 "use client";
 
-import * as React from "react";
-import {
-  LayoutDashboard,
-  Settings,
-  ListTodo,
-  BarChart3,
-  CreditCard,
-} from "lucide-react";
-import { usePathname } from "next/navigation";
-
-import { NavMain } from "@/components/dashboard/nav-main";
-import { NavUser } from "@/components/dashboard/nav-user";
 import { OrionLogo } from "@workspace/ui/components/orion-logo";
 import {
   Sidebar,
@@ -22,6 +10,17 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@workspace/ui/components/sidebar";
+import {
+  BarChart3,
+  CreditCard,
+  LayoutDashboard,
+  ListTodo,
+  Settings,
+} from "lucide-react";
+import { usePathname } from "next/navigation";
+import type * as React from "react";
+import { NavMain } from "@/components/dashboard/nav-main";
+import { NavUser } from "@/components/dashboard/nav-user";
 
 const navItems = [
   {
@@ -65,9 +64,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              size="lg"
               asChild
               className="hover:bg-transparent"
+              size="lg"
             >
               <a href="/dashboard">
                 <OrionLogo size="sm" />

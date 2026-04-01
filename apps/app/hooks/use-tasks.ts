@@ -1,11 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createTask, getTasks, updateTask, deleteTask } from "@/lib/api/tasks";
 import type {
+  CreateTaskInput,
   Task,
   TasksListResponse,
-  CreateTaskInput,
 } from "@workspace/types";
-import { showSuccessToast, showErrorToast } from "@/lib/errors";
+import { createTask, deleteTask, getTasks, updateTask } from "@/lib/api/tasks";
+import { showErrorToast, showSuccessToast } from "@/lib/errors";
 
 function getStatusCount(tasks: TasksListResponse["data"]) {
   const filterStatus = (status: Task["status"]) =>
@@ -44,7 +44,9 @@ export function useCreateTask() {
       queryClient.invalidateQueries({ queryKey: tasksKeys.lists() });
 
       queryClient.setQueryData<TasksListResponse>(tasksKeys.lists(), (old) => {
-        if (!old) return old;
+        if (!old) {
+          return old;
+        }
         const newTask = response.data;
 
         const updates: Partial<TasksListResponse> = {
@@ -86,7 +88,9 @@ export function useUpdateTask() {
       queryClient.invalidateQueries({ queryKey: tasksKeys.lists() });
 
       queryClient.setQueryData<TasksListResponse>(tasksKeys.lists(), (old) => {
-        if (!old) return old;
+        if (!old) {
+          return old;
+        }
         const updatedTask = response.data;
 
         const updatedData = old.data.map((task) =>
@@ -119,7 +123,9 @@ export function useDeleteTask() {
       showSuccessToast("Task deleted", "Task has been deleted successfully");
 
       queryClient.setQueryData<TasksListResponse>(tasksKeys.lists(), (old) => {
-        if (!old) return old;
+        if (!old) {
+          return old;
+        }
 
         const taskToDelete = old.data.find((t) => t.id === deletedId);
         const updatedData = old.data.filter((task) => task.id !== deletedId);

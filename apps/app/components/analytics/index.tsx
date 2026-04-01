@@ -1,21 +1,22 @@
 "use client";
 
+import { BarChart3, CheckCircle2, Circle, Clock, XCircle } from "lucide-react";
 import { useMemo } from "react";
-import { BarChart3 } from "lucide-react";
-import { CheckCircle2, Clock, Circle, XCircle } from "lucide-react";
 import { useTasks } from "@/hooks/use-tasks";
-import { AnalyticsStats } from "./analytics-stats";
-import { AnalyticsStatusBreakdown } from "./analytics-status-breakdown";
-import { AnalyticsRecentActivity } from "./analytics-recent-activity";
+import { AnalyticsError } from "./analytics-error";
 import { AnalyticsInsights } from "./analytics-insights";
 import { AnalyticsLoading } from "./analytics-loading";
-import { AnalyticsError } from "./analytics-error";
+import { AnalyticsRecentActivity } from "./analytics-recent-activity";
+import { AnalyticsStats } from "./analytics-stats";
+import { AnalyticsStatusBreakdown } from "./analytics-status-breakdown";
 
 export function AnalyticsContent() {
   const { data: tasksData, isLoading, refetch } = useTasks();
 
   const analytics = useMemo(() => {
-    if (!tasksData?.data) return null;
+    if (!tasksData?.data) {
+      return null;
+    }
 
     const tasks = tasksData.data;
     const now = new Date();
@@ -126,7 +127,7 @@ export function AnalyticsContent() {
           <BarChart3 className="h-8 w-8 text-primary-foreground" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold">Analytics</h1>
+          <h1 className="font-bold text-3xl">Analytics</h1>
           <p className="text-muted-foreground">
             Track your productivity and task insights
           </p>
@@ -134,10 +135,10 @@ export function AnalyticsContent() {
       </div>
 
       <AnalyticsStats
-        tasksThisWeek={analytics.tasksThisWeek}
-        tasksThisMonth={analytics.tasksThisMonth}
         completedThisWeek={analytics.completedThisWeek}
         completionRate={analytics.completionRate}
+        tasksThisMonth={analytics.tasksThisMonth}
+        tasksThisWeek={analytics.tasksThisWeek}
         total={tasksData.total}
       />
 
@@ -149,8 +150,8 @@ export function AnalyticsContent() {
 
       <AnalyticsInsights
         completedThisWeek={analytics.completedThisWeek}
-        inProgress={tasksData.inProgress}
         completionRate={analytics.completionRate}
+        inProgress={tasksData.inProgress}
       />
     </div>
   );
