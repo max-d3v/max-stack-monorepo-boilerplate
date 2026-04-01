@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { ApiResponse } from "./api";
 
 export const createCheckoutSessionInputSchema = z.object({
   priceId: z.string().min(1, "Price ID is required"),
@@ -13,31 +12,31 @@ export type CreateCheckoutSessionInput = z.infer<
 
 export type {
   CheckoutSession,
-  SubscriptionData,
   PortalSession,
-  StripeSubscription,
   PricingPlan,
+  StripeSubscription,
+  SubscriptionData,
 } from "@workspace/payment";
 
 export {
-  PLANS,
+  canUpgrade,
   getPlanById,
   getPlanByPriceId,
   isFreePlan,
-  canUpgrade,
+  PLANS,
 } from "@workspace/payment/config";
 
-export type CreateCheckoutSessionResponse = ApiResponse<{
+export type CreateCheckoutSessionResponse = {
   url: string;
   sessionId: string;
-}>;
-export type SubscriptionResponse = ApiResponse<{
+};
+export type SubscriptionResponse = {
   subscription: any | null;
   plan: string;
-}>;
-export type CreatePortalSessionResponse = ApiResponse<{
+};
+export type CreatePortalSessionResponse = {
   url: string;
-}>;
-export type DeleteSubscriptionResponse = ApiResponse<{
+};
+export type DeleteSubscriptionResponse = {
   deleted: boolean;
-}>;
+};

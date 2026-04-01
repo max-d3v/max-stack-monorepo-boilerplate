@@ -6,7 +6,10 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    "./": "./src/index.ts",
+    "./repository/*": "./src/repository/*.ts",
+    "./errors/*": "./src/errors/*.ts",
+    "./use-cases/*": "./src/use-cases/*.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -15,7 +18,7 @@
   "dependencies": {
     "@workspace/database": "workspace:*",
     "@workspace/payment": "workspace:*",
-    "zod": "^3.25.76"
+    "zod": "catalog:schemas"
   },
   "devDependencies": {
     "@workspace/typescript-config": "workspace:*",
