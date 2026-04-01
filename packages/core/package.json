@@ -1,0 +1,24 @@
+{
+  "name": "@workspace/core",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "exports": {
+    "./": "./src/index.ts",
+    "./use-cases/*": "./src/use-cases/*.ts"
+  },
+  "dependencies": {
+    "@workspace/repository": "workspace:*",
+    "@workspace/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
