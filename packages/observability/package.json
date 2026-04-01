@@ -26,7 +26,7 @@
     "@axiomhq/logging": "^0.1.5",
     "@axiomhq/nextjs": "^0.1.5",
     "@axiomhq/react": "^0.1.5",
-    "next": "^15.4.5",
+    "next": "catalog:next",
     "react": "^19.1.1"
   },
   "devDependencies": {
@@ -35,4 +35,3 @@
     "typescript": "^5.9.2"
   }
 }
-

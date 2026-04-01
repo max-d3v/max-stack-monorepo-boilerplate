@@ -1,13 +1,13 @@
-import { Resend } from "resend";
 import { render } from "@react-email/render";
+import { Resend } from "resend";
 import { WelcomeEmail } from "./templates/welcome-email";
 
 const resend = new Resend(process.env.RESEND_TOKEN);
 
 export interface SendEmailOptions {
-  to: string;
-  subject: string;
   react: React.ReactElement;
+  subject: string;
+  to: string;
 }
 
 export async function sendEmail({ to, subject, react }: SendEmailOptions) {
