@@ -12,6 +12,7 @@
     "./use-cases/*": "./src/use-cases/*.ts"
   },
   "dependencies": {
+    "@workspace/payment": "workspace:*",
     "@workspace/repository": "workspace:*",
     "@workspace/types": "workspace:*"
   },
