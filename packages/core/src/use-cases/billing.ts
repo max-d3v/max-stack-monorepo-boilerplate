@@ -1,10 +1,10 @@
-import { userPreferencesRepository } from "@workspace/repository";
 import {
   cancelSubscription,
   createBillingPortalSession,
   createCheckoutSession,
   getSubscription,
 } from "@workspace/payment/server";
+import { userPreferencesRepository } from "@workspace/repository";
 import {
   assertHasStripeCustomer,
   assertHasSubscription,
@@ -19,9 +19,7 @@ export const getSubscriptionStatus = async (params: { userId: string }) => {
     return { subscription: null, plan: "free" };
   }
 
-  const subscription = await getSubscription(
-    preferences.stripeSubscriptionId
-  );
+  const subscription = await getSubscription(preferences.stripeSubscriptionId);
 
   if (!subscription) {
     return { subscription: null, plan: preferences.plan ?? "free" };

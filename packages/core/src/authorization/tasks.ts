@@ -1,5 +1,5 @@
-import type { TaskRawObject } from "@workspace/types/repository/tasks";
 import { HttpError } from "@workspace/types/errors/http";
+import type { TaskRawObject } from "@workspace/types/repository/tasks";
 
 export const assertTaskOwnership = (
   task: TaskRawObject,

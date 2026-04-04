@@ -13,9 +13,7 @@ export const updateTaskInputSchema = z.object({
   id: z.string().uuid(),
   title: z.string().min(1).optional(),
   description: z.string().nullable().optional(),
-  status: z
-    .enum(["todo", "in-progress", "completed", "cancelled"])
-    .optional(),
+  status: z.enum(["todo", "in-progress", "completed", "cancelled"]).optional(),
   dueDate: z.coerce.date().nullable().optional(),
   completedAt: z.coerce.date().nullable().optional(),
 });

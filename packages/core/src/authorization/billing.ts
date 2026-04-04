@@ -1,5 +1,5 @@
-import type { UserPreferenceRawObject } from "@workspace/types/repository/user-preferences";
 import { HttpError } from "@workspace/types/errors/http";
+import type { UserPreferenceRawObject } from "@workspace/types/repository/user-preferences";
 
 export const assertHasStripeCustomer = (
   preferences: UserPreferenceRawObject
