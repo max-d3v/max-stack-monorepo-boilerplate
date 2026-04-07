@@ -19,7 +19,7 @@ export const getUserTasks = async (params: GetUserTasksInput) => {
 
 export const getUserTasksWithCount = async (params: GetUserTasksInput) => {
   const { userId } = params;
-  const tasks = await tasksRepository.find(userId);
+  const tasks = await tasksRepository.list({ userId });
   const taskCounts = countTasksByStatus(tasks);
   return { tasks, taskCounts };
 };

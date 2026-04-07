@@ -50,7 +50,7 @@ export const list = async (
   const whereClause = and(eq(tasks.userId, userId), searchClause);
   const offset = (pageNum - 1) * pageSize;
 
-  const [data, totalResult] = await Promise.all([
+  const [data] = await Promise.all([
     db.query.tasks.findMany({
       where: whereClause,
       orderBy: desc(tasks.createdAt),
@@ -61,7 +61,7 @@ export const list = async (
     db.select({ count: count() }).from(tasks).where(whereClause),
   ]);
 
-  return { data, total: totalResult[0]?.count ?? 0 };
+  return data;
 };
 
 export const get = async (params: GetTaskParams): Promise<TaskRawObject> => {
@@ -83,7 +83,8 @@ export const find = async (userId: string): Promise<TaskRawObject[]> => {
     .select()
     .from(tasks)
     .where(eq(tasks.userId, userId))
-    .orderBy(desc(tasks.createdAt));
+    .orderBy(desc(tasks.createdAt))
+    .limit(1)
 
   return result;
 };
