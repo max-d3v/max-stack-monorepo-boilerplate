@@ -1,4 +1,17 @@
+import type { ApiResponse } from "../billing";
+import type { TaskRawObject } from "../repository/tasks";
 import { z } from "zod";
+
+export type Task = TaskRawObject;
+export type TasksListResponse = {
+  data: Task[];
+  total: number;
+  completed: number;
+  inProgress: number;
+  todo: number;
+};
+export type CreateTaskResponse = ApiResponse<Task>;
+export type DeleteTaskResponse = ApiResponse<{ deleted: boolean }>;
 
 export const getUserTasksInputSchema = z.object({
   userId: z.string().uuid(),

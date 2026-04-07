@@ -1,4 +1,10 @@
+import type { ApiResponse } from "../billing";
+import type { UserPreferenceRawObject } from "../repository/user-preferences";
 import { z } from "zod";
+
+export type UserPreference = UserPreferenceRawObject;
+export type PreferencesResponse = ApiResponse<UserPreferenceRawObject>;
+export type UpdatePreferencesResponse = ApiResponse<UserPreferenceRawObject>;
 
 export const updatePreferencesInputSchema = z.object({
   theme: z.string().optional(),

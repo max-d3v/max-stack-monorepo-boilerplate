@@ -5,7 +5,7 @@ import type {
   LogoutResponse,
   RegisterInput,
   RegisterResponse,
-} from "@workspace/types";
+} from "@workspace/types/use-cases/account";
 import { api } from "./client";
 
 export async function getAuthUser(): Promise<AuthResponse> {

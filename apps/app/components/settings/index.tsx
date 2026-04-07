@@ -1,6 +1,6 @@
 "use client";
 
-import type { UpdatePreferencesInput } from "@workspace/types";
+import type { UpdatePreferencesInput } from "@workspace/types/use-cases/preferences";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 import { Settings } from "lucide-react";
 import { useEffect, useState } from "react";

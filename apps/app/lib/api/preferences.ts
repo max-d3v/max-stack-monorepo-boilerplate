@@ -2,7 +2,7 @@ import type {
   PreferencesResponse,
   UpdatePreferencesInput,
   UpdatePreferencesResponse,
-} from "@workspace/types";
+} from "@workspace/types/use-cases/preferences";
 import { api } from "./client";
 
 export async function getPreferences(): Promise<PreferencesResponse> {

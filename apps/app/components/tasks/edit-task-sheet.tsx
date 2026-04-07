@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { CreateTaskInput } from "@workspace/types";
-import { type Task, updateTaskInputSchema } from "@workspace/types";
+import type { CreateTaskInput } from "@workspace/types/use-cases/tasks";
+import { type Task, updateTaskInputSchema } from "@workspace/types/use-cases/tasks";
 import {
   AlertDialog,
   AlertDialogAction,

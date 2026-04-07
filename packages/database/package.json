@@ -18,7 +18,7 @@
     "db:check": "drizzle-kit check",
     "db:seed": "tsx src/seed.ts",
     "lint": "eslint . --max-warnings 0",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",

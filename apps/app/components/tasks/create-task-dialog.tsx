@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { CreateTaskInput } from "@workspace/types";
-import { createTaskInputSchema } from "@workspace/types";
+import type { CreateTaskInput } from "@workspace/types/use-cases/tasks";
+import { createTaskInputSchema } from "@workspace/types/use-cases/tasks";
 import { Button } from "@workspace/ui/components/button";
 import {
   Dialog,
@@ -37,9 +37,6 @@ export function CreateTaskDialog({
     defaultValues: {
       title: "",
       description: "",
-      status: "todo" as const,
-      dueDate: null,
-      completedAt: null,
     },
   });
 

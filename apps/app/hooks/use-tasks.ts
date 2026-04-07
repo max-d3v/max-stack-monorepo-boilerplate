@@ -3,7 +3,8 @@ import type {
   CreateTaskInput,
   Task,
   TasksListResponse,
-} from "@workspace/types";
+  UpdateTaskInput,
+} from "@workspace/types/use-cases/tasks";
 import { createTask, deleteTask, getTasks, updateTask } from "@/lib/api/tasks";
 import { showErrorToast, showSuccessToast } from "@/lib/errors";
 
@@ -79,8 +80,8 @@ export function useUpdateTask() {
       id,
       updates,
     }: {
-      id: number;
-      updates: Partial<CreateTaskInput>;
+      id: string;
+      updates: Omit<UpdateTaskInput, "id">;
     }) => updateTask(id, updates),
     onSuccess: (response) => {
       showSuccessToast("Task updated", response.message);
@@ -118,7 +119,7 @@ export function useDeleteTask() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: number) => deleteTask(id),
+    mutationFn: (id: string) => deleteTask(id),
     onSuccess: (response, deletedId) => {
       showSuccessToast("Task deleted", "Task has been deleted successfully");
 

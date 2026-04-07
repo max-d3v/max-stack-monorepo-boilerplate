@@ -1,4 +1,4 @@
-import type { Task } from "@workspace/types";
+import type { Task } from "@workspace/types/use-cases/tasks";
 import { CheckCircle2, Circle, Clock, XCircle } from "lucide-react";
 
 export type StatusFilter = Task["status"] | "all";

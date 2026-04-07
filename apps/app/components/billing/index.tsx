@@ -1,7 +1,7 @@
 "use client";
 
 import { PricingCard } from "@workspace/payment/client";
-import { PLANS } from "@workspace/types";
+import { PLANS } from "@workspace/types/billing";
 import { CreditCard } from "lucide-react";
 import { useState } from "react";
 import {

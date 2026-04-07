@@ -183,6 +183,7 @@
     "packages/data-layer": {
       "name": "@workspace/data-layer",
       "dependencies": {
+        "@orpc/client": "^1.13.13",
         "@orpc/tanstack-query": "catalog:data-layer",
         "@tanstack/react-query": "catalog:data-layer",
         "@workspace/rpc": "workspace:*",

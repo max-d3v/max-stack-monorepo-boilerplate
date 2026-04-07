@@ -1,4 +1,17 @@
+import type { StripeSubscription } from "@workspace/payment";
 import { z } from "zod";
+
+export type ApiResponse<T> = {
+  success: boolean;
+  data: T;
+  message: string;
+};
+
+export type ApiErrorResponse = {
+  success: boolean;
+  error: string;
+  details?: string;
+};
 
 export const createCheckoutSessionInputSchema = z.object({
   priceId: z.string().min(1, "Price ID is required"),
@@ -26,17 +39,17 @@ export {
   PLANS,
 } from "@workspace/payment/config";
 
-export type CreateCheckoutSessionResponse = {
+export type CreateCheckoutSessionResponse = ApiResponse<{
   url: string;
   sessionId: string;
-};
-export type SubscriptionResponse = {
-  subscription: any | null;
+}>;
+export type SubscriptionResponse = ApiResponse<{
+  subscription: StripeSubscription | null;
   plan: string;
-};
-export type CreatePortalSessionResponse = {
+}>;
+export type CreatePortalSessionResponse = ApiResponse<{
   url: string;
-};
-export type DeleteSubscriptionResponse = {
+}>;
+export type DeleteSubscriptionResponse = ApiResponse<{
   deleted: boolean;
-};
+}>;

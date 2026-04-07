@@ -1,6 +1,6 @@
 "use client";
 
-import type { TasksListResponse } from "@workspace/types";
+import type { TasksListResponse } from "@workspace/types/use-cases/tasks";
 import {
   Card,
   CardContent,

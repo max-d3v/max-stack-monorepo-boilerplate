@@ -12,7 +12,7 @@
     "clean": "rm -rf .turbo node_modules",
     "lint": "eslint . --max-warnings 0",
     "jobs": "npx trigger.dev@latest dev",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "@trigger.dev/sdk": "4.0.4",

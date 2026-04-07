@@ -2,12 +2,17 @@
   "name": "@workspace/analytics",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./provider": "./src/provider.tsx",
+    "./server": "./src/server.ts",
+    "./instrumentation-client": "./src/instrumentation-client.ts",
+    "./keys": "./src/keys.ts"
   },
   "dependencies": {
     "@next/third-parties": "16.1.6",

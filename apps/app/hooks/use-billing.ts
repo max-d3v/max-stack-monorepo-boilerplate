@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { SubscriptionResponse } from "@workspace/types";
+import type { SubscriptionResponse } from "@workspace/types/billing";
 import {
   cancelSubscription,
   createBillingPortal,

@@ -5,7 +5,7 @@ import {
   verifyWebhookSignature,
   type WebhookDatabaseAdapter,
 } from "@workspace/payment/webhooks";
-import type { ApiErrorResponse, ApiResponse } from "@workspace/types";
+import type { ApiErrorResponse, ApiResponse } from "@workspace/types/billing";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";

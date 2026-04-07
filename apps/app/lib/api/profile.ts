@@ -2,7 +2,7 @@ import type {
   DeleteAccountResponse,
   UpdateProfileInput,
   UpdateProfileResponse,
-} from "@workspace/types";
+} from "@workspace/types/use-cases/account";
 import { api } from "./client";
 
 export const updateProfile = async (

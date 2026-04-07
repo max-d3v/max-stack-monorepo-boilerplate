@@ -1,7 +1,5 @@
 import { Rocket } from "lucide-react";
 import { auth } from "@workspace/auth/server";
-import { useMemo } from "react";
-
 
 export async function DashboardWelcome() {
   const { sessionClaims } = await auth();
@@ -10,7 +8,7 @@ export async function DashboardWelcome() {
     throw new Error("Full name is required in clerk's session claims");
   }
 
-  const name = useMemo(() => sessionClaims?.full_name as string, [sessionClaims]);
+  const name = sessionClaims.full_name as string;
 
   return (
     <div className="flex items-center gap-4 rounded-lg border bg-muted/30 p-6">

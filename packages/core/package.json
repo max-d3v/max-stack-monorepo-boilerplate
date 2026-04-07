@@ -1,6 +1,5 @@
 {
   "name": "@workspace/core",
-  "module": "index.ts",
   "type": "module",
   "private": true,
   "scripts": {
@@ -8,7 +7,6 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "exports": {
-    "./": "./src/index.ts",
     "./use-cases/*": "./src/use-cases/*.ts"
   },
   "dependencies": {

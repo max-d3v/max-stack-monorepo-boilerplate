@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { AuthUser, UpdateProfileInput } from "@workspace/types";
-import { UpdateProfileInputSchema } from "@workspace/types";
+import type { AuthUser, UpdateProfileInput } from "@workspace/types/use-cases/account";
+import { updateProfileInputSchema } from "@workspace/types/use-cases/account";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -54,7 +54,7 @@ export function EditProfileModal({
   const isDemoAccount = user.email === "demo@orion-kit.dev";
 
   const form = useForm<UpdateProfileInput>({
-    resolver: zodResolver(UpdateProfileInputSchema),
+    resolver: zodResolver(updateProfileInputSchema),
     defaultValues: {
       name: user.name || "",
     },

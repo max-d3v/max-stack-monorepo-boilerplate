@@ -1,3 +1,3 @@
-import { StandardRPCJsonSerializer } from "@workspace/rpc/orpc/serializer";
+import { StandardRPCJsonSerializer } from "@orpc/client/standard";
 
 export const serializer = new StandardRPCJsonSerializer();

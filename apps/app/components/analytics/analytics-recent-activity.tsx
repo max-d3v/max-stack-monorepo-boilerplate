@@ -1,6 +1,6 @@
 "use client";
 
-import type { Task } from "@workspace/types";
+import type { Task } from "@workspace/types/use-cases/tasks";
 import { Badge } from "@workspace/ui/components/badge";
 import {
   Card,

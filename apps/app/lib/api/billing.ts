@@ -3,7 +3,7 @@ import type {
   CreateCheckoutSessionResponse,
   CreatePortalSessionResponse,
   SubscriptionResponse,
-} from "@workspace/types";
+} from "@workspace/types/billing";
 import { api } from "./client";
 
 export async function getSubscription(): Promise<SubscriptionResponse> {

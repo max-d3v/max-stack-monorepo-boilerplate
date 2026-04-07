@@ -1,5 +1,3 @@
-import { createAuthHeaders } from "@workspace/auth/client";
-
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface FetchOptions extends RequestInit {
@@ -9,7 +7,6 @@ interface FetchOptions extends RequestInit {
 const createHeaders = (options: FetchOptions): Record<string, string> => {
   return {
     "Content-Type": "application/json",
-    ...createAuthHeaders(),
     ...(options.headers as Record<string, string>),
   };
 };
