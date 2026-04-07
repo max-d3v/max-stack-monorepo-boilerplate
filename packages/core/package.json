@@ -14,7 +14,8 @@
   "dependencies": {
     "@workspace/payment": "workspace:*",
     "@workspace/repository": "workspace:*",
-    "@workspace/types": "workspace:*"
+    "@workspace/types": "workspace:*",
+    "next": "catalog:web"
   },
   "devDependencies": {
     "@types/bun": "latest"

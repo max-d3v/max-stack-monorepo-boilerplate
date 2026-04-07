@@ -41,7 +41,7 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "next": "catalog:next",
+    "next": "catalog:web",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }

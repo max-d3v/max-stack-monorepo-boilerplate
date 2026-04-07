@@ -24,7 +24,7 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react": "catalog:web",
+    "react-dom": "catalog:web"
   }
 }
