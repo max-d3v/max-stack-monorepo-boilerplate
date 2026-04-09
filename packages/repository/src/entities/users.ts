@@ -6,8 +6,8 @@ import {
   eq,
   ilike,
   or,
-  users,
-} from "@workspace/database";
+} from "@workspace/database/client";
+import { users } from "@workspace/database/schema";
 import { HttpError } from "@workspace/types/errors/http";
 import type {
   CreateUserParams,

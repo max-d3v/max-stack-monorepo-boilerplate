@@ -1,4 +1,5 @@
-import { db, eq, userPreferences } from "@workspace/database";
+import { db, eq } from "@workspace/database/client";
+import { userPreferences } from "@workspace/database/schema";
 import { HttpError } from "@workspace/types/errors/http";
 import type {
   CreateUserPreferenceParams,

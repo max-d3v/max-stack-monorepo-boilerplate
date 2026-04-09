@@ -6,8 +6,8 @@ import {
   eq,
   ilike,
   or,
-  tasks,
-} from "@workspace/database";
+} from "@workspace/database/client";
+import { tasks } from "@workspace/database/schema";
 import { HttpError } from "@workspace/types/errors/http";
 import type {
   CreateTaskParams,
