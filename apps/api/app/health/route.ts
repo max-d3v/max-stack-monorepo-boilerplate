@@ -1,10 +1,9 @@
-import type { ApiResponse } from "@workspace/types/billing";
 import { NextResponse } from "next/server";
 
 export const runtime = "edge";
 
 export const GET = (): NextResponse => {
-  const response: ApiResponse<{ status: string }> = {
+  const response = {
     success: true,
     data: { status: "OK" },
     message: "API is healthy",

@@ -1,4 +1,5 @@
-import { db, eq, userPreferences } from "@workspace/database";
+import { db, eq } from "@workspace/database/client";
+import { userPreferences } from "@workspace/database/schema";
 import { logger } from "@workspace/observability/server";
 import { env } from "@workspace/payment/keys";
 import {
@@ -6,7 +7,6 @@ import {
   verifyWebhookSignature,
   type WebhookDatabaseAdapter,
 } from "@workspace/payment/webhooks";
-import type { ApiErrorResponse, ApiResponse } from "@workspace/types/billing";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
@@ -80,7 +80,7 @@ export async function POST(req: Request) {
 
     if (!signature) {
       logger.warn("Missing stripe-signature header");
-      const errorResponse: ApiErrorResponse = {
+      const errorResponse = {
         success: false,
         error: "Missing signature",
       };
@@ -107,7 +107,7 @@ export async function POST(req: Request) {
       duration,
     });
 
-    const response: ApiResponse<{ received: boolean }> = {
+    const response = {
       success: true,
       data: { received: true },
       message: "Webhook processed successfully",
@@ -121,7 +121,7 @@ export async function POST(req: Request) {
       duration,
     });
 
-    const errorResponse: ApiErrorResponse = {
+    const errorResponse = {
       success: false,
       error: "Webhook handler failed",
       details: error instanceof Error ? error.message : "Unknown error",
