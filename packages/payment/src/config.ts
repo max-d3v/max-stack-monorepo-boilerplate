@@ -1,14 +1,5 @@
-export interface PricingPlan {
-  readonly description: string;
-  readonly features: readonly string[];
-  readonly id: "free" | "pro" | "enterprise";
-  readonly maxTasks: number;
-  readonly maxUsers: number;
-  readonly name: string;
-  readonly popular?: boolean;
-  readonly price: number;
-  readonly priceId?: string;
-}
+import type { PricingPlan } from "@workspace/types/payments/pricing";
+import { env } from "./keys";
 
 export const PLANS: readonly PricingPlan[] = [
   {
@@ -30,7 +21,7 @@ export const PLANS: readonly PricingPlan[] = [
     name: "Pro",
     description: "For professionals and small teams",
     price: 19,
-    priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO,
+    priceId: env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO,
     maxTasks: -1,
     maxUsers: 5,
     popular: true,
@@ -48,7 +39,7 @@ export const PLANS: readonly PricingPlan[] = [
     name: "Enterprise",
     description: "For large organizations",
     price: 49,
-    priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_ENTERPRISE,
+    priceId: env.NEXT_PUBLIC_STRIPE_PRICE_ID_ENTERPRISE,
     maxTasks: -1,
     maxUsers: -1,
     features: [

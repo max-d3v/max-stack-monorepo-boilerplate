@@ -1,12 +1,9 @@
+import type { StripeSubscription } from "@workspace/types/payments/billing";
 import Stripe from "stripe";
 import { getPlanByPriceId } from "./config";
-import type { StripeSubscription } from "./types";
+import { env } from "./keys";
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error("STRIPE_SECRET_KEY is not defined");
-}
-
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-02-24.acacia",
   typescript: true,
 });
@@ -20,7 +17,7 @@ export async function createCheckoutSession(
     cancelUrl?: string;
   }
 ): Promise<Stripe.Checkout.Session> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3001";
+  const baseUrl = env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3001";
 
   const session = await stripe.checkout.sessions.create({
     customer_email: userEmail,
@@ -54,7 +51,7 @@ export async function createBillingPortalSession(
   customerId: string,
   returnUrl?: string
 ): Promise<Stripe.BillingPortal.Session> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3001";
+  const baseUrl = env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3001";
 
   const session = await stripe.billingPortal.sessions.create({
     customer: customerId,

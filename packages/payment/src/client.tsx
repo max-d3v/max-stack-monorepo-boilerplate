@@ -1,8 +1,6 @@
 "use client";
 
-import type { PricingCardProps, SubscriptionBadgeProps } from "./types";
-
-export type { PricingCardProps, SubscriptionBadgeProps };
+import type { PricingCardProps, SubscriptionBadgeProps } from "@workspace/types/payments/pricing";
 
 export function PricingCard({
   plan,
@@ -16,6 +14,7 @@ export function PricingCard({
     }
   };
 
+  const userPlan = plan.price === 0 ? "Get Started" : plan.name;
   return (
     <div
       className={`relative rounded-lg border p-8 ${
@@ -45,7 +44,7 @@ export function PricingCard({
       </div>
 
       <ul className="mb-6 space-y-3">
-        {plan.features.map((feature) => (
+        {plan.features.map((feature: string) => (
           <li className="flex items-start gap-2" key={feature}>
             <svg
               className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
@@ -53,6 +52,7 @@ export function PricingCard({
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Check</title>
               <path
                 d="M5 13l4 4L19 7"
                 strokeLinecap="round"
@@ -67,6 +67,7 @@ export function PricingCard({
 
       {current ? (
         <button
+          type="button"
           className="w-full cursor-not-allowed rounded-md bg-muted px-4 py-2 font-medium text-muted-foreground text-sm"
           disabled
         >
@@ -74,6 +75,7 @@ export function PricingCard({
         </button>
       ) : (
         <button
+          type="button"
           className={`mt-4 w-full rounded-md px-4 py-2 font-medium text-sm transition-colors ${
             plan.popular
               ? "bg-primary text-primary-foreground hover:bg-primary/90"
@@ -82,11 +84,7 @@ export function PricingCard({
           disabled={loading || !plan.priceId}
           onClick={handleClick}
         >
-          {loading
-            ? "Loading..."
-            : plan.price === 0
-              ? "Get Started"
-              : plan.name}
+          {loading ? "Loading..." : userPlan}
         </button>
       )}
     </div>
