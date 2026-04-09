@@ -1,7 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
   boolean,
-  integer,
   pgEnum,
   pgTable,
   text,
@@ -76,3 +75,10 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+
+export const schema = {
+  userPreferences,
+  tasks,
+  users,
+}
