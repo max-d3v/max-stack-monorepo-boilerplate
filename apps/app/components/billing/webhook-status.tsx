@@ -18,10 +18,11 @@ export const WebhookStatus = ({ onDismiss }: WebhookStatusProps) => {
             subscriptions to update:
           </p>
           <pre className="rounded bg-yellow-100 p-2 text-xs text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
-            stripe listen --forward-to localhost:3002/webhooks/stripe
+            stripe listen --forward-to localhost:3002/rpc/webhook.stripe
           </pre>
         </div>
         <button
+          type="button"
           aria-label="Dismiss"
           className="self-start text-yellow-600 transition-colors hover:text-slate-500"
           onClick={onDismiss}
