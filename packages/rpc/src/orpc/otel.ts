@@ -1,0 +1,1 @@
+export { ORPCInstrumentation } from '@orpc/otel'

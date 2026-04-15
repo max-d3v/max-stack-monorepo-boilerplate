@@ -10,12 +10,12 @@ import { authenticatedProcedure } from "../base";
 const billingRouter = {
   getSubscription: authenticatedProcedure.handler(async ({ context }) => {
     const { id } = context.user;
-    return getSubscriptionStatus({ userId: id });
+    return await getSubscriptionStatus({ userId: id });
   }),
 
   cancelSubscription: authenticatedProcedure.handler(async ({ context }) => {
     const { id } = context.user;
-    return cancelUserSubscription({ userId: id });
+    return await cancelUserSubscription({ userId: id });
   }),
 
   createCheckoutSession: authenticatedProcedure
@@ -24,13 +24,13 @@ const billingRouter = {
       const user = context.user as Record<string, unknown>;
       const userId = context.user.id;
       const email = (user.email as string) ?? "";
-      return createUserCheckoutSession({ userId, email, ...input });
+      return await createUserCheckoutSession({ userId, email, ...input });
     }),
 
   createBillingPortalSession: authenticatedProcedure.handler(
     async ({ context }) => {
       const { id } = context.user;
-      return createUserBillingPortalSession({ userId: id });
+      return await createUserBillingPortalSession({ userId: id });
     }
   ),
 };

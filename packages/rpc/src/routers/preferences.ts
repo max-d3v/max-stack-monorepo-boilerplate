@@ -8,14 +8,14 @@ import { authenticatedProcedure } from "../base";
 const preferencesRouter = {
   get: authenticatedProcedure.handler(async ({ context }) => {
     const { id } = context.user;
-    return getOrCreatePreferences({ userId: id });
+    return await getOrCreatePreferences({ userId: id });
   }),
 
   update: authenticatedProcedure
     .input(updatePreferencesInputSchema)
     .handler(async ({ context, input }) => {
       const { id } = context.user;
-      return updatePreferences({ userId: id, data: input });
+      return await updatePreferences({ userId: id, data: input });
     }),
 };
 
