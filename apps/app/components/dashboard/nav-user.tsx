@@ -1,5 +1,7 @@
 "use client";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
 import {
   Avatar,
   AvatarFallback,
@@ -22,8 +24,6 @@ import {
 } from "@workspace/ui/components/sidebar";
 import { ChevronsUpDown, LogOut, Settings as SettingsIcon } from "lucide-react";
 import { useLogout } from "@/hooks/use-auth";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
 
 export function NavUser() {
   const { isMobile } = useSidebar();

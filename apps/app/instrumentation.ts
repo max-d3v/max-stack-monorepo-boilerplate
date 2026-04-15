@@ -1,7 +1,14 @@
-import { registerOTel } from '@vercel/otel'
-import { ORPCInstrumentation } from '@workspace/rpc/orpc/otel'
- 
+import { captureRequestError } from "@sentry/nextjs";
+
 export async function register() {
-  await import("@workspace/rpc/orpc/orpc.server");
-  registerOTel({ serviceName: "app" , instrumentations: [new ORPCInstrumentation()]});
+  if (process.env.NEXT_RUNTIME === "nodejs") {
+    await import("@workspace/rpc/orpc/orpc.server");
+    await import("@workspace/observability/app/sentry.server.config");
+  }
+
+  if (process.env.NEXT_RUNTIME === "edge") {
+    await import("@workspace/observability/app/sentry.edge.config");
+  }
 }
+
+export const onRequestError = captureRequestError;

@@ -77,9 +77,8 @@ export const users = pgTable("users", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-
 export const schema = {
   userPreferences,
   tasks,
   users,
-}
+};

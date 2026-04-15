@@ -1,10 +1,14 @@
 import { env } from "@workspace/payment/keys";
+import type { WebhookDatabaseAdapter } from "@workspace/payment/webhooks";
 import {
   handleWebhookEvent,
   verifyWebhookSignature,
 } from "@workspace/payment/webhooks";
-import { get, updateOne, create } from "@workspace/repository/entities/user-preferences";
-import type { WebhookDatabaseAdapter } from "@workspace/payment/webhooks";
+import {
+  create,
+  get,
+  updateOne,
+} from "@workspace/repository/entities/user-preferences";
 
 const dbAdapter: WebhookDatabaseAdapter = {
   updateUserSubscription: async (data) => {

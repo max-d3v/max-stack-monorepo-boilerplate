@@ -3,7 +3,6 @@ import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
 import { Skeleton } from "boneyard-js/react";
 import { Suspense } from "react";
 import { BillingContent } from "@/components/billing";
-import { BillingLoading } from "@/components/billing/billing-loading";
 
 const BILLING_REFETCH_INTERVAL = 30_000;
 

@@ -6,24 +6,19 @@
   "exports": {
     "./server": "./src/server.ts",
     "./client": "./src/client.ts",
-    "./otel": "./src/otel.ts",
-    "./tracing": "./src/tracing.ts"
+    "./api/*": "./src/api/*.ts",
+    "./app/*": "./src/app/*.ts",
+    "./database": "./src/database.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@axiomhq/js": "^1.2.0",
-    "@axiomhq/logging": "^0.1.5",
-    "@axiomhq/nextjs": "^0.1.5",
-    "@axiomhq/react": "^0.1.5",
-    "@opentelemetry/api": "catalog:otel",
-    "@opentelemetry/exporter-trace-otlp-http": "catalog:otel",
-    "@opentelemetry/resources": "catalog:otel",
-    "@opentelemetry/sdk-node": "catalog:otel",
-    "@opentelemetry/sdk-trace-node": "catalog:otel",
-    "@opentelemetry/semantic-conventions": "catalog:otel",
+    "@kubiks/otel-drizzle": "^2.1.0",
+    "@orpc/otel": "^1.13.14",
+    "@sentry/nextjs": "^9.0.0",
+    "@t3-oss/env-nextjs": "^0.13.11",
     "next": "catalog:web",
     "react": "catalog:web",
     "zod": "catalog:schemas"

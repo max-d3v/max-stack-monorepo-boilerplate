@@ -22,10 +22,10 @@ export const WebhookStatus = ({ onDismiss }: WebhookStatusProps) => {
           </pre>
         </div>
         <button
-          type="button"
           aria-label="Dismiss"
           className="self-start text-yellow-600 transition-colors hover:text-slate-500"
           onClick={onDismiss}
+          type="button"
         >
           <X className="h-4 w-4 text-slate-500" />
         </button>

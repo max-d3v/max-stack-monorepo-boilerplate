@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { CreateTaskInput } from "@workspace/types/use-cases/tasks";
 import { createTaskInputSchema } from "@workspace/types/use-cases/tasks";
 import { Button } from "@workspace/ui/components/button";
@@ -20,10 +21,9 @@ import { Textarea } from "@workspace/ui/components/textarea";
 import { Loader2, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useTasksContext } from "./context";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTask } from "./mutations";
 
-export function CreateTaskDialog() {  
+export function CreateTaskDialog() {
   const queryClient = useQueryClient();
 
   const { isCreateDialogOpen, setCreateDialogOpen } = useTasksContext();
@@ -85,7 +85,9 @@ export function CreateTaskDialog() {
         </div>
         <DialogFooter>
           <Button
-            disabled={createTaskMutation.isPending || form.formState.isSubmitting}
+            disabled={
+              createTaskMutation.isPending || form.formState.isSubmitting
+            }
             onClick={form.handleSubmit(handleSubmit)}
             type="button"
           >

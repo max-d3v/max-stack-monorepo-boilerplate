@@ -1,4 +1,4 @@
-import { users } from "@workspace/database/schema";
+import type { users } from "@workspace/database/schema";
 import { z } from "zod";
 
 export type UserRawObject = typeof users.$inferSelect;
@@ -24,4 +24,6 @@ export const getUserByClerkIdParamsSchema = z.object({
 
 export type CreateUserParams = z.infer<typeof createUserParamsSchema>;
 export type UpdateUserParams = z.infer<typeof updateUserParamsSchema>;
-export type GetUserByClerkIdParams = z.infer<typeof getUserByClerkIdParamsSchema>;
+export type GetUserByClerkIdParams = z.infer<
+  typeof getUserByClerkIdParamsSchema
+>;

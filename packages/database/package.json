@@ -22,7 +22,7 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@kubiks/otel-drizzle": "^2.1.0",
+    "@workspace/observability": "workspace:*",
     "@neondatabase/serverless": "^0.10.4",
     "@opentelemetry/api": "catalog:otel",
     "drizzle-orm": "catalog:schemas",

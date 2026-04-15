@@ -19,7 +19,6 @@
   "dependencies": {
     "@clerk/nextjs": "^7.0.8",
     "@opentelemetry/api": "catalog:otel",
-    "@orpc/otel": "^1.13.14",
     "@orpc/server": "^1.13.13",
     "@workspace/auth": "workspace:*",
     "@workspace/core": "workspace:*",

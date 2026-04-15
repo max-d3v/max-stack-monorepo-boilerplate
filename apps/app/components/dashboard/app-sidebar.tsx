@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar";
 import { OrionLogo } from "@workspace/ui/components/orion-logo";
 import {
   Sidebar,
@@ -18,10 +19,9 @@ import {
   Settings,
 } from "lucide-react";
 import type * as React from "react";
+import { Suspense } from "react";
 import { NavMain } from "@/components/dashboard/nav-main";
 import { NavUser } from "@/components/dashboard/nav-user";
-import { Suspense } from "react";
-import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar";
 
 const navItems = [
   {
@@ -52,8 +52,6 @@ const navItems = [
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-
-
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
