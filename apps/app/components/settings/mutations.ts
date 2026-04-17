@@ -1,14 +1,14 @@
 "use client";
 
 import type { QueryClient } from "@tanstack/react-query";
-import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
+import { orpcClient } from "@workspace/data-layer/orpc.tanstack.client";
 import { toast } from "sonner";
 
 export function updatePreferences(queryClient: QueryClient) {
-  return orpc.preferences.update.mutationOptions({
+  return orpcClient.preferences.update.mutationOptions({
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: orpc.preferences.get.key(),
+        queryKey: orpcClient.preferences.get.key(),
       });
       toast.success("Settings saved successfully!");
     },
@@ -16,10 +16,10 @@ export function updatePreferences(queryClient: QueryClient) {
 }
 
 export function updateProfile(queryClient: QueryClient) {
-  return orpc.users.updateProfile.mutationOptions({
+  return orpcClient.users.updateProfile.mutationOptions({
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: orpc.users.getUser.key(),
+        queryKey: orpcClient.users.getUser.key(),
       });
       toast.success("Profile updated successfully!");
     },
@@ -27,7 +27,7 @@ export function updateProfile(queryClient: QueryClient) {
 }
 
 export function deleteAccount(_queryClient: QueryClient) {
-  return orpc.users.deleteAccount.mutationOptions({
+  return orpcClient.users.deleteAccount.mutationOptions({
     onSuccess: () => {
       window.location.href = "/";
     },

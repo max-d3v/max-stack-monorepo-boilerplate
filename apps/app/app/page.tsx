@@ -1,3 +1,4 @@
+import { Show, UserButton } from "@workspace/auth/client";
 import { Button } from "@workspace/ui/components/button";
 import { OrionLogo } from "@workspace/ui/components/orion-logo";
 import Link from "next/link";
@@ -11,7 +12,9 @@ export default function RootPage() {
       </div>
       <div className="mb-8 flex flex-col items-center gap-4">
         <OrionLogo size="lg" />
-        <h1 className="text-center font-bold text-4xl">Welcome to Orion Kit</h1>
+        <h1 className="text-center font-bold text-4xl">
+          Welcome to Cracked Kit
+        </h1>
         <p className="max-w-md text-center text-lg text-muted-foreground">
           A modern, full-stack development kit built with Next.js, TypeScript,
           Tailwind CSS and modern cloud services.
@@ -19,12 +22,17 @@ export default function RootPage() {
       </div>
 
       <div className="flex gap-4">
-        <Link href="/login">
-          <Button>Sign In</Button>
-        </Link>
-        <Link href="/signup">
-          <Button variant="outline">Sign Up</Button>
-        </Link>
+        <Show when="signed-out">
+          <Link href="/login">
+            <Button>Sign In</Button>
+          </Link>
+          <Link href="/signup">
+            <Button variant="outline">Sign Up</Button>
+          </Link>
+        </Show>
+        <Show when="signed-in">
+          <UserButton />
+        </Show>
       </div>
 
       <div className="mt-8 text-center text-muted-foreground text-sm">

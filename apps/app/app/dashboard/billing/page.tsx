@@ -1,5 +1,5 @@
 import { getQueryClient, HydrateClient } from "@workspace/data-layer/hydration";
-import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
+import { orpcServer } from "@workspace/data-layer/orpc.tanstack.server";
 import { Skeleton } from "boneyard-js/react";
 import { Suspense } from "react";
 import { BillingContent } from "@/components/billing";
@@ -10,7 +10,7 @@ export default async function BillingPage() {
   const queryClient = getQueryClient();
 
   void queryClient.prefetchQuery(
-    orpc.billing.getSubscription.queryOptions({
+    orpcServer.billing.getSubscription.queryOptions({
       refetchInterval: BILLING_REFETCH_INTERVAL,
     })
   );

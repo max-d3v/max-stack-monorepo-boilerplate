@@ -1,5 +1,5 @@
 import { getQueryClient, HydrateClient } from "@workspace/data-layer/hydration";
-import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
+import { orpcServer } from "@workspace/data-layer/orpc.tanstack.server";
 import { Skeleton } from "boneyard-js/react";
 import { Suspense } from "react";
 import { AnalyticsContent } from "@/components/analytics";
@@ -10,7 +10,7 @@ export default async function AnalyticsPage() {
   const queryClient = getQueryClient();
 
   void queryClient.prefetchQuery(
-    orpc.tasks.getUserTasksWithCount.queryOptions({
+    orpcServer.tasks.getUserTasksWithCount.queryOptions({
       refetchInterval: ANALYTICS_REFETCH_INTERVAL,
     })
   );

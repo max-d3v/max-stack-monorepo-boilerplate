@@ -3,5 +3,5 @@ import { authMiddleware } from "@workspace/auth/proxy";
 export default authMiddleware();
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/rpc/:path*"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

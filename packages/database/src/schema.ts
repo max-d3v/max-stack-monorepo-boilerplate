@@ -75,6 +75,7 @@ export const users = pgTable("users", {
   welcomeMailSent: boolean("welcome_mail_sent").default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  active: boolean("active").default(true),
 });
 
 export const schema = {

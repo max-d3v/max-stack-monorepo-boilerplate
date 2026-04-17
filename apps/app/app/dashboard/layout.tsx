@@ -1,3 +1,5 @@
+"use client";
+
 import {
   SidebarInset,
   SidebarProvider,
@@ -6,7 +8,7 @@ import { Suspense } from "react";
 import { AppSidebar } from "@/components/dashboard/app-sidebar";
 import { DashboardHeader } from "@/components/dashboard/dashboard-header";
 
-export function DashboardLayoutClient({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;

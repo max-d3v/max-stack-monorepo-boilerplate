@@ -4,8 +4,8 @@ import { Providers } from "@/app/providers";
 import "@workspace/rpc/orpc/orpc.server";
 
 export const metadata = {
-  title: "Orion Kit",
-  description: "Dashboard for Orion Kit",
+  title: "Cracked Kit",
+  description: "Dashboard for Cracked Kit",
 };
 
 export default function RootLayout({

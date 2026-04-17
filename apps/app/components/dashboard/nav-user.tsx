@@ -1,7 +1,7 @@
 "use client";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
+import { orpcClient } from "@workspace/data-layer/orpc.tanstack.client";
 import {
   Avatar,
   AvatarFallback,
@@ -27,7 +27,9 @@ import { useLogout } from "@/hooks/use-auth";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  const { data: user } = useSuspenseQuery(orpc.users.getUser.queryOptions());
+  const { data: user } = useSuspenseQuery(
+    orpcClient.users.getUser.queryOptions()
+  );
   const logoutMutation = useLogout();
 
   const handleSignOut = () => {

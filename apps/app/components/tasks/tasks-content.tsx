@@ -5,7 +5,7 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
+import { orpcClient } from "@workspace/data-layer/orpc.tanstack.client";
 import type { Task } from "@workspace/types/use-cases/tasks";
 import { useEffect, useMemo, useState } from "react";
 import { updateTask as updateTaskMutation } from "@/components/tasks/mutations";
@@ -27,7 +27,7 @@ export function TasksContent() {
   } = useTasksContext();
 
   const { data: tasksData } = useSuspenseQuery(
-    orpc.tasks.getUserTasksWithCount.queryOptions()
+    orpcClient.tasks.getUserTasksWithCount.queryOptions()
   );
 
   const { mutateAsync: updateTask } = useMutation(

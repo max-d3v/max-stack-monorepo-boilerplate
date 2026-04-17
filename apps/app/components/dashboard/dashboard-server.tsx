@@ -1,5 +1,5 @@
 import { getQueryClient } from "@workspace/data-layer/hydration";
-import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
+import { orpcServer } from "@workspace/data-layer/orpc.tanstack.server";
 import { DashboardStats } from "./dashboard-stats";
 import { DashboardTasksPreview } from "./dashboard-tasks-preview";
 
@@ -9,7 +9,7 @@ export async function Dashboard() {
   const DASHBOARD_REFETCH_INTERVAL = 10_000;
 
   const tasks = await queryClient.fetchQuery(
-    orpc.tasks.getUserTasks.queryOptions({
+    orpcServer.tasks.getUserTasks.queryOptions({
       refetchInterval: DASHBOARD_REFETCH_INTERVAL,
     })
   );

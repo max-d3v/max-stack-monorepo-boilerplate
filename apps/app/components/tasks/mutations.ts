@@ -1,14 +1,14 @@
 "use client";
 
 import type { QueryClient } from "@tanstack/react-query";
-import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
+import { orpcClient } from "@workspace/data-layer/orpc.tanstack.client";
 import { toast } from "sonner";
 
 export function updateTask(queryClient: QueryClient) {
-  return orpc.tasks.update.mutationOptions({
+  return orpcClient.tasks.update.mutationOptions({
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: orpc.tasks.getUserTasksWithCount.key(),
+        queryKey: orpcClient.tasks.getUserTasksWithCount.key(),
       });
       toast.success("Task updated successfully!");
     },
@@ -16,10 +16,10 @@ export function updateTask(queryClient: QueryClient) {
 }
 
 export function deleteTask(queryClient: QueryClient) {
-  return orpc.tasks.delete.mutationOptions({
+  return orpcClient.tasks.delete.mutationOptions({
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: orpc.tasks.getUserTasksWithCount.key(),
+        queryKey: orpcClient.tasks.getUserTasksWithCount.key(),
       });
       toast.success("Task deleted successfully!");
     },
@@ -27,10 +27,10 @@ export function deleteTask(queryClient: QueryClient) {
 }
 
 export function createTask(queryClient: QueryClient) {
-  return orpc.tasks.create.mutationOptions({
+  return orpcClient.tasks.create.mutationOptions({
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: orpc.tasks.getUserTasksWithCount.key(),
+        queryKey: orpcClient.tasks.getUserTasksWithCount.key(),
       });
     },
   });

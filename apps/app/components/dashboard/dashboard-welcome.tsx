@@ -1,14 +1,14 @@
-import { auth } from "@workspace/auth/server";
+//import { auth } from "@workspace/auth/server";
 import { Rocket } from "lucide-react";
 
-export async function DashboardWelcome() {
-  const { sessionClaims } = await auth();
+export function DashboardWelcome() {
+  // const { sessionClaims } = await auth();
 
-  if (!sessionClaims?.full_name) {
-    throw new Error("Full name is required in clerk's session claims");
-  }
+  // if (!sessionClaims?.full_name) {
+  //   throw new Error("Full name is required in clerk's session claims");
+  // }
 
-  const name = sessionClaims.full_name as string;
+  const name = "John doe"; //sessionClaims.full_name as string;
 
   return (
     <div className="flex items-center gap-4 rounded-lg border bg-muted/30 p-6">

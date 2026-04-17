@@ -4,7 +4,8 @@
   "private": true,
   "exports": {
     "./router": "./src/router.ts",
-    "./orpc/*": "./src/orpc/*.ts"
+    "./orpc/*": "./src/orpc/*.ts",
+    "./middleware/*": "./src/middleware/*.ts"
   },
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",

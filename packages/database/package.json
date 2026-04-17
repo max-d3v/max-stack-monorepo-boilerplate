@@ -22,11 +22,12 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@workspace/observability": "workspace:*",
     "@neondatabase/serverless": "^0.10.4",
     "@opentelemetry/api": "catalog:otel",
+    "@workspace/observability": "workspace:*",
     "drizzle-orm": "catalog:schemas",
     "drizzle-zod": "catalog:schemas",
+    "postgres": "^3.4.9",
     "zod": "catalog:schemas"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
-import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
+import { orpcClient } from "@workspace/data-layer/orpc.tanstack.client";
 import { PricingCard } from "@workspace/payment/client";
 import { PLANS } from "@workspace/payment/config";
 import { CreditCard } from "lucide-react";
@@ -12,14 +12,14 @@ import { WebhookStatus } from "./webhook-status";
 
 export function BillingContent() {
   const { data: subscriptionData } = useSuspenseQuery(
-    orpc.billing.getSubscription.queryOptions()
+    orpcClient.billing.getSubscription.queryOptions()
   );
 
   const checkout = useMutation(
-    orpc.billing.createCheckoutSession.mutationOptions()
+    orpcClient.billing.createCheckoutSession.mutationOptions()
   );
   const billingPortal = useMutation(
-    orpc.billing.createBillingPortalSession.mutationOptions()
+    orpcClient.billing.createBillingPortalSession.mutationOptions()
   );
 
   const [selectedPriceId, setSelectedPriceId] = useState<string | null>(null);

@@ -7,12 +7,8 @@ export const env = createEnv({
   },
   server: {
     SENTRY_AUTH_TOKEN: z.string().startsWith("sntrys_").optional(),
-    SENTRY_ORG: z
-      .string()
-      .optional(),
-    SENTRY_PROJECT: z
-      .string()
-      .optional(),
+    SENTRY_ORG: z.string().optional(),
+    SENTRY_PROJECT: z.string().optional(),
   },
   runtimeEnv: {
     NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,

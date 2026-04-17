@@ -1,6 +1,4 @@
 import "server-only";
-
-import { clerkClient } from "@workspace/auth/server";
 import { deleteAllByUserId as deleteAllTasksByUserId } from "@workspace/repository/entities/tasks";
 import { deleteOne as deleteUserPreferences } from "@workspace/repository/entities/user-preferences";
 import {
@@ -51,9 +49,6 @@ export const deleteAccount = async (params: {
   await deleteAllTasksByUserId({ userId });
   await deleteUserPreferences({ userId });
   await deleteUser({ clerkId: userId });
-
-  const client = await clerkClient();
-  await client.users.deleteUser(userId);
 
   return { deleted: true };
 };

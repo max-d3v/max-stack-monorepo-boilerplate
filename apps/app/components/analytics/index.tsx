@@ -1,7 +1,7 @@
 "use client";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { orpc } from "@workspace/data-layer/orpc-tanstack-util";
+import { orpcClient } from "@workspace/data-layer/orpc.tanstack.client";
 import { BarChart3, CheckCircle2, Circle, Clock, XCircle } from "lucide-react";
 import { useMemo } from "react";
 import { AnalyticsInsights } from "./analytics-insights";
@@ -11,7 +11,7 @@ import { AnalyticsStatusBreakdown } from "./analytics-status-breakdown";
 
 export function AnalyticsContent() {
   const { data: tasksData } = useSuspenseQuery(
-    orpc.tasks.getUserTasksWithCount.queryOptions()
+    orpcClient.tasks.getUserTasksWithCount.queryOptions()
   );
 
   const tasks = tasksData.tasks ?? [];
