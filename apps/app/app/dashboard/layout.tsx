@@ -14,7 +14,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
       <Suspense fallback={<div>Loading sidebar...</div>}>
-        <AppSidebar /> 
+        <AppSidebar />
       </Suspense>
       <SidebarInset>
         <DashboardHeader />

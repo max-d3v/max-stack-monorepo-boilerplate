@@ -2,7 +2,7 @@ import { getQueryClient, HydrateClient } from "@workspace/data-layer/hydration";
 import { orpc } from "@workspace/data-layer/orpc.tanstack";
 import { Suspense } from "react";
 import { AnalyticsContent } from "@/components/analytics";
-import { Skeleton } from "@/components/boneyard-skeleton";
+import { AnalyticsLoading } from "@/components/analytics/analytics-loading";
 
 const ANALYTICS_REFETCH_INTERVAL = 10_000;
 
@@ -16,13 +16,7 @@ export default async function AnalyticsPage() {
   );
 
   return (
-    <Suspense
-      fallback={
-        <Skeleton loading={true} name="analytics">
-          <AnalyticsContent />
-        </Skeleton>
-      }
-    >
+    <Suspense fallback={<AnalyticsLoading />}>
       <HydrateClient client={queryClient}>
         <AnalyticsContent />
       </HydrateClient>

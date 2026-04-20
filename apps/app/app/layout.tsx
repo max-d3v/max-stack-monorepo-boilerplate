@@ -1,5 +1,4 @@
 import "@workspace/rpc/orpc/orpc.server";
-import "../bones/registry";
 
 import "@workspace/ui/globals.css";
 import { Toaster } from "@workspace/ui/components/sonner";

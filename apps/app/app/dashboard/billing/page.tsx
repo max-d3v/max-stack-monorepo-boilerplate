@@ -2,7 +2,7 @@ import { getQueryClient, HydrateClient } from "@workspace/data-layer/hydration";
 import { orpc } from "@workspace/data-layer/orpc.tanstack";
 import { Suspense } from "react";
 import { BillingContent } from "@/components/billing";
-import { Skeleton } from "@/components/boneyard-skeleton";
+import { BillingLoading } from "@/components/billing/billing-loading";
 
 const BILLING_REFETCH_INTERVAL = 30_000;
 
@@ -16,13 +16,7 @@ export default async function BillingPage() {
   );
 
   return (
-    <Suspense
-      fallback={
-        <Skeleton loading={true} name="billing">
-          <BillingContent />
-        </Skeleton>
-      }
-    >
+    <Suspense fallback={<BillingLoading />}>
       <HydrateClient client={queryClient}>
         <BillingContent />
       </HydrateClient>
