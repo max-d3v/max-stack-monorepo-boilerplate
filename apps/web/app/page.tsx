@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "open source",
   ],
   authors: [{ name: "Orion Kit" }],
-  creator: "Orion Kit",
+  creator: "Orion Kitt",
   publisher: "Orion Kit",
   formatDetection: {
     email: false,
