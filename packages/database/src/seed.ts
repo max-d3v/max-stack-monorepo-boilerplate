@@ -9,7 +9,7 @@ async function seed() {
     // Demo account user ID
     const demoUserId = "360d6acb-686f-446d-8a45-0a8f82e55c9a";
 
-    const [prefs] = await db
+    await db
       .insert(userPreferences)
       .values({
         userId: demoUserId,

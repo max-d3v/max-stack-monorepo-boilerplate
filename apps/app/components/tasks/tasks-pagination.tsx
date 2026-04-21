@@ -36,11 +36,14 @@ export function TasksPagination() {
       ...range,
       ...(shouldShowEndEllipsis
         ? ["...", totalPages]
-        : totalPages > 1
-          ? [totalPages]
-          : []),
+          : showTotalPages(totalPages)),
     ];
   };
+
+
+  function showTotalPages(pages: number) {
+    return pages > 1 ? [pages] : [];
+  }
 
   const visiblePages = getVisiblePages();
 
@@ -58,8 +61,8 @@ export function TasksPagination() {
           />
         </PaginationItem>
 
-        {visiblePages.map((page, index) => (
-          <PaginationItem key={index}>
+        {visiblePages.map((page) => (
+          <PaginationItem key={page}>
             {page === "..." ? (
               <PaginationEllipsis />
             ) : (

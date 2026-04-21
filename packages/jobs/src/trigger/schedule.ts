@@ -2,10 +2,12 @@ import { schedules } from "@trigger.dev/sdk";
 
 export const firstScheduledTask = schedules.task({
   id: "first-scheduled-task",
-  run: async (payload) => {
+  run: async(payload) => {
     //when the task was scheduled to run
     //note this will be slightly different from new Date() because it takes a few ms to run the task
     console.log(payload.timestamp); //is a Date object
+
+    await Promise.resolve()
 
     //when the task was last run
     //this can be undefined if it's never been run
@@ -17,9 +19,9 @@ export const firstScheduledTask = schedules.task({
     console.log(payload.timezone); //is a string
 
     //If you want to output the time in the user's timezone do this:
-    const formatted = payload.timestamp.toLocaleString("en-US", {
-      timeZone: payload.timezone,
-    });
+    // const formatted = payload.timestamp.toLocaleString("en-US", {
+    //   timeZone: payload.timezone,
+    // });
 
     //the schedule id (you can have many schedules for the same task)
     //using this you can remove the schedule, update it, etc

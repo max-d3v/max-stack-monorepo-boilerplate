@@ -3,6 +3,9 @@
 import { Card, CardContent, CardHeader } from "@workspace/ui/components/card";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
+const PLAN_CARD_KEYS = ["plan-1", "plan-2", "plan-3"];
+const FEATURE_KEYS = ["feature-1", "feature-2", "feature-3", "feature-4"];
+
 export function BillingLoading() {
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
@@ -27,8 +30,8 @@ export function BillingLoading() {
       <div>
         <Skeleton className="mb-4 h-8 w-48" />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {[...Array(3)].map((_, i) => (
-            <Card key={i}>
+          {PLAN_CARD_KEYS.map((key) => (
+            <Card key={key}>
               <CardHeader>
                 <Skeleton className="h-6 w-24" />
                 <Skeleton className="h-4 w-full" />
@@ -36,8 +39,11 @@ export function BillingLoading() {
               <CardContent className="space-y-4">
                 <Skeleton className="h-12 w-32" />
                 <div className="space-y-2">
-                  {[...Array(4)].map((_, j) => (
-                    <Skeleton className="h-4 w-full" key={j} />
+                  {FEATURE_KEYS.map((featureKey) => (
+                    <Skeleton
+                      className="h-4 w-full"
+                      key={`${key}-${featureKey}`}
+                    />
                   ))}
                 </div>
                 <Skeleton className="h-10 w-full" />

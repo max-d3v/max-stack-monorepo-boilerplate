@@ -1,6 +1,6 @@
 export class HttpError extends Error {
-  private statusCode: number;
-  private details: unknown | undefined;
+  readonly statusCode: number;
+  readonly details: unknown | undefined;
 
   constructor(statusCode: number, message: string, details?: unknown) {
     super(message);

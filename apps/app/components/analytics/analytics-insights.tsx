@@ -15,6 +15,19 @@ interface AnalyticsInsightsProps {
   readonly inProgress: number;
 }
 
+const HIGH_COMPLETION_THRESHOLD = 70;
+const MID_COMPLETION_THRESHOLD = 40;
+
+function getFocusAreaMessage(completionRate: number): string {
+  if (completionRate >= HIGH_COMPLETION_THRESHOLD) {
+    return "You're highly productive! Keep it up.";
+  }
+  if (completionRate >= MID_COMPLETION_THRESHOLD) {
+    return "Good progress. Try completing more tasks to boost your rate.";
+  }
+  return "Consider breaking down tasks into smaller, manageable pieces.";
+}
+
 export function AnalyticsInsights({
   completedThisWeek,
   inProgress,
@@ -62,11 +75,7 @@ export function AnalyticsInsights({
               <span className="font-semibold">Focus Area</span>
             </div>
             <p className="text-muted-foreground text-sm">
-              {completionRate >= 70
-                ? "You're highly productive! Keep it up."
-                : completionRate >= 40
-                  ? "Good progress. Try completing more tasks to boost your rate."
-                  : "Consider breaking down tasks into smaller, manageable pieces."}
+              {getFocusAreaMessage(completionRate)}
             </p>
           </div>
         </div>

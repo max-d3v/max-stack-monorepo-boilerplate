@@ -12,6 +12,7 @@ import {
 } from "@workspace/ui/components/card";
 import { Separator } from "@workspace/ui/components/separator";
 import { User as UserIcon } from "lucide-react";
+import Image from "next/image";
 
 interface SettingsProfileProps {
   readonly onEditProfile: () => void;
@@ -42,7 +43,7 @@ export function SettingsProfile({ user, onEditProfile }: SettingsProfileProps) {
       <CardContent className="space-y-4">
         <div className="flex items-center gap-4">
           {user.image && (
-            <img
+            <Image
               alt={user.name || "User"}
               className="h-16 w-16 rounded-full border-2 border-primary/20"
               src={user.image}

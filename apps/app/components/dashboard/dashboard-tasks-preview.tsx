@@ -18,6 +18,8 @@ const getStatusIcon = (status: TaskRawObject["status"]) => {
       return <Circle className="h-5 w-5 text-muted-foreground" />;
     case "cancelled":
       return <Circle className="h-5 w-5 text-red-500" />;
+    default:
+      return <Circle className="h-5 w-5 text-muted-foreground" />;
   }
 };
 
@@ -31,6 +33,8 @@ const getStatusText = (status: TaskRawObject["status"]): string => {
       return "To Do";
     case "cancelled":
       return "Cancelled";
+    default:
+      return "Unknown";
   }
 };
 

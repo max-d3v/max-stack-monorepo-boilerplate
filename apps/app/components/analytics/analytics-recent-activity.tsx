@@ -30,6 +30,8 @@ const getStatusLabel = (status: Task["status"]): string => {
       return "Completed";
     case "cancelled":
       return "Cancelled";
+    default:
+      return "Unknown";
   }
 };
 
@@ -60,10 +62,10 @@ export function AnalyticsRecentActivity({
       <CardContent>
         <div className="space-y-4">
           {recentActivity.length > 0 ? (
-            recentActivity.map((activity, idx) => (
+            recentActivity.map((activity) => (
               <div
                 className="flex items-center justify-between border-b pb-4 last:border-b-0 last:pb-0"
-                key={idx}
+                key={`${activity.date}-${activity.title}`}
               >
                 <div className="space-y-1">
                   <p className="font-medium text-sm leading-none">

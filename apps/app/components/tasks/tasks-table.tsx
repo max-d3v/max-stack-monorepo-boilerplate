@@ -58,6 +58,16 @@ export function TasksTable({
   onStatusChange,
   onCreateTask,
 }: TasksTableProps) {
+  function getNoTasksMessage() {
+    if (searchQuery) {
+      return "No tasks match your search";
+    }
+    if (statusFilter === "all") {
+      return "No tasks yet. Create your first task!";
+    }
+    return `No ${statusConfig[statusFilter].label.toLowerCase()} tasks`;
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -67,12 +77,8 @@ export function TasksTable({
             : `${statusConfig[statusFilter].label} Tasks`}
         </CardTitle>
         <CardDescription>
-          {filteredTasks.length === 0
-            ? searchQuery
-              ? "No tasks match your search"
-              : statusFilter === "all"
-                ? "No tasks yet. Create your first task!"
-                : `No ${statusConfig[statusFilter].label.toLowerCase()} tasks`
+        {filteredTasks.length === 0
+            ? getNoTasksMessage()
             : `Showing ${filteredTasks.length} of ${tasks.length} tasks`}
         </CardDescription>
       </CardHeader>
@@ -104,6 +110,7 @@ export function TasksTable({
                       <button
                         className="text-left font-medium transition-colors hover:text-primary"
                         onClick={() => onEditTask(task)}
+                        type="button"
                       >
                         {task.title}
                       </button>

@@ -3,6 +3,9 @@
 import { Card, CardContent, CardHeader } from "@workspace/ui/components/card";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
+const STAT_CARD_KEYS = ["stat-1", "stat-2", "stat-3", "stat-4"];
+const TASK_PREVIEW_KEYS = ["task-1", "task-2", "task-3"];
+
 export function DashboardLoading() {
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
@@ -15,8 +18,8 @@ export function DashboardLoading() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">
-        {[...Array(4)].map((_, i) => (
-          <Card key={i}>
+        {STAT_CARD_KEYS.map((key) => (
+          <Card key={key}>
             <CardHeader className="pb-3">
               <Skeleton className="h-4 w-24" />
             </CardHeader>
@@ -34,10 +37,10 @@ export function DashboardLoading() {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            {[...Array(3)].map((_, i) => (
+            {TASK_PREVIEW_KEYS.map((key) => (
               <div
                 className="flex items-start gap-3 rounded-lg border p-4"
-                key={i}
+                key={key}
               >
                 <Skeleton className="mt-0.5 h-5 w-5 rounded-full" />
                 <div className="flex-1 space-y-2">

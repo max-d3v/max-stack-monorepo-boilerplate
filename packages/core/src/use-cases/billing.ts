@@ -4,7 +4,7 @@ import {
   createCheckoutSession,
   getSubscription,
 } from "@workspace/payment/server";
-import * as userPreferencesRepository from "@workspace/repository/entities/user-preferences";
+import { getOrCreate, updateOne } from "@workspace/repository/entities/user-preferences";
 import {
   assertHasStripeCustomer,
   assertHasSubscription,
@@ -13,7 +13,7 @@ import {
 export const getSubscriptionStatus = async (params: { userId: string }) => {
   const { userId } = params;
 
-  const preferences = await userPreferencesRepository.getOrCreate({ userId });
+  const preferences = await getOrCreate({ userId });
 
   if (!preferences.stripeSubscriptionId) {
     return { subscription: null, plan: "free" };
@@ -31,12 +31,12 @@ export const getSubscriptionStatus = async (params: { userId: string }) => {
 export const cancelUserSubscription = async (params: { userId: string }) => {
   const { userId } = params;
 
-  const preferences = await userPreferencesRepository.getOrCreate({ userId });
+  const preferences = await getOrCreate({ userId });
   assertHasSubscription(preferences);
 
   await cancelSubscription(preferences.stripeSubscriptionId as string);
 
-  await userPreferencesRepository.updateOne({
+  await updateOne({
     userId,
     stripeSubscriptionStatus: "canceled",
   });
@@ -66,7 +66,7 @@ export const createUserBillingPortalSession = async (params: {
 }) => {
   const { userId } = params;
 
-  const preferences = await userPreferencesRepository.getOrCreate({ userId });
+  const preferences = await getOrCreate({ userId });
   assertHasStripeCustomer(preferences);
 
   const session = await createBillingPortalSession(
