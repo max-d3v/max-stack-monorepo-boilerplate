@@ -4,7 +4,10 @@ import {
   createCheckoutSession,
   getSubscription,
 } from "@workspace/payment/server";
-import { getOrCreate, updateOne } from "@workspace/repository/entities/user-preferences";
+import {
+  getOrCreate,
+  updateOne,
+} from "@workspace/repository/entities/user-preferences";
 import {
   assertHasStripeCustomer,
   assertHasSubscription,

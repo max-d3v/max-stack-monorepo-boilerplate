@@ -36,10 +36,9 @@ export function TasksPagination() {
       ...range,
       ...(shouldShowEndEllipsis
         ? ["...", totalPages]
-          : showTotalPages(totalPages)),
+        : showTotalPages(totalPages)),
     ];
   };
-
 
   function showTotalPages(pages: number) {
     return pages > 1 ? [pages] : [];

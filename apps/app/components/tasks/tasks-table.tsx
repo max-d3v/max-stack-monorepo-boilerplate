@@ -77,7 +77,7 @@ export function TasksTable({
             : `${statusConfig[statusFilter].label} Tasks`}
         </CardTitle>
         <CardDescription>
-        {filteredTasks.length === 0
+          {filteredTasks.length === 0
             ? getNoTasksMessage()
             : `Showing ${filteredTasks.length} of ${tasks.length} tasks`}
         </CardDescription>
