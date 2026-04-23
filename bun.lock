@@ -289,7 +289,6 @@
       "name": "@workspace/payment",
       "version": "0.0.1",
       "dependencies": {
-        "@workspace/analytics": "workspace:*",
         "@workspace/types": "workspace:*",
         "dotenv": "^16.4.7",
         "stripe": "^17.5.0",
