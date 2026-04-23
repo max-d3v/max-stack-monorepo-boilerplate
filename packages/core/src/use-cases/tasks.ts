@@ -1,3 +1,5 @@
+import { EVENTS } from "@workspace/analytics/events";
+import { capture } from "@workspace/analytics/server";
 import {
   create,
   deleteOne,
@@ -39,12 +41,41 @@ export const createTask = async (params: {
   const defaultStatus =
     (preferences.defaultTaskStatus as TaskRawObject["status"]) ?? "todo";
 
+  capture({
+    event: EVENTS.task_created,
+    userId,
+    details: {
+      title,
+      description,
+    },
+  });
+
   return create({
     userId,
     title,
     description: description ?? null,
     status: defaultStatus,
   });
+};
+
+export const completeTask = async (params: {
+  userId: string;
+  taskId: string;
+}) => {
+  const { userId, taskId } = params;
+
+  const task = await get({ id: taskId });
+  assertTaskOwnership(task, userId);
+
+  capture({
+    event: EVENTS.task_completed,
+    userId,
+    details: {
+      taskId,
+    },
+  });
+
+  return updateOne({ id: taskId, status: "completed" });
 };
 
 export const updateTask = async (params: {

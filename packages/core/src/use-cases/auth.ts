@@ -1,3 +1,5 @@
+import { EVENTS } from "@workspace/analytics/events";
+import { capture } from "@workspace/analytics/server";
 import { handleWebhook } from "@workspace/auth/webhook";
 import {
   deleteOne,
@@ -24,6 +26,16 @@ const getFullName = (userData: UserJSON): string | null => {
 };
 
 const createUserFromWebhook = async (userData: UserJSON) => {
+  capture({
+    event: EVENTS.user_created,
+    userId: userData.id,
+    details: {
+      email: getPrimaryEmail(userData),
+      name: getFullName(userData),
+      image: userData.image_url,
+    },
+  });
+
   return await upsertByClerkId({
     clerkId: userData.id,
     email: getPrimaryEmail(userData),

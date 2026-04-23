@@ -8,11 +8,12 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "exports": {
-    ".": "./src/index.ts",
     "./provider": "./src/provider.tsx",
     "./server": "./src/server.ts",
     "./instrumentation-client": "./src/instrumentation-client.ts",
-    "./keys": "./src/keys.ts"
+    "./keys": "./src/keys.ts",
+    "./events": "./src/structure/events.ts",
+    "./client": "./src/client.ts"
   },
   "dependencies": {
     "@next/third-parties": "16.1.6",

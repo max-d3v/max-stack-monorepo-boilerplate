@@ -15,6 +15,7 @@
     "@workspace/payment": "workspace:*",
     "@workspace/repository": "workspace:*",
     "@workspace/types": "workspace:*",
+    "@workspace/analytics": "workspace:*",
     "next": "catalog:web"
   },
   "devDependencies": {
