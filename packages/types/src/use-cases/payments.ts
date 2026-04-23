@@ -6,3 +6,6 @@ export const stripeWebhookInputSchema = z.object({
 });
 
 export type StripeWebhookInput = z.infer<typeof stripeWebhookInputSchema>;
+
+export const handleStripeWebhookSchema = stripeWebhookInputSchema;
+export type HandleStripeWebhook = z.infer<typeof handleStripeWebhookSchema>;

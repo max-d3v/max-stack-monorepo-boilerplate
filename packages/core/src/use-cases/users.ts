@@ -8,12 +8,15 @@ import {
 } from "@workspace/repository/entities/users";
 import type {
   AuthUser,
+  DeleteAccount,
   DeleteAccountResponse,
-  UpdateProfileInput,
+  GetUser,
+  UpdateProfile,
   UpdateProfileResponse,
 } from "@workspace/types/use-cases/users";
 
-export const getUser = async (clerkId: string): Promise<AuthUser> => {
+export const getUser = async (params: GetUser): Promise<AuthUser> => {
+  const { clerkId } = params;
   const user = await getByClerkId({ clerkId });
 
   return {
@@ -26,7 +29,7 @@ export const getUser = async (clerkId: string): Promise<AuthUser> => {
 };
 
 export const updateProfile = async (
-  params: { userId: string } & UpdateProfileInput
+  params: UpdateProfile
 ): Promise<UpdateProfileResponse> => {
   const { userId, name } = params;
 
@@ -41,9 +44,9 @@ export const updateProfile = async (
   };
 };
 
-export const deleteAccount = async (params: {
-  userId: string;
-}): Promise<DeleteAccountResponse> => {
+export const deleteAccount = async (
+  params: DeleteAccount
+): Promise<DeleteAccountResponse> => {
   const { userId } = params;
 
   await deleteAllTasksByUserId({ userId });

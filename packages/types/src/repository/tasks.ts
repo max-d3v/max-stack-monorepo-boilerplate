@@ -9,8 +9,9 @@ import { listBaseParamsSchema } from "./base";
 export const searchables = ["title", "description", "status"];
 
 export const createTaskInputSchema = createInsertSchema(tasks);
-export const updateTaskInputSchema = createUpdateSchema(tasks).extend({
+export const updateInputSchema = createUpdateSchema(tasks).extend({
   id: z.string().uuid(),
+  userId: z.string(),
 });
 export const getTaskInputSchema = z.object({
   id: z.string(),
@@ -20,12 +21,13 @@ export const listTasksParamsSchema = listBaseParamsSchema.extend({
 });
 export const deleteTaskParamsSchema = z.object({
   id: z.string(),
+  userId: z.string(),
 });
 
 export type TaskRawObject = typeof tasks.$inferSelect;
 
 export type CreateTaskParams = z.infer<typeof createTaskInputSchema>;
-export type UpdateTaskParams = z.infer<typeof updateTaskInputSchema>;
+export type UpdateTaskParams = z.infer<typeof updateInputSchema>;
 export type GetTaskParams = z.infer<typeof getTaskInputSchema>;
 export type ListTasksParams = z.infer<typeof listTasksParamsSchema>;
 export type DeleteTaskParams = z.infer<typeof deleteTaskParamsSchema>;

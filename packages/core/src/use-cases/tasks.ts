@@ -3,14 +3,18 @@ import { capture } from "@workspace/analytics/server";
 import {
   create,
   deleteOne,
-  get,
   list,
   updateOne,
 } from "@workspace/repository/entities/tasks";
 import { getOrCreate } from "@workspace/repository/entities/user-preferences";
 import type { TaskRawObject } from "@workspace/types/repository/tasks";
-import type { GetUserTasksInput } from "@workspace/types/use-cases/tasks";
-import { assertTaskOwnership } from "../authorization/tasks";
+import type {
+  CompleteTask,
+  CreateTask,
+  DeleteTask,
+  GetUserTasksInput,
+  UpdateTask,
+} from "@workspace/types/use-cases/tasks";
 
 const countTasksByStatus = (tasks: TaskRawObject[]) => ({
   completed: tasks.filter((t) => t.status === "completed").length,
@@ -30,11 +34,7 @@ export const getUserTasksWithCount = async (params: GetUserTasksInput) => {
   return { tasks, taskCounts };
 };
 
-export const createTask = async (params: {
-  userId: string;
-  title: string;
-  description?: string | null;
-}) => {
+export const createTask = async (params: CreateTask) => {
   const { userId, title, description } = params;
 
   const preferences = await getOrCreate({ userId });
@@ -58,14 +58,8 @@ export const createTask = async (params: {
   });
 };
 
-export const completeTask = async (params: {
-  userId: string;
-  taskId: string;
-}) => {
+export const completeTask = async (params: CompleteTask) => {
   const { userId, taskId } = params;
-
-  const task = await get({ id: taskId });
-  assertTaskOwnership(task, userId);
 
   capture({
     event: EVENTS.task_completed,
@@ -75,36 +69,17 @@ export const completeTask = async (params: {
     },
   });
 
-  return updateOne({ id: taskId, status: "completed" });
+  return await updateOne({ id: taskId, userId, status: "completed" });
 };
 
-export const updateTask = async (params: {
-  userId: string;
-  taskId: string;
-  data: {
-    title?: string;
-    description?: string | null;
-    status?: TaskRawObject["status"];
-    dueDate?: Date | null;
-    completedAt?: Date | null;
-  };
-}) => {
+export const updateTask = async (params: UpdateTask) => {
   const { userId, taskId, data } = params;
 
-  const task = await get({ id: taskId });
-  assertTaskOwnership(task, userId);
-
-  return updateOne({ id: taskId, ...data });
+  return await updateOne({ id: taskId, userId, ...data });
 };
 
-export const deleteTask = async (params: {
-  userId: string;
-  taskId: string;
-}) => {
+export const deleteTask = async (params: DeleteTask) => {
   const { userId, taskId } = params;
 
-  const task = await get({ id: taskId });
-  assertTaskOwnership(task, userId);
-
-  return deleteOne({ id: taskId });
+  return await deleteOne({ id: taskId, userId });
 };

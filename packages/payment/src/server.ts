@@ -8,11 +8,6 @@ const STRIPE_NOT_CONFIGURED =
 
 let stripeClient: Stripe | undefined;
 
-/**
- * Lazily constructs the Stripe client so importing from `@workspace/payment/server`
- * never throws at module load when the env isn't set. Only call sites that actually
- * need Stripe will hit the error path.
- */
 export function getStripe(): Stripe {
   if (!(isStripeServerEnabled && env.STRIPE_SECRET_KEY)) {
     throw new Error(STRIPE_NOT_CONFIGURED);

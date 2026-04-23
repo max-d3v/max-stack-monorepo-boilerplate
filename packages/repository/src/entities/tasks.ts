@@ -110,12 +110,12 @@ export const create = async (
 export const updateOne = async (
   params: UpdateTaskParams
 ): Promise<TaskRawObject> => {
-  const { id, ...data } = params;
+  const { id, userId, ...data } = params;
 
   const result = await db
     .update(tasks)
     .set({ ...data, updatedAt: new Date() })
-    .where(eq(tasks.id, id))
+    .where(and(eq(tasks.id, id), eq(tasks.userId, userId)))
     .returning();
 
   const task = result[0];
@@ -129,9 +129,12 @@ export const updateOne = async (
 export const deleteOne = async (
   params: DeleteTaskParams
 ): Promise<TaskRawObject> => {
-  const { id } = params;
+  const { id, userId } = params;
 
-  const result = await db.delete(tasks).where(eq(tasks.id, id)).returning();
+  const result = await db
+    .delete(tasks)
+    .where(and(eq(tasks.id, id), eq(tasks.userId, userId)))
+    .returning();
 
   const task = result[0];
   if (!task) {

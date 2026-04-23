@@ -19,3 +19,17 @@ export const updatePreferencesInputSchema = z.object({
 export type UpdatePreferencesInput = z.infer<
   typeof updatePreferencesInputSchema
 >;
+
+export const getOrCreatePreferencesSchema = z.object({
+  userId: z.string().uuid(),
+});
+
+export const updatePreferencesSchema = z.object({
+  userId: z.string().uuid(),
+  data: updatePreferencesInputSchema,
+});
+
+export type GetOrCreatePreferences = z.infer<
+  typeof getOrCreatePreferencesSchema
+>;
+export type UpdatePreferences = z.infer<typeof updatePreferencesSchema>;

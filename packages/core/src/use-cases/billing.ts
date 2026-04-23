@@ -8,12 +8,18 @@ import {
   getOrCreate,
   updateOne,
 } from "@workspace/repository/entities/user-preferences";
+import type {
+  CancelUserSubscription,
+  CreateUserBillingPortalSession,
+  CreateUserCheckoutSession,
+  GetSubscriptionStatus,
+} from "@workspace/types/use-cases/billing";
 import {
   assertHasStripeCustomer,
   assertHasSubscription,
 } from "../authorization/billing";
 
-export const getSubscriptionStatus = async (params: { userId: string }) => {
+export const getSubscriptionStatus = async (params: GetSubscriptionStatus) => {
   const { userId } = params;
 
   const preferences = await getOrCreate({ userId });
@@ -31,7 +37,9 @@ export const getSubscriptionStatus = async (params: { userId: string }) => {
   return { subscription, plan: subscription.plan };
 };
 
-export const cancelUserSubscription = async (params: { userId: string }) => {
+export const cancelUserSubscription = async (
+  params: CancelUserSubscription
+) => {
   const { userId } = params;
 
   const preferences = await getOrCreate({ userId });
@@ -47,13 +55,9 @@ export const cancelUserSubscription = async (params: { userId: string }) => {
   return { deleted: true };
 };
 
-export const createUserCheckoutSession = async (params: {
-  userId: string;
-  email: string;
-  priceId: string;
-  successUrl?: string;
-  cancelUrl?: string;
-}) => {
+export const createUserCheckoutSession = async (
+  params: CreateUserCheckoutSession
+) => {
   const { userId, email, priceId, successUrl, cancelUrl } = params;
 
   const session = await createCheckoutSession(userId, email, priceId, {
@@ -64,9 +68,9 @@ export const createUserCheckoutSession = async (params: {
   return { url: session.url ?? "", sessionId: session.id };
 };
 
-export const createUserBillingPortalSession = async (params: {
-  userId: string;
-}) => {
+export const createUserBillingPortalSession = async (
+  params: CreateUserBillingPortalSession
+) => {
   const { userId } = params;
 
   const preferences = await getOrCreate({ userId });

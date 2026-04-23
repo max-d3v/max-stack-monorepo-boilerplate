@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { TaskRawObject } from "../repository/tasks";
+import { updateInputSchema } from "../repository/tasks";
 
 export type TasksListResponse = {
   data: TaskRawObject[];
@@ -31,11 +32,37 @@ export const updateTaskInputSchema = z.object({
   completedAt: z.coerce.date().nullable().optional(),
 });
 
+export const updateTaskSchema = z.object({
+  userId: z.string().uuid(),
+  taskId: z.string().uuid(),
+  data: updateInputSchema.omit({ id: true, userId: true }),
+});
+
+export const createTaskSchema = z.object({
+  userId: z.string().uuid(),
+  title: z.string().min(1),
+  description: z.string().nullable().optional(),
+});
+
+export const completeTaskSchema = z.object({
+  userId: z.string().uuid(),
+  taskId: z.string().uuid(),
+});
+
+export const deleteTaskSchema = z.object({
+  userId: z.string().uuid(),
+  taskId: z.string().uuid(),
+});
+
 export const deleteTaskInputSchema = z.object({
   id: z.string().uuid(),
 });
 
 export type GetUserTasksInput = z.infer<typeof getUserTasksInputSchema>;
 export type CreateTaskInput = z.infer<typeof createTaskInputSchema>;
+export type CreateTask = z.infer<typeof createTaskSchema>;
 export type UpdateTaskInput = z.infer<typeof updateTaskInputSchema>;
+export type UpdateTask = z.infer<typeof updateTaskSchema>;
+export type CompleteTask = z.infer<typeof completeTaskSchema>;
 export type DeleteTaskInput = z.infer<typeof deleteTaskInputSchema>;
+export type DeleteTask = z.infer<typeof deleteTaskSchema>;

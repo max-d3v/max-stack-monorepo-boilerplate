@@ -2,17 +2,19 @@ import {
   getOrCreate,
   updateOne,
 } from "@workspace/repository/entities/user-preferences";
-import type { UpdatePreferencesInput } from "@workspace/types/repository/user-preferences";
+import type {
+  GetOrCreatePreferences,
+  UpdatePreferences,
+} from "@workspace/types/use-cases/preferences";
 
-export const getOrCreatePreferences = async (params: { userId: string }) => {
+export const getOrCreatePreferences = async (
+  params: GetOrCreatePreferences
+) => {
   const { userId } = params;
   return await getOrCreate({ userId });
 };
 
-export const updatePreferences = async (params: {
-  userId: string;
-  data: UpdatePreferencesInput;
-}) => {
+export const updatePreferences = async (params: UpdatePreferences) => {
   const { userId, data } = params;
 
   await getOrCreate({ userId });

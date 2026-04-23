@@ -9,6 +9,7 @@ import {
   get,
   updateOne,
 } from "@workspace/repository/entities/user-preferences";
+import type { HandleStripeWebhook } from "@workspace/types/use-cases/payments";
 
 const dbAdapter: WebhookDatabaseAdapter = {
   updateUserSubscription: async (data) => {
@@ -46,10 +47,9 @@ const dbAdapter: WebhookDatabaseAdapter = {
   },
 };
 
-export const handleStripeWebhook = async (params: {
-  payload: string;
-  signature: string;
-}): Promise<{ received: true }> => {
+export const handleStripeWebhook = async (
+  params: HandleStripeWebhook
+): Promise<{ received: true }> => {
   const { payload, signature } = params;
 
   if (!env.STRIPE_WEBHOOK_SECRET) {
