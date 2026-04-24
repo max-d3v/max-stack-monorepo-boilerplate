@@ -2,7 +2,6 @@ import { captureRequestError } from "@sentry/nextjs";
 import { registerOTel } from "@vercel/otel";
 import {
   config,
-  isObservabilityEnabled,
 } from "@workspace/observability/app/otel-config";
 
 export async function register() {
