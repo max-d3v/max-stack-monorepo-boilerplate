@@ -1,29 +1,45 @@
 import type { users } from "@workspace/database/schema";
-import { z } from "zod";
+import type { ListBaseParams } from "./base";
 
 export type UserRawObject = typeof users.$inferSelect;
 
-export const createUserParamsSchema = z.object({
-  clerkId: z.string(),
-  email: z.string().email(),
-  name: z.string().nullable().optional(),
-  image: z.string().nullable().optional(),
-  emailVerified: z.boolean().optional(),
-});
+export type CreateUserParams = typeof users.$inferInsert;
 
-export const updateUserParamsSchema = z.object({
-  clerkId: z.string(),
-  name: z.string().nullable().optional(),
-  image: z.string().nullable().optional(),
-  emailVerified: z.boolean().optional(),
-});
+export type UpdateUserParams = Partial<typeof users.$inferInsert> & {
+  clerkId: string;
+};
 
-export const getUserByClerkIdParamsSchema = z.object({
-  clerkId: z.string(),
-});
+export type WhereParams = {
+  id?: string;
+  clerkId?: string;
+  email?: string;
+  tenantId?: string;
+};
 
-export type CreateUserParams = z.infer<typeof createUserParamsSchema>;
-export type UpdateUserParams = z.infer<typeof updateUserParamsSchema>;
-export type GetUserByClerkIdParams = z.infer<
-  typeof getUserByClerkIdParamsSchema
->;
+export type JoinableParams = {
+  tenant: boolean;
+  preferences: boolean;
+  tasks: boolean;
+  memberships: boolean;
+};
+
+export type GetUserParams = {
+  id: string;
+};
+
+export type GetUserByClerkIdParams = {
+  clerkId: string;
+};
+
+export type DeleteUserParams = {
+  clerkId: string;
+};
+
+export type WhereClauseParams = WhereParams & {
+  search?: string;
+};
+
+export type ListUsersParams = ListBaseParams &
+  WhereParams & {
+    include?: JoinableParams;
+  };

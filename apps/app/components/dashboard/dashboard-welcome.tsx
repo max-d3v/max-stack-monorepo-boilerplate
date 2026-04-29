@@ -2,9 +2,9 @@
 import { Rocket } from "lucide-react";
 
 export function DashboardWelcome() {
-  // const { sessionClaims } = await auth();
+  // const { sessionClaims: { full_name } } = await auth();
 
-  // if (!sessionClaims?.full_name) {
+  // if (!full_name) {
   //   throw new Error("Full name is required in clerk's session claims");
   // }
 

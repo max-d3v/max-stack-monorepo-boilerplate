@@ -1,6 +1,7 @@
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   boolean,
+  integer,
   pgEnum,
   pgTable,
   text,
@@ -15,6 +16,8 @@ export const taskStatusEnum = pgEnum("task_status", [
   "completed",
   "cancelled",
 ]);
+
+export const tenantRoles = pgEnum("tenant_roles", ["owner", "admin", "member"]);
 
 export const userPreferences = pgTable("user_preferences", {
   id: uuid().default(sql`gen_random_uuid()`).primaryKey(),
@@ -58,6 +61,8 @@ export const tasks = pgTable("tasks", {
   description: text(),
   status: taskStatusEnum().default("todo").notNull(),
 
+  priority: integer("priority").default(0),
+
   dueDate: timestamp("due_date"),
   completedAt: timestamp("completed_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -78,8 +83,97 @@ export const users = pgTable("users", {
   active: boolean("active").default(true),
 });
 
+export const tenantMembers = pgTable("tenant_members", {
+  id: uuid().default(sql`gen_random_uuid()`).primaryKey(),
+  userId: uuid("user_id").references(() => users.id),
+  tenantId: uuid("tenant_id").references(() => tenants.id),
+  role: tenantRoles().default("member"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+});
+
+export const tenants = pgTable("tenants", {
+  id: uuid().default(sql`gen_random_uuid()`).primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+});
+
+export const tenantInvitations = pgTable("tenant_invitations", {
+  id: uuid().default(sql`gen_random_uuid()`).primaryKey(),
+  tenantId: uuid("tenant_id").references(() => tenants.id),
+  email: varchar("email", { length: 255 }).notNull(),
+  role: varchar("role", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+});
+
+export const userPreferencesRelations = relations(
+  userPreferences,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [userPreferences.userId],
+      references: [users.clerkId],
+    }),
+  })
+);
+
+export const tasksRelations = relations(tasks, ({ one }) => ({
+  user: one(users, {
+    fields: [tasks.userId],
+    references: [users.clerkId],
+  }),
+}));
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+  tenant: one(tenants, {
+    fields: [users.tenantId],
+    references: [tenants.id],
+  }),
+  preferences: one(userPreferences),
+  tasks: many(tasks),
+  memberships: many(tenantMembers),
+}));
+
+export const tenantsRelations = relations(tenants, ({ many }) => ({
+  users: many(users),
+  members: many(tenantMembers),
+  invitations: many(tenantInvitations),
+}));
+
+export const tenantMembersRelations = relations(tenantMembers, ({ one }) => ({
+  user: one(users, {
+    fields: [tenantMembers.userId],
+    references: [users.id],
+  }),
+  tenant: one(tenants, {
+    fields: [tenantMembers.tenantId],
+    references: [tenants.id],
+  }),
+}));
+
+export const tenantInvitationsRelations = relations(
+  tenantInvitations,
+  ({ one }) => ({
+    tenant: one(tenants, {
+      fields: [tenantInvitations.tenantId],
+      references: [tenants.id],
+    }),
+  })
+);
+
 export const schema = {
   userPreferences,
   tasks,
   users,
+  tenants,
+  tenantMembers,
+  tenantInvitations,
+  userPreferencesRelations,
+  tasksRelations,
+  usersRelations,
+  tenantsRelations,
+  tenantMembersRelations,
+  tenantInvitationsRelations,
 };

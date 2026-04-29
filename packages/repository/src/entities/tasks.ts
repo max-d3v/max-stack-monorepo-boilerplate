@@ -1,13 +1,6 @@
-import {
-  and,
-  count,
-  db,
-  desc,
-  eq,
-  ilike,
-  or,
-} from "@workspace/database/client";
-import { tasks } from "@workspace/database/schema";
+import type { SQL, SQLWrapper } from "@workspace/database/client";
+import { and, db, desc, eq, ilike, or } from "@workspace/database/client";
+import { tasks, tenants } from "@workspace/database/schema";
 import { HttpError } from "@workspace/types/errors/http";
 import type {
   CreateTaskParams,
@@ -16,14 +9,12 @@ import type {
   ListTasksParams,
   TaskRawObject,
   UpdateTaskParams,
+  WhereClauseParams,
+  JoinableParams,
 } from "@workspace/types/repository/tasks";
 
 const DEFAULT_PAGE_SIZE = 20;
 const DEFAULT_PAGE_NUM = 1;
-
-type TasksFindManyConfig = NonNullable<
-  Parameters<typeof db.query.tasks.findMany>[0]
->;
 
 const buildSearchClause = (search?: string) => {
   if (!search) {
@@ -35,31 +26,67 @@ const buildSearchClause = (search?: string) => {
   );
 };
 
-export const list = async (
-  params: ListTasksParams & { with?: TasksFindManyConfig["with"] }
-) => {
+const buildWhere = (whereables: WhereClauseParams) => {
+  const { userId, tenantId } = whereables;
+
+  const whereClause: SQLWrapper[] = [];
+  if (userId) {
+    whereClause.push(eq(tasks.userId, userId));
+  }
+  if (tenantId) {
+    whereClause.push(eq(tenants.id, tenantId));
+  }
+
+  return and(...whereClause);
+};
+
+const buildWhereClause = (params: WhereClauseParams): SQL | undefined => {
+  const { search, ...data } = params;
+  const searchClause = buildSearchClause(search);
+  const where = buildWhere(data);
+
+  const whereClause: SQLWrapper[] = [];
+  if (searchClause) {
+    whereClause.push(searchClause);
+  }
+  if (where) {
+    whereClause.push(where);
+  }
+
+  return and(...whereClause);
+};
+
+const buildJoinClause = (include: JoinableParams | undefined) => {
+  const joinClause: Record<string, boolean> = {};
+
+  if (include?.users) {
+    joinClause.users = true;
+  }
+  if (include?.tenants) {
+    joinClause.tenants = true;
+  }
+
+  return joinClause;
+};
+
+export const list = async (params: ListTasksParams) => {
   const {
-    userId,
     search,
     pageNum = DEFAULT_PAGE_NUM,
     pageSize = DEFAULT_PAGE_SIZE,
-    with: withConfig,
+    include,
+    ...rest
   } = params;
 
-  const searchClause = buildSearchClause(search);
-  const whereClause = and(eq(tasks.userId, userId), searchClause);
   const offset = (pageNum - 1) * pageSize;
 
-  const [data] = await Promise.all([
-    db.query.tasks.findMany({
-      where: whereClause,
-      orderBy: desc(tasks.createdAt),
-      limit: pageSize,
-      offset,
-      with: withConfig,
-    }),
-    db.select({ count: count() }).from(tasks).where(whereClause),
-  ]);
+  const data = await db.query.tasks.findMany({
+    where: buildWhereClause({ search, ...rest }),
+    orderBy: desc(tasks.createdAt),
+    limit: pageSize,
+    offset,
+    with: buildJoinClause(include),
+  });
 
   return data;
 };

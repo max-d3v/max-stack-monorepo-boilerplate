@@ -1,42 +1,37 @@
-import {
-  createInsertSchema,
-  createUpdateSchema,
-} from "@workspace/database/drizzle-zod";
-import { userPreferences } from "@workspace/database/schema";
-import { z } from "zod";
-
-export const createUserPreferenceInputSchema =
-  createInsertSchema(userPreferences);
-export const updateUserPreferenceInputSchema = createUpdateSchema(
-  userPreferences
-).extend({
-  userId: z.string(),
-});
-export const getUserPreferenceInputSchema = z.object({
-  userId: z.string(),
-});
-export const deleteUserPreferenceParamsSchema = z.object({
-  userId: z.string(),
-});
+import type { userPreferences } from "@workspace/database/schema";
+import type { ListBaseParams } from "./base";
 
 export type UserPreferenceRawObject = typeof userPreferences.$inferSelect;
 
-export type CreateUserPreferenceParams = z.infer<
-  typeof createUserPreferenceInputSchema
->;
-export type UpdateUserPreferenceParams = z.infer<
-  typeof updateUserPreferenceInputSchema
->;
-export type GetUserPreferenceParams = z.infer<
-  typeof getUserPreferenceInputSchema
->;
-export type DeleteUserPreferenceParams = z.infer<
-  typeof deleteUserPreferenceParamsSchema
->;
+export type CreateUserPreferenceParams = typeof userPreferences.$inferInsert;
 
-export type UpdatePreferencesInput = Partial<
-  Omit<UserPreferenceRawObject, "id" | "userId" | "createdAt" | "updatedAt">
->;
+export type UpdateUserPreferenceParams = Partial<
+  typeof userPreferences.$inferInsert
+> & {
+  userId: string;
+};
 
-export type PreferencesResponse = UserPreferenceRawObject;
-export type UpdatePreferencesResponse = UserPreferenceRawObject;
+export type WhereParams = {
+  userId?: string;
+};
+
+export type JoinableParams = {
+  user: boolean;
+};
+
+export type GetUserPreferenceParams = {
+  userId: string;
+};
+
+export type DeleteUserPreferenceParams = {
+  userId: string;
+};
+
+export type WhereClauseParams = WhereParams & {
+  search?: string;
+};
+
+export type ListUserPreferencesParams = ListBaseParams &
+  WhereParams & {
+    include?: JoinableParams;
+  };

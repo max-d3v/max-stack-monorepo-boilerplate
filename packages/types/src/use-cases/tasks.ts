@@ -1,6 +1,5 @@
 import { z } from "zod";
 import type { TaskRawObject } from "../repository/tasks";
-import { updateInputSchema } from "../repository/tasks";
 
 export type TasksListResponse = {
   data: TaskRawObject[];
@@ -35,7 +34,7 @@ export const updateTaskInputSchema = z.object({
 export const updateTaskSchema = z.object({
   userId: z.string().uuid(),
   taskId: z.string().uuid(),
-  data: updateInputSchema.omit({ id: true, userId: true }),
+  data: updateTaskInputSchema.omit({ id: true }),
 });
 
 export const createTaskSchema = z.object({

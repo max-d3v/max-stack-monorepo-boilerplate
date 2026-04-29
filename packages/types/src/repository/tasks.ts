@@ -1,33 +1,39 @@
-import {
-  createInsertSchema,
-  createUpdateSchema,
-} from "@workspace/database/drizzle-zod";
-import { tasks } from "@workspace/database/schema";
-import { z } from "zod";
-import { listBaseParamsSchema } from "./base";
-
-export const searchables = ["title", "description", "status"];
-
-export const createTaskInputSchema = createInsertSchema(tasks);
-export const updateInputSchema = createUpdateSchema(tasks).extend({
-  id: z.string().uuid(),
-  userId: z.string(),
-});
-export const getTaskInputSchema = z.object({
-  id: z.string(),
-});
-export const listTasksParamsSchema = listBaseParamsSchema.extend({
-  userId: z.string(),
-});
-export const deleteTaskParamsSchema = z.object({
-  id: z.string(),
-  userId: z.string(),
-});
+import type { tasks } from "@workspace/database/schema";
+import type { ListBaseParams } from "./base";
 
 export type TaskRawObject = typeof tasks.$inferSelect;
 
-export type CreateTaskParams = z.infer<typeof createTaskInputSchema>;
-export type UpdateTaskParams = z.infer<typeof updateInputSchema>;
-export type GetTaskParams = z.infer<typeof getTaskInputSchema>;
-export type ListTasksParams = z.infer<typeof listTasksParamsSchema>;
-export type DeleteTaskParams = z.infer<typeof deleteTaskParamsSchema>;
+export type CreateTaskParams = typeof tasks.$inferInsert;
+
+export type UpdateTaskParams = Partial<typeof tasks.$inferInsert> & {
+  id: string;
+  userId: string;
+};
+
+export type WhereParams = {
+  userId: string;
+  tenantId?: string;
+};
+
+export type JoinableParams = {
+  users: boolean;
+  tenants: boolean;
+};
+
+export type GetTaskParams = {
+  id: string;
+};
+
+export type DeleteTaskParams = {
+  id: string;
+  userId: string;
+};
+
+export type WhereClauseParams = WhereParams & {
+  search?: string;
+};
+
+export type ListTasksParams = ListBaseParams &
+  WhereParams & {
+    include?: JoinableParams;
+  };

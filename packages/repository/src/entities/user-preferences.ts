@@ -1,13 +1,84 @@
-import { db, eq } from "@workspace/database/client";
+import type { SQL, SQLWrapper } from "@workspace/database/client";
+import { and, db, desc, eq } from "@workspace/database/client";
 import { userPreferences } from "@workspace/database/schema";
 import { HttpError } from "@workspace/types/errors/http";
 import type {
   CreateUserPreferenceParams,
   DeleteUserPreferenceParams,
   GetUserPreferenceParams,
+  JoinableParams,
+  ListUserPreferencesParams,
   UpdateUserPreferenceParams,
   UserPreferenceRawObject,
+  WhereClauseParams,
 } from "@workspace/types/repository/user-preferences";
+
+const DEFAULT_PAGE_SIZE = 20;
+const DEFAULT_PAGE_NUM = 1;
+
+const buildSearchClause = (_search?: string) => {
+  // No searchable text fields on user_preferences
+  return undefined;
+};
+
+const buildWhere = (whereables: WhereClauseParams) => {
+  const { userId } = whereables;
+
+  const whereClause: SQLWrapper[] = [];
+  if (userId) {
+    whereClause.push(eq(userPreferences.userId, userId));
+  }
+
+  return and(...whereClause);
+};
+
+const buildWhereClause = (params: WhereClauseParams): SQL | undefined => {
+  const { search, ...data } = params;
+  const searchClause = buildSearchClause(search);
+  const where = buildWhere(data);
+
+  const whereClause: SQLWrapper[] = [];
+  if (searchClause) {
+    whereClause.push(searchClause);
+  }
+  if (where) {
+    whereClause.push(where);
+  }
+
+  return and(...whereClause);
+};
+
+const buildJoinClause = (include: JoinableParams | undefined) => {
+  const joinClause: Record<string, boolean> = {};
+
+  if (include?.user) {
+    joinClause.user = true;
+  }
+
+  return joinClause;
+};
+
+export const list = async (params: ListUserPreferencesParams) => {
+  const {
+    search,
+    pageNum = DEFAULT_PAGE_NUM,
+    pageSize = DEFAULT_PAGE_SIZE,
+    include,
+    ...rest
+  } = params;
+
+  const offset = (pageNum - 1) * pageSize;
+
+  const data = await db.query.userPreferences.findMany({
+    where: buildWhereClause({ search, ...rest }),
+    orderBy: desc(userPreferences.createdAt),
+    limit: pageSize,
+    offset,
+    with: buildJoinClause(include),
+  });
+
+  return data;
+};
 
 export const get = async (
   params: GetUserPreferenceParams
@@ -23,6 +94,19 @@ export const get = async (
   }
 
   return preference;
+};
+
+export const find = async (
+  userId: string
+): Promise<UserPreferenceRawObject[]> => {
+  const result = await db
+    .select()
+    .from(userPreferences)
+    .where(eq(userPreferences.userId, userId))
+    .orderBy(desc(userPreferences.createdAt))
+    .limit(1);
+
+  return result;
 };
 
 export const getOrCreate = async (
@@ -99,4 +183,11 @@ export const deleteOne = async (
   }
 
   return preference;
+};
+
+export const deleteAllByUserId = async (params: {
+  userId: string;
+}): Promise<void> => {
+  const { userId } = params;
+  await db.delete(userPreferences).where(eq(userPreferences.userId, userId));
 };
