@@ -1,6 +1,6 @@
 import type { SQL, SQLWrapper } from "@workspace/database/client";
 import { and, db, desc, eq } from "@workspace/database/client";
-import { userPreferences } from "@workspace/database/schema";
+import { userPreference } from "@workspace/database/schema";
 import { HttpError } from "@workspace/types/errors/http";
 import type {
   CreateUserPreferenceParams,
@@ -26,7 +26,7 @@ const buildWhere = (whereables: WhereClauseParams) => {
 
   const whereClause: SQLWrapper[] = [];
   if (userId) {
-    whereClause.push(eq(userPreferences.userId, userId));
+    whereClause.push(eq(userPreference.userId, userId));
   }
 
   return and(...whereClause);
@@ -69,9 +69,9 @@ export const list = async (params: ListUserPreferencesParams) => {
 
   const offset = (pageNum - 1) * pageSize;
 
-  const data = await db.query.userPreferences.findMany({
+  const data = await db.query.userPreference.findMany({
     where: buildWhereClause({ search, ...rest }),
-    orderBy: desc(userPreferences.createdAt),
+    orderBy: desc(userPreference.createdAt),
     limit: pageSize,
     offset,
     with: buildJoinClause(include),
@@ -85,8 +85,8 @@ export const get = async (
 ): Promise<UserPreferenceRawObject> => {
   const { userId } = params;
 
-  const preference = await db.query.userPreferences.findFirst({
-    where: eq(userPreferences.userId, userId),
+  const preference = await db.query.userPreference.findFirst({
+    where: eq(userPreference.userId, userId),
   });
 
   if (!preference) {
@@ -101,9 +101,9 @@ export const find = async (
 ): Promise<UserPreferenceRawObject[]> => {
   const result = await db
     .select()
-    .from(userPreferences)
-    .where(eq(userPreferences.userId, userId))
-    .orderBy(desc(userPreferences.createdAt))
+    .from(userPreference)
+    .where(eq(userPreference.userId, userId))
+    .orderBy(desc(userPreference.createdAt))
     .limit(1);
 
   return result;
@@ -114,18 +114,15 @@ export const getOrCreate = async (
 ): Promise<UserPreferenceRawObject> => {
   const { userId } = params;
 
-  const existing = await db.query.userPreferences.findFirst({
-    where: eq(userPreferences.userId, userId),
+  const existing = await db.query.userPreference.findFirst({
+    where: eq(userPreference.userId, userId),
   });
 
   if (existing) {
     return existing;
   }
 
-  const result = await db
-    .insert(userPreferences)
-    .values({ userId })
-    .returning();
+  const result = await db.insert(userPreference).values({ userId }).returning();
 
   const preference = result[0];
   if (!preference) {
@@ -138,7 +135,7 @@ export const getOrCreate = async (
 export const create = async (
   params: CreateUserPreferenceParams
 ): Promise<UserPreferenceRawObject> => {
-  const result = await db.insert(userPreferences).values(params).returning();
+  const result = await db.insert(userPreference).values(params).returning();
 
   const preference = result[0];
   if (!preference) {
@@ -154,9 +151,9 @@ export const updateOne = async (
   const { userId, ...data } = params;
 
   const result = await db
-    .update(userPreferences)
+    .update(userPreference)
     .set({ ...data, updatedAt: new Date() })
-    .where(eq(userPreferences.userId, userId))
+    .where(eq(userPreference.userId, userId))
     .returning();
 
   const preference = result[0];
@@ -173,8 +170,8 @@ export const deleteOne = async (
   const { userId } = params;
 
   const result = await db
-    .delete(userPreferences)
-    .where(eq(userPreferences.userId, userId))
+    .delete(userPreference)
+    .where(eq(userPreference.userId, userId))
     .returning();
 
   const preference = result[0];
@@ -189,5 +186,5 @@ export const deleteAllByUserId = async (params: {
   userId: string;
 }): Promise<void> => {
   const { userId } = params;
-  await db.delete(userPreferences).where(eq(userPreferences.userId, userId));
+  await db.delete(userPreference).where(eq(userPreference.userId, userId));
 };

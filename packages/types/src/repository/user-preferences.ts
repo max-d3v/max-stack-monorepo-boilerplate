@@ -1,12 +1,12 @@
-import type { userPreferences } from "@workspace/database/schema";
+import type { userPreference } from "@workspace/database/schema";
 import type { ListBaseParams } from "./base";
 
-export type UserPreferenceRawObject = typeof userPreferences.$inferSelect;
+export type UserPreferenceRawObject = typeof userPreference.$inferSelect;
 
-export type CreateUserPreferenceParams = typeof userPreferences.$inferInsert;
+export type CreateUserPreferenceParams = typeof userPreference.$inferInsert;
 
 export type UpdateUserPreferenceParams = Partial<
-  typeof userPreferences.$inferInsert
+  typeof userPreference.$inferInsert
 > & {
   userId: string;
 };

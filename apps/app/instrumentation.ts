@@ -1,15 +1,13 @@
 import { captureRequestError } from "@sentry/nextjs";
 import { registerOTel } from "@vercel/otel";
-import {
-  config,
-} from "@workspace/observability/app/otel-config";
+import { config } from "@workspace/observability/app/otel-config";
 import { isObservabilityEnabled } from "@workspace/observability/server";
 
 export async function register() {
   await import("@workspace/rpc/orpc/orpc.server");
 
   registerOTel(config);
-  
+
   if (process.env.NEXT_RUNTIME === "nodejs") {
     if (!isObservabilityEnabled) {
       return;

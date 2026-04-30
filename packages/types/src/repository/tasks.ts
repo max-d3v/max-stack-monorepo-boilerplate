@@ -1,11 +1,11 @@
-import type { tasks } from "@workspace/database/schema";
+import type { task } from "@workspace/database/schema";
 import type { ListBaseParams } from "./base";
 
-export type TaskRawObject = typeof tasks.$inferSelect;
+export type TaskRawObject = typeof task.$inferSelect;
 
-export type CreateTaskParams = typeof tasks.$inferInsert;
+export type CreateTaskParams = typeof task.$inferInsert;
 
-export type UpdateTaskParams = Partial<typeof tasks.$inferInsert> & {
+export type UpdateTaskParams = Partial<typeof task.$inferInsert> & {
   id: string;
   userId: string;
 };

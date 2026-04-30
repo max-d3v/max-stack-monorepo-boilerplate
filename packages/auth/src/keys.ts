@@ -4,32 +4,21 @@ import { z } from "zod";
 export const keys = () =>
   createEnv({
     server: {
-      CLERK_SECRET_KEY: z.string().startsWith("sk_"),
-      CLERK_WEBHOOK_SECRET: z.string().startsWith("whsec_"),
+      BETTER_AUTH_SECRET: z.string(),
+      BETTER_AUTH_URL: z.string(),
+      DATABASE_URL: z.string(),
+      GOOGLE_CLIENT_SECRET: z.string().optional(),
     },
     client: {
-      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().startsWith("pk_"),
-      NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string().startsWith("/").optional(),
-      NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string().startsWith("/").optional(),
-      NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z
-        .string()
-        .startsWith("/")
-        .optional(),
-      NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z
-        .string()
-        .startsWith("/")
-        .optional(),
+      NEXT_PUBLIC_GOOGLE_CLIENT_ID: z.string().optional(),
+      NEXT_PUBLIC_BETTER_AUTH_URL: z.string().optional(),
     },
     runtimeEnv: {
-      CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
-      CLERK_WEBHOOK_SECRET: process.env.CLERK_WEBHOOK_SECRET,
-      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
-        process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
-      NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
-      NEXT_PUBLIC_CLERK_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
-      NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL:
-        process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL,
-      NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL:
-        process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL,
+      DATABASE_URL: process.env.DATABASE_URL,
+      NEXT_PUBLIC_BETTER_AUTH_URL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+      BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
+      BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
+      NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     },
   });

@@ -1,11 +1,10 @@
 import type { SQL, SQLWrapper } from "@workspace/database/client";
 import { and, db, desc, eq, ilike, or } from "@workspace/database/client";
-import { users } from "@workspace/database/schema";
+import { organization, user } from "@workspace/database/schema";
 import { HttpError } from "@workspace/types/errors/http";
 import type {
   CreateUserParams,
   DeleteUserParams,
-  GetUserByClerkIdParams,
   GetUserParams,
   JoinableParams,
   ListUsersParams,
@@ -21,27 +20,19 @@ const buildSearchClause = (search?: string) => {
   if (!search) {
     return undefined;
   }
-  return or(
-    ilike(users.name, `%${search}%`),
-    ilike(users.email, `%${search}%`)
-  );
+  return or(ilike(user.name, `%${search}%`), ilike(user.email, `%${search}%`));
 };
 
 const buildWhere = (whereables: WhereClauseParams) => {
-  const { id, clerkId, email, tenantId } = whereables;
+  const { email, tenantId } = whereables;
 
   const whereClause: SQLWrapper[] = [];
-  if (id) {
-    whereClause.push(eq(users.id, id));
-  }
-  if (clerkId) {
-    whereClause.push(eq(users.clerkId, clerkId));
-  }
+
   if (email) {
-    whereClause.push(eq(users.email, email));
+    whereClause.push(eq(user.email, email));
   }
   if (tenantId) {
-    whereClause.push(eq(users.tenantId, tenantId));
+    whereClause.push(eq(organization.id, tenantId));
   }
 
   return and(...whereClause);
@@ -93,9 +84,9 @@ export const list = async (params: ListUsersParams) => {
 
   const offset = (pageNum - 1) * pageSize;
 
-  const data = await db.query.users.findMany({
+  const data = await db.query.user.findMany({
     where: buildWhereClause({ search, ...rest }),
-    orderBy: desc(users.createdAt),
+    orderBy: desc(user.createdAt),
     limit: pageSize,
     offset,
     with: buildJoinClause(include),
@@ -107,112 +98,82 @@ export const list = async (params: ListUsersParams) => {
 export const get = async (params: GetUserParams): Promise<UserRawObject> => {
   const { id } = params;
 
-  const user = await db.query.users.findFirst({
-    where: eq(users.id, id),
+  const found = await db.query.user.findFirst({
+    where: eq(user.id, id),
   });
 
-  if (!user) {
+  if (!found) {
     throw new HttpError(404, "User not found");
   }
 
-  return user;
-};
-
-export const getByClerkId = async (
-  params: GetUserByClerkIdParams
-): Promise<UserRawObject> => {
-  const { clerkId } = params;
-
-  const user = await db.query.users.findFirst({
-    where: eq(users.clerkId, clerkId),
-  });
-
-  if (!user) {
-    throw new HttpError(404, "User not found");
-  }
-
-  return user;
-};
-
-export const find = async (clerkId: string): Promise<UserRawObject[]> => {
-  const result = await db
-    .select()
-    .from(users)
-    .where(eq(users.clerkId, clerkId))
-    .orderBy(desc(users.createdAt))
-    .limit(1);
-
-  return result;
+  return found;
 };
 
 export const create = async (
   params: CreateUserParams
 ): Promise<UserRawObject> => {
-  const result = await db.insert(users).values(params).returning();
+  const result = await db.insert(user).values(params).returning();
 
-  const user = result[0];
-  if (!user) {
+  const created = result[0];
+  if (!created) {
     throw new HttpError(500, "Failed to create user");
   }
 
-  return user;
+  return created;
 };
 
-export const upsertByClerkId = async (
+export const upsert = async (
   params: CreateUserParams
 ): Promise<UserRawObject> => {
-  const { clerkId, ...rest } = params;
+  const { id, ...rest } = params;
 
   const result = await db
-    .insert(users)
-    .values({ clerkId, ...rest })
+    .insert(user)
+    .values({ id, ...rest })
     .onConflictDoUpdate({
-      target: users.clerkId,
+      target: user.id,
       set: { ...rest, updatedAt: new Date() },
     })
     .returning();
 
-  const user = result[0];
-  if (!user) {
+  const upserted = result[0];
+  if (!upserted) {
     throw new HttpError(500, "Failed to upsert user");
   }
 
-  return user;
+  return upserted;
 };
 
 export const updateOne = async (
   params: UpdateUserParams
 ): Promise<UserRawObject> => {
-  const { clerkId, ...data } = params;
+  const { id, ...data } = params;
 
   const result = await db
-    .update(users)
+    .update(user)
     .set({ ...data, updatedAt: new Date() })
-    .where(eq(users.clerkId, clerkId))
+    .where(eq(user.id, id))
     .returning();
 
-  const user = result[0];
-  if (!user) {
+  const updated = result[0];
+  if (!updated) {
     throw new HttpError(404, "User not found");
   }
 
-  return user;
+  return updated;
 };
 
 export const deleteOne = async (
   params: DeleteUserParams
 ): Promise<UserRawObject> => {
-  const { clerkId } = params;
+  const { id } = params;
 
-  const result = await db
-    .delete(users)
-    .where(eq(users.clerkId, clerkId))
-    .returning();
+  const result = await db.delete(user).where(eq(user.id, id)).returning();
 
-  const user = result[0];
-  if (!user) {
+  const deleted = result[0];
+  if (!deleted) {
     throw new HttpError(404, "User not found");
   }
 
-  return user;
+  return deleted;
 };

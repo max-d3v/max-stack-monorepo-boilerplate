@@ -3,12 +3,13 @@
   "noEmit": true,
   // @ts-ignore
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@workspace/ui/*": ["./src/*"]
     },
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": false
   },
+
   "include": ["."],
   "exclude": ["node_modules", "dist"]
 }

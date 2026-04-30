@@ -1,17 +1,15 @@
-import type { users } from "@workspace/database/schema";
+import type { user } from "@workspace/database/schema";
 import type { ListBaseParams } from "./base";
 
-export type UserRawObject = typeof users.$inferSelect;
+export type UserRawObject = typeof user.$inferSelect;
 
-export type CreateUserParams = typeof users.$inferInsert;
+export type CreateUserParams = typeof user.$inferInsert;
 
-export type UpdateUserParams = Partial<typeof users.$inferInsert> & {
-  clerkId: string;
+export type UpdateUserParams = Partial<typeof user.$inferInsert> & {
+  id: string;
 };
 
 export type WhereParams = {
-  id?: string;
-  clerkId?: string;
   email?: string;
   tenantId?: string;
 };
@@ -28,11 +26,11 @@ export type GetUserParams = {
 };
 
 export type GetUserByClerkIdParams = {
-  clerkId: string;
+  id: string;
 };
 
 export type DeleteUserParams = {
-  clerkId: string;
+  id: string;
 };
 
 export type WhereClauseParams = WhereParams & {

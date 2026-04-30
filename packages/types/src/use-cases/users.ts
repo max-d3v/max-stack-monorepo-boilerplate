@@ -19,7 +19,7 @@ export type UpdateProfileResponse = AuthUser;
 export type DeleteAccountResponse = { deleted: boolean };
 
 export const getUserSchema = z.object({
-  clerkId: z.string().min(1),
+  id: z.string().min(1),
 });
 
 export const updateProfileSchema = updateProfileInputSchema.extend({

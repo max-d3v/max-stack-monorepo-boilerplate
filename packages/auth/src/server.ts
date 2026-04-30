@@ -1,3 +1,4 @@
 import "server-only";
 
-export * from "@clerk/nextjs/server";
+export { getSessionCookie } from "better-auth/cookies";
+export { toNextJsHandler } from "better-auth/next-js";

@@ -8,7 +8,7 @@ import { authenticatedProcedure } from "../base";
 
 const usersRouter = {
   getUser: authenticatedProcedure.handler(async ({ context }) => {
-    return await getUser({ clerkId: context.user.id });
+    return await getUser({ id: context.user.id });
   }),
   updateProfile: authenticatedProcedure
     .input(updateProfileInputSchema)

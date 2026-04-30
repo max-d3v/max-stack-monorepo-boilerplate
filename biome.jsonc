@@ -32,7 +32,7 @@
     "includes": [
       "**/*",
       "!.agents",
-      "!packages/ui/src/components/*.tsx",
+      "!packages/ui",
       "!packages/design-system/components/ui",
       "!packages/design-system/lib",
       "!packages/design-system/hooks",

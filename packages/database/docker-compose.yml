@@ -2,11 +2,11 @@ services:
   postgresql:
     image: postgres:17
     ports:
-      - 5432:5432
+      - 5433:5433
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=trazo
+      - POSTGRES_DB=nextjs-boilerplate
     volumes:
       - db-data:/var/lib/postgresql/data
 volumes:

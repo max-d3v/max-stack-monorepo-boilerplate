@@ -1,9 +1,8 @@
-import "server-only";
 import { deleteAllByUserId as deleteAllTasksByUserId } from "@workspace/repository/entities/tasks";
 import { deleteOne as deleteUserPreferences } from "@workspace/repository/entities/user-preferences";
 import {
   deleteOne as deleteUser,
-  getByClerkId,
+  get,
   updateOne as updateUser,
 } from "@workspace/repository/entities/users";
 import type {
@@ -16,8 +15,8 @@ import type {
 } from "@workspace/types/use-cases/users";
 
 export const getUser = async (params: GetUser): Promise<AuthUser> => {
-  const { clerkId } = params;
-  const user = await getByClerkId({ clerkId });
+  const { id } = params;
+  const user = await get({ id });
 
   return {
     id: user.id,
@@ -33,7 +32,7 @@ export const updateProfile = async (
 ): Promise<UpdateProfileResponse> => {
   const { userId, name } = params;
 
-  const updated = await updateUser({ clerkId: userId, name });
+  const updated = await updateUser({ id: userId, name });
 
   return {
     id: updated.id,
@@ -51,7 +50,7 @@ export const deleteAccount = async (
 
   await deleteAllTasksByUserId({ userId });
   await deleteUserPreferences({ userId });
-  await deleteUser({ clerkId: userId });
+  await deleteUser({ id: userId });
 
   return { deleted: true };
 };

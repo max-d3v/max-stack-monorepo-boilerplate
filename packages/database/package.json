@@ -13,7 +13,7 @@
     "dev": "docker-compose up -d",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:push": "drizzle-kit push",
+    "db:push": "drizzle-kit push --verbose",
     "db:pull": "drizzle-kit pull",
     "db:studio": "drizzle-kit studio",
     "db:check": "drizzle-kit check",

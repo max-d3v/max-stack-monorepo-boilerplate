@@ -1,16 +1,16 @@
 import type { SQL, SQLWrapper } from "@workspace/database/client";
 import { and, db, desc, eq, ilike, or } from "@workspace/database/client";
-import { tasks, tenants } from "@workspace/database/schema";
+import { organization, task } from "@workspace/database/schema";
 import { HttpError } from "@workspace/types/errors/http";
 import type {
   CreateTaskParams,
   DeleteTaskParams,
   GetTaskParams,
+  JoinableParams,
   ListTasksParams,
   TaskRawObject,
   UpdateTaskParams,
   WhereClauseParams,
-  JoinableParams,
 } from "@workspace/types/repository/tasks";
 
 const DEFAULT_PAGE_SIZE = 20;
@@ -21,8 +21,8 @@ const buildSearchClause = (search?: string) => {
     return undefined;
   }
   return or(
-    ilike(tasks.title, `%${search}%`),
-    ilike(tasks.description, `%${search}%`)
+    ilike(task.title, `%${search}%`),
+    ilike(task.description, `%${search}%`)
   );
 };
 
@@ -31,10 +31,10 @@ const buildWhere = (whereables: WhereClauseParams) => {
 
   const whereClause: SQLWrapper[] = [];
   if (userId) {
-    whereClause.push(eq(tasks.userId, userId));
+    whereClause.push(eq(task.userId, userId));
   }
   if (tenantId) {
-    whereClause.push(eq(tenants.id, tenantId));
+    whereClause.push(eq(organization.id, tenantId));
   }
 
   return and(...whereClause);
@@ -80,9 +80,9 @@ export const list = async (params: ListTasksParams) => {
 
   const offset = (pageNum - 1) * pageSize;
 
-  const data = await db.query.tasks.findMany({
+  const data = await db.query.task.findMany({
     where: buildWhereClause({ search, ...rest }),
-    orderBy: desc(tasks.createdAt),
+    orderBy: desc(task.createdAt),
     limit: pageSize,
     offset,
     with: buildJoinClause(include),
@@ -94,23 +94,23 @@ export const list = async (params: ListTasksParams) => {
 export const get = async (params: GetTaskParams): Promise<TaskRawObject> => {
   const { id } = params;
 
-  const task = await db.query.tasks.findFirst({
-    where: eq(tasks.id, id),
+  const found = await db.query.task.findFirst({
+    where: eq(task.id, id),
   });
 
-  if (!task) {
+  if (!found) {
     throw new HttpError(404, "Task not found");
   }
 
-  return task;
+  return found;
 };
 
 export const find = async (userId: string): Promise<TaskRawObject[]> => {
   const result = await db
     .select()
-    .from(tasks)
-    .where(eq(tasks.userId, userId))
-    .orderBy(desc(tasks.createdAt))
+    .from(task)
+    .where(eq(task.userId, userId))
+    .orderBy(desc(task.createdAt))
     .limit(1);
 
   return result;
@@ -122,16 +122,16 @@ export const create = async (
   const { userId, ...data } = params;
 
   const result = await db
-    .insert(tasks)
+    .insert(task)
     .values({ ...data, userId })
     .returning();
 
-  const task = result[0];
-  if (!task) {
+  const created = result[0];
+  if (!created) {
     throw new HttpError(500, "Failed to create task");
   }
 
-  return task;
+  return created;
 };
 
 export const updateOne = async (
@@ -140,17 +140,17 @@ export const updateOne = async (
   const { id, userId, ...data } = params;
 
   const result = await db
-    .update(tasks)
+    .update(task)
     .set({ ...data, updatedAt: new Date() })
-    .where(and(eq(tasks.id, id), eq(tasks.userId, userId)))
+    .where(and(eq(task.id, id), eq(task.userId, userId)))
     .returning();
 
-  const task = result[0];
-  if (!task) {
+  const updated = result[0];
+  if (!updated) {
     throw new HttpError(404, "Task not found");
   }
 
-  return task;
+  return updated;
 };
 
 export const deleteOne = async (
@@ -159,21 +159,21 @@ export const deleteOne = async (
   const { id, userId } = params;
 
   const result = await db
-    .delete(tasks)
-    .where(and(eq(tasks.id, id), eq(tasks.userId, userId)))
+    .delete(task)
+    .where(and(eq(task.id, id), eq(task.userId, userId)))
     .returning();
 
-  const task = result[0];
-  if (!task) {
+  const deleted = result[0];
+  if (!deleted) {
     throw new HttpError(404, "Task not found");
   }
 
-  return task;
+  return deleted;
 };
 
 export const deleteAllByUserId = async (params: {
   userId: string;
 }): Promise<void> => {
   const { userId } = params;
-  await db.delete(tasks).where(eq(tasks.userId, userId));
+  await db.delete(task).where(eq(task.userId, userId));
 };
