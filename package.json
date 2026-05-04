@@ -11,6 +11,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:app": "turbo dev:app ",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "vitest",
     "test:ui": "vitest --ui",

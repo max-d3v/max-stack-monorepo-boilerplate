@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 3001",
+    "dev:app": "next dev --turbopack --port 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -17,6 +17,7 @@
     "@sentry/nextjs": "^9.0.0",
     "@t3-oss/env-nextjs": "^0.13.11",
     "@tanstack/react-query": "catalog:data-layer",
+    "@vercel/otel": "^2.1.2",
     "@workspace/analytics": "workspace:*",
     "@workspace/auth": "workspace:*",
     "@workspace/data-layer": "workspace:*",

@@ -3,7 +3,7 @@ import {
   updatePreferences,
 } from "@workspace/core/use-cases/preferences";
 import { updatePreferencesInputSchema } from "@workspace/types/use-cases/preferences";
-import { authenticatedProcedure } from "../base";
+import { authenticatedProcedure } from "../procedures";
 
 const preferencesRouter = {
   get: authenticatedProcedure.handler(async ({ context }) => {

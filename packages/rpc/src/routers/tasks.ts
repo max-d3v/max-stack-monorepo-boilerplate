@@ -10,7 +10,7 @@ import {
   deleteTaskInputSchema,
   updateTaskInputSchema,
 } from "@workspace/types/use-cases/tasks";
-import { authenticatedProcedure } from "../base";
+import { authenticatedProcedure } from "../procedures";
 
 const tasksRouter = {
   getUserTasksWithCount: authenticatedProcedure.handler(async ({ context }) => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
-import { useClerk } from "@workspace/auth/client";
+import { authClient } from "@workspace/auth/client";
 import { orpc } from "@workspace/data-layer/orpc.tanstack";
 import type { AuthUser } from "@workspace/types/use-cases/users";
 
@@ -11,7 +11,7 @@ export function useAuth(): { data: AuthUser; isPending: false } {
 }
 
 export function useLogout() {
-  const { signOut } = useClerk();
+  const { signOut } = authClient;
 
   return useMutation({
     mutationFn: () => signOut(),

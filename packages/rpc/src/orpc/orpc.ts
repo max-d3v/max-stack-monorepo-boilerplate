@@ -9,15 +9,14 @@ declare global {
 
 const link = new RPCLink({
   url: () => {
-    if (!("window" in globalThis)) {
+    if (typeof window === "undefined") {
       throw new Error("RPCLink is not allowed on the server side.");
     }
 
-    return "http://localhost:3002/rpc";
+    // For the client side, we fetch from the API.
+    return `${process.env.NEXT_PUBLIC_API_URL}/rpc`;
   },
-  // The app (:3001) and the API (:3002) are different origins, so the browser
-  // won't send Clerk's `__session` cookie unless we explicitly opt in.
-  // The API's CORS already sets `Access-Control-Allow-Credentials: true`.
+
   fetch: (request, init) =>
     globalThis.fetch(request, { ...init, credentials: "include" }),
 });

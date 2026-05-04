@@ -4,7 +4,7 @@ import {
   updateProfile,
 } from "@workspace/core/use-cases/users";
 import { updateProfileInputSchema } from "@workspace/types/use-cases/users";
-import { authenticatedProcedure } from "../base";
+import { authenticatedProcedure } from "../procedures";
 
 const usersRouter = {
   getUser: authenticatedProcedure.handler(async ({ context }) => {

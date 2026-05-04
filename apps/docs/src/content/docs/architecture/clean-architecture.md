@@ -255,7 +255,7 @@ export const authMiddleware = async ({ context, next }) => {
 
 ```typescript
 // packages/rpc/src/routers/tasks.ts
-import { authenticatedProcedure } from "../base";
+import { authenticatedProcedure } from "../procedures";
 import * as taskUseCases from "@workspace/core/use-cases/tasks";
 import { createTaskInputSchema } from "@workspace/types/use-cases/tasks";
 

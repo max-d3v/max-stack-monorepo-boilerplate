@@ -329,7 +329,7 @@ only imported with relative paths from within `packages/core/src/use-cases/`.
 // packages/rpc/src/routers/<entity>.ts
 import { create<Entity>, update<Entity>, delete<Entity> } from "@workspace/core/use-cases/<entity>";
 import { create<Entity>InputSchema, update<Entity>InputSchema } from "@workspace/types/use-cases/<entity>";
-import { authenticatedProcedure } from "../base";
+import { authenticatedProcedure } from "../procedures";
 
 const <entity>Router = {
   list: authenticatedProcedure.handler(async ({ context }) => {

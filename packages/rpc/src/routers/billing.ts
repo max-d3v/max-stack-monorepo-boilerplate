@@ -5,7 +5,7 @@ import {
   getSubscriptionStatus,
 } from "@workspace/core/use-cases/billing";
 import { createCheckoutSessionInputSchema } from "@workspace/types/use-cases/billing";
-import { authenticatedProcedure } from "../base";
+import { authenticatedProcedure } from "../procedures";
 
 const billingRouter = {
   getSubscription: authenticatedProcedure.handler(async ({ context }) => {

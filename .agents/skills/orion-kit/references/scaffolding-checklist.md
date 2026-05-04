@@ -264,7 +264,7 @@ import {
   delete<Entity>InputSchema,
   update<Entity>InputSchema,
 } from "@workspace/types/use-cases/<entity>";
-import { authenticatedProcedure } from "../base";
+import { authenticatedProcedure } from "../procedures";
 
 const <entity>Router = {
   list: authenticatedProcedure.handler(async ({ context }) => {

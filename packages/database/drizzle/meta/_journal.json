@@ -8,6 +8,13 @@
       "when": 1777552140894,
       "tag": "0000_luxuriant_supreme_intelligence",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1777593585907,
+      "tag": "0001_funny_albert_cleary",
+      "breakpoints": true
     }
   ]
 }

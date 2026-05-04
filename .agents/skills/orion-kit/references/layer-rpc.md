@@ -39,7 +39,7 @@ import {
   update<Entity>InputSchema,
   delete<Entity>InputSchema,
 } from "@workspace/types/use-cases/<entity>";
-import { authenticatedProcedure } from "../base";
+import { authenticatedProcedure } from "../procedures";
 
 const <entity>Router = {
   // No .input() = accepts no params

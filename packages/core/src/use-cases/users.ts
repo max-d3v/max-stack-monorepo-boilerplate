@@ -16,6 +16,7 @@ import type {
 
 export const getUser = async (params: GetUser): Promise<AuthUser> => {
   const { id } = params;
+
   const user = await get({ id });
 
   return {
