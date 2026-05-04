@@ -1,7 +1,7 @@
 "use client";
 
 import { providerIcons, useAuth, useSignInSocial } from "@better-auth-ui/react";
-import { getProviderName } from "@better-auth-ui/react/core";
+import { getProviderName } from "@better-auth-ui/core";
 import { Button } from "@workspace/ui/components/button";
 import { Spinner } from "@workspace/ui/components/spinner";
 import type { SocialProvider } from "better-auth/social-providers";
