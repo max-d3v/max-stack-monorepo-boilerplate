@@ -14,7 +14,7 @@ import {
   UserPlus2
 } from "lucide-react"
 
-import { Button } from "@workspace/components/ui/button"
+import { Button } from "@workspace/ui/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +22,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from "@workspace/components/ui/dropdown-menu"
+} from "@workspace/ui/components/dropdown-menu"
 import { cn } from "@workspace/ui/lib/utils"
 import { UserAvatar } from "./user-avatar"
 import { UserView } from "./user-view"
