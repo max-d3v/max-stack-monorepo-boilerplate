@@ -1,4 +1,5 @@
-import { Show, UserButton } from "@workspace/auth/client";
+import { Show } from "@workspace/ui/components/auth/show";
+import { UserButton } from "@workspace/ui/components/auth/user/user-button";
 import { Button } from "@workspace/ui/components/button";
 import { OrionLogo } from "@workspace/ui/components/orion-logo";
 import Link from "next/link";
