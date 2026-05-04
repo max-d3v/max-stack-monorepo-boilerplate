@@ -27,6 +27,7 @@
     "@workspace/rpc": "workspace:*",
     "@workspace/types": "workspace:*",
     "@workspace/ui": "workspace:*",
+    "@workspace/core": "workspace:*",
     "bcryptjs": "^2.4.3",
     "jose": "^5.8.0",
     "lucide-react": "^0.475.0",
