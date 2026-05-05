@@ -11,7 +11,8 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "dev:app": "turbo dev:app ",
+    "dev:app": "turbo dev --filter=@workspace/app --filter=@workspace/database --filter=@workspace/studio",
+    "dev:web": "turbo dev --filter=@workspace/web --filter=@workspace/docs",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "vitest",
     "test:ui": "vitest --ui",

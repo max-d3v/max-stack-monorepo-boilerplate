@@ -1,9 +1,9 @@
 {
-  "name": "docs",
+  "name": "@workspace/docs",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev:docs": "astro dev --turbopack --port 3004",
+    "dev": "astro dev --turbopack --port 3004",
     "start": "astro dev",
     "build": "astro build",
     "build:retry": "astro build || (sleep 5 && astro build)",

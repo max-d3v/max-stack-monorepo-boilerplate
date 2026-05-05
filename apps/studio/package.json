@@ -1,8 +1,8 @@
 {
-  "name": "studio",
+  "name": "@workspace/studio",
   "version": "0.0.1",
   "scripts": {
-    "dev:app": "cd ../../packages/database && bun db:studio --port 3003",
+    "dev": "cd ../../packages/database && bun db:studio --port 3003",
     "start": "cd ../../packages/database && bun db:studio --port 3003",
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },

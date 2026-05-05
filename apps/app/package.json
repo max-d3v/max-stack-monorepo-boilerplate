@@ -1,10 +1,10 @@
 {
-  "name": "app",
+  "name": "@workspace/app",
   "version": "0.0.1",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev:app": "next dev --turbopack --port 3001",
+    "dev": "next dev --turbopack --port 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
