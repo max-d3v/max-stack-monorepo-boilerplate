@@ -9,3 +9,5 @@ export type StripeWebhookInput = z.infer<typeof stripeWebhookInputSchema>;
 
 export const handleStripeWebhookSchema = stripeWebhookInputSchema;
 export type HandleStripeWebhook = z.infer<typeof handleStripeWebhookSchema>;
+
+export type HandleStripeWebhookResponse = { received: true };
