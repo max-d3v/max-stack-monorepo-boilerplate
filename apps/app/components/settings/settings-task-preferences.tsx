@@ -1,6 +1,3 @@
-"use client";
-
-import { Button } from "@workspace/ui/components/button";
 import {
   Card,
   CardContent,
@@ -8,27 +5,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu";
 import { Label } from "@workspace/ui/components/label";
-import { CheckCircle2, Clock } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
+import { TaskStatusSelect } from "./task-status-select";
 
 interface SettingsTaskPreferencesProps {
   readonly defaultStatus: string | null | undefined;
-  readonly onDefaultStatusChange: (status: "todo" | "in-progress") => void;
 }
 
 export function SettingsTaskPreferences({
   defaultStatus,
-  onDefaultStatusChange,
 }: SettingsTaskPreferencesProps) {
-  const currentStatus = (
-    defaultStatus === "in-progress" ? "in-progress" : "todo"
-  ) as "todo" | "in-progress";
+  const currentStatus =
+    defaultStatus === "in-progress" ? "in-progress" : "todo";
 
   return (
     <Card>
@@ -44,35 +33,7 @@ export function SettingsTaskPreferences({
       <CardContent className="space-y-4">
         <div className="grid gap-3">
           <Label>Default Status for New Tasks</Label>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button className="justify-start" variant="outline">
-                {currentStatus === "todo" ? (
-                  <>
-                    <CheckCircle2 className="mr-2 h-4 w-4 text-muted-foreground" />
-                    To Do
-                  </>
-                ) : (
-                  <>
-                    <Clock className="mr-2 h-4 w-4 text-blue-500" />
-                    In Progress
-                  </>
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => onDefaultStatusChange("todo")}>
-                <CheckCircle2 className="mr-2 h-4 w-4 text-muted-foreground" />
-                To Do
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => onDefaultStatusChange("in-progress")}
-              >
-                <Clock className="mr-2 h-4 w-4 text-blue-500" />
-                In Progress
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <TaskStatusSelect defaultStatus={currentStatus} />
         </div>
       </CardContent>
     </Card>

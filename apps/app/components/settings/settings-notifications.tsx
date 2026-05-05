@@ -1,6 +1,3 @@
-"use client";
-
-import { Button } from "@workspace/ui/components/button";
 import {
   Card,
   CardContent,
@@ -10,12 +7,10 @@ import {
 } from "@workspace/ui/components/card";
 import { Separator } from "@workspace/ui/components/separator";
 import { Bell } from "lucide-react";
+import { NotificationToggle } from "./notification-toggle";
 
 interface SettingsNotificationsProps {
   readonly emailNotifications: string | null | undefined;
-  readonly onEmailNotificationsChange: (enabled: boolean) => void;
-  readonly onTaskRemindersChange: (enabled: boolean) => void;
-  readonly onWeeklyDigestChange: (enabled: boolean) => void;
   readonly taskReminders: string | null | undefined;
   readonly weeklyDigest: string | null | undefined;
 }
@@ -24,14 +19,7 @@ export function SettingsNotifications({
   emailNotifications,
   taskReminders,
   weeklyDigest,
-  onEmailNotificationsChange,
-  onTaskRemindersChange,
-  onWeeklyDigestChange,
 }: SettingsNotificationsProps) {
-  const isEmailEnabled = emailNotifications === "enabled";
-  const isRemindersEnabled = taskReminders === "enabled";
-  const isDigestEnabled = weeklyDigest === "enabled";
-
   return (
     <Card>
       <CardHeader>
@@ -51,13 +39,10 @@ export function SettingsNotifications({
               Get notified about important updates
             </div>
           </div>
-          <Button
-            onClick={() => onEmailNotificationsChange(!isEmailEnabled)}
-            size="sm"
-            variant={isEmailEnabled ? "default" : "outline"}
-          >
-            {isEmailEnabled ? "Enabled" : "Disabled"}
-          </Button>
+          <NotificationToggle
+            enabled={emailNotifications === "enabled"}
+            field="emailNotifications"
+          />
         </div>
         <Separator />
         <div className="flex items-center justify-between">
@@ -67,13 +52,10 @@ export function SettingsNotifications({
               Reminders for tasks with due dates
             </div>
           </div>
-          <Button
-            onClick={() => onTaskRemindersChange(!isRemindersEnabled)}
-            size="sm"
-            variant={isRemindersEnabled ? "default" : "outline"}
-          >
-            {isRemindersEnabled ? "Enabled" : "Disabled"}
-          </Button>
+          <NotificationToggle
+            enabled={taskReminders === "enabled"}
+            field="taskReminders"
+          />
         </div>
         <Separator />
         <div className="flex items-center justify-between">
@@ -83,13 +65,10 @@ export function SettingsNotifications({
               Summary of your tasks every Monday
             </div>
           </div>
-          <Button
-            onClick={() => onWeeklyDigestChange(!isDigestEnabled)}
-            size="sm"
-            variant={isDigestEnabled ? "default" : "outline"}
-          >
-            {isDigestEnabled ? "Enabled" : "Disabled"}
-          </Button>
+          <NotificationToggle
+            enabled={weeklyDigest === "enabled"}
+            field="weeklyDigest"
+          />
         </div>
       </CardContent>
     </Card>

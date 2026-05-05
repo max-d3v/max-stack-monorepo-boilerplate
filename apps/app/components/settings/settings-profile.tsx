@@ -1,8 +1,5 @@
-"use client";
-
 import type { AuthUser } from "@workspace/types/use-cases/users";
 import { Badge } from "@workspace/ui/components/badge";
-import { Button } from "@workspace/ui/components/button";
 import {
   Card,
   CardContent,
@@ -13,17 +10,13 @@ import {
 import { Separator } from "@workspace/ui/components/separator";
 import { User as UserIcon } from "lucide-react";
 import Image from "next/image";
+import { EditProfileButton } from "./edit-profile-button";
 
 interface SettingsProfileProps {
-  readonly onEditProfile: () => void;
-  readonly user: AuthUser | null | undefined;
+  readonly user: AuthUser;
 }
 
-export function SettingsProfile({ user, onEditProfile }: SettingsProfileProps) {
-  if (!user) {
-    return null;
-  }
-
+export function SettingsProfile({ user }: SettingsProfileProps) {
   return (
     <Card>
       <CardHeader>
@@ -35,9 +28,7 @@ export function SettingsProfile({ user, onEditProfile }: SettingsProfileProps) {
             </CardTitle>
             <CardDescription>Your account information</CardDescription>
           </div>
-          <Button onClick={onEditProfile} size="sm" variant="outline">
-            Edit Profile
-          </Button>
+          <EditProfileButton user={user} />
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -46,7 +37,9 @@ export function SettingsProfile({ user, onEditProfile }: SettingsProfileProps) {
             <Image
               alt={user.name || "User"}
               className="h-16 w-16 rounded-full border-2 border-primary/20"
+              height={64}
               src={user.image}
+              width={64}
             />
           )}
           <div>

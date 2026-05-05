@@ -35,6 +35,7 @@ import {
 } from "@workspace/ui/components/form";
 import { Input } from "@workspace/ui/components/input";
 import { Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -54,6 +55,7 @@ export function EditProfileModal({
   user,
 }: EditProfileModalProps) {
   const queryClient = useQueryClient();
+  const router = useRouter();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const updateProfile = useMutation(updateProfileMutation(queryClient));
@@ -71,6 +73,7 @@ export function EditProfileModal({
   const onSubmit = async (data: UpdateProfileInput) => {
     try {
       await updateProfile.mutateAsync(data);
+      router.refresh();
       onOpenChange(false);
     } catch {
       // Error is handled by the mutation
