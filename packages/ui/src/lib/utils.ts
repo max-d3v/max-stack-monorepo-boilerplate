@@ -20,8 +20,8 @@ export const customMutationKeys = {
 }
 
 export const customQueryKeys = {
-    organizationMembers: (organizationId: string) => ["organization", "members", organizationId],
-    organizationInvitations: (organizationId: string) => ["organization", "invitations", organizationId]
+    organizationMembers: (organizationId?: string) => ["organization", "members", organizationId],
+    organizationInvitations: (organizationId?: string) => ["organization", "invitations", organizationId]
 }
 
 export function authClientHasOrganizationPlugin(authClient: AuthClient): authClient is OrganizationClient {

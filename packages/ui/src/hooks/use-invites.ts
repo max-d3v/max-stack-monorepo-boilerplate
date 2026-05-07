@@ -2,12 +2,12 @@ import { AuthClient } from "@better-auth-ui/react"
 import { assertAuthClientHasOrganizationOrThrow, customQueryKeys } from "../lib/utils"
 import { useQuery } from "@tanstack/react-query"
 
-export function useActiveOrganizationMembers(authClient: AuthClient) {
+export function useActiveOrganizationInvitations(authClient: AuthClient) {
   assertAuthClientHasOrganizationOrThrow(authClient)
 
   const { data: activeOrganization } = authClient.useActiveOrganization()
 
-  const queryKey = customQueryKeys.organizationMembers(activeOrganization?.id)
+  const queryKey = customQueryKeys.organizationInvitations(activeOrganization?.id)
 
   return useQuery({
     queryKey: queryKey,
@@ -17,16 +17,14 @@ export function useActiveOrganizationMembers(authClient: AuthClient) {
         throw new Error("No active organization found.")
       }
 
-      const { members } = await authClient.organization.listMembers({
+      return await authClient.organization.listInvitations({
         query: {
           organizationId: activeOrganization.id
         },
         fetchOptions: {
-          throw: true
+            throw: true
         }
       })
-
-      return members
     }
   })
 }

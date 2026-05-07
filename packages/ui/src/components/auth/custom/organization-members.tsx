@@ -64,17 +64,18 @@ export type OrganizationMembersProps = {
 export function OrganizationMembers({ className }: OrganizationMembersProps) {
   const { authClient } = useAuth()
   const {
-    data: membersData,
+    data: members,
     isPending,
     error
   } = useActiveOrganizationMembers(authClient)
 
+
   const [search, setSearch] = useState("")
   const [inviteOpen, setInviteOpen] = useState(false)
 
-  const members = membersData?.members ?? []
-
   const filteredMembers = useMemo(() => {
+    if (!members) return []
+    
     const query = search.trim().toLowerCase()
     if (!query) return members
 
